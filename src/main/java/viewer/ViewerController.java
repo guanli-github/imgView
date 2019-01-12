@@ -31,6 +31,7 @@ public class ViewerController implements Initializable {
     }
 
     private void openFile(final File file) {
+        Status.onClickFile(file);
         FileParser.resetSetting(file);
         jumpToPage(FileParser.currentPage);
     }
@@ -139,7 +140,6 @@ public class ViewerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         File f = new FileChooser().showOpenDialog(null);
-        Status.onClickFile(f);
         resizeImgView();
         openFile(Status.currentFileList[Status.currentFileIndex]);
     }
