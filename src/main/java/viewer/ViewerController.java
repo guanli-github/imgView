@@ -141,7 +141,7 @@ public class ViewerController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         File f = new FileChooser().showOpenDialog(null);
         resizeImgView();
-        openFile(Status.currentFileList[Status.currentFileIndex]);
+        openFile(f);
     }
 
 }
