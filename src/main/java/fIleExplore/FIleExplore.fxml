@@ -1,0 +1,13 @@
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.control.Button?>
+<AnchorPane id="root" fx:controller="viewer.ViewerController"
+            xmlns:fx="http://javafx.com/fxml">
+    <children>
+        <FlowPane fx:id="fileListPane">
+        </FlowPane>
+        <Button fx:id="parentDir">上级目录</Button>
+    </children>
+</AnchorPane>

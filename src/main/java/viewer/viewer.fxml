@@ -1,0 +1,15 @@
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<GridPane id="root" fx:controller="viewer.ViewerController"
+          xmlns:fx="http://javafx.com/fxml" alignment="center">
+    <children>
+        <ImageView fx:id="imgView" preserveRatio="true"
+                   onSwipeLeft="#doLeft" onSwipeRight="#doRight"
+                   onMouseClicked="#doPageClick"
+                    onRotate="#resizeImgView"></ImageView>
+        <Button  fx:id="changeOrient" opacity="0.1" minWidth="20" alignment="CENTER_RIGHT"
+        onMouseClicked="#changeOrient">切换方向</Button>
+    </children>
+</GridPane>
