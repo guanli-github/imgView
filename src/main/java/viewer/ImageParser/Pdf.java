@@ -1,7 +1,7 @@
 package viewer.ImageParser;
 
 import data.Const;
-import data.Glo_Dto;
+import data.Status;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -29,7 +29,7 @@ public class Pdf {
     static Image getImageFromPdf(int page){
         BufferedImage image = null;
         try {
-            image = renderer.renderImageWithDPI(page, Glo_Dto.renderDpi);
+            image = renderer.renderImageWithDPI(page, Status.renderDpi);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

@@ -1,7 +1,7 @@
 package viewer.ImageParser;
 
 import data.Const;
-import data.Glo_Dto;
+import data.Status;
 import javafx.scene.image.Image;
 
 import java.io.File;
@@ -9,11 +9,11 @@ import java.io.File;
 public class Img {
     static void reInitImg(File file){
         FileParser.fileType = Const.TYPE_IMG;
-        FileParser.totalPage = Glo_Dto.currentFileList.length;
+        FileParser.totalPage = Status.currentFileList.length;
     }
 
     static Image getImageFromImg(int page){
-        String path = "file:" + Glo_Dto.currentFileList[Glo_Dto.currentFileIndex].getAbsolutePath();
+        String path = "file:" + Status.currentFileList[Status.currentFileIndex].getAbsolutePath();
         return new Image(path);
     }
 }

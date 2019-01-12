@@ -1,7 +1,7 @@
 package viewer.ImageParser;
 
 import data.Const;
-import data.Glo_Dto;
+import data.Status;
 import javafx.scene.image.Image;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
@@ -20,34 +20,21 @@ public class Zip {
         FileParser.fileType = Const.TYPE_ZIP;
         try {
             zipFile = new ZipFile(file);
-            zes =  Collections.list(zipFile.getEntries());
-            zes.removeIf((ze) -> ((ZipEntry) ze).isDirectory());//去除目录
-            zes.removeIf((ze) -> (!Glo_Dto.isSupportImg(//去除非图片文件
-                    ze.getName().substring(
-                            ze.getName().lastIndexOf(".")))));
-            Collections.sort(zes, new Comparator<ZipEntry>() {
-                @Override
-                public int compare(ZipEntry o1, ZipEntry o2) {
-                    String o1No = o1.getName().substring(
-                            o1.getName().lastIndexOf("/") + 1,
-                            o1.getName().lastIndexOf(".")
-                    );
-                    String o2No = o2.getName().substring(
-                            o2.getName().lastIndexOf("/") + 1,
-                            o2.getName().lastIndexOf(".")
-                    );
-                    try{
-                        return Integer.parseInt(o1No) - Integer.parseInt(o2No);
-                    }catch (Exception e){
-                        System.out.println(o1.getName()+";"+o2.getName());
-                        System.out.println(o1No+";"+o2No);
-                        return 0;
-                    }
-                }
-            });
         } catch (IOException e) {
             e.printStackTrace();
         }
+        zes =  Collections.list(zipFile.getEntries());
+        zes.removeIf((ze) -> ((ZipEntry) ze).isDirectory());//去除目录
+        zes.removeIf((ze) -> (!Status.isSupportImg(//去除非图片文件
+                ze.getName().substring(
+                        ze.getName().lastIndexOf(".")))));
+        Collections.sort(zes, new Comparator<ZipEntry>() {
+            @Override
+            public int compare(ZipEntry o1, ZipEntry o2) {
+                return o1.getName().toLowerCase()
+                        .compareTo(o2.getName().toLowerCase());
+            }
+        });
         FileParser.totalPage = zes.size();
     }
 

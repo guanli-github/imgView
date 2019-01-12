@@ -11,5 +11,7 @@
                     onRotate="#resizeImgView"></ImageView>
         <Button  fx:id="changeOrient" opacity="0.1" minWidth="20" alignment="CENTER_RIGHT"
         onMouseClicked="#changeOrient">切换方向</Button>
+        <Button  fx:id="returnDir" opacity="0.1" minWidth="20" alignment="CENTER_RIGHT"
+                 onMouseClicked="#returnDir"></Button>
     </children>
 </GridPane>

@@ -1,12 +1,13 @@
 package viewer;
 
 import data.Const;
-import data.Glo_Dto;
+import data.Status;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import viewer.ImageParser.FileParser;
 
 import java.awt.*;
@@ -19,20 +20,29 @@ public class ViewerController implements Initializable {
     private ImageView imgView = new ImageView();
     @FXML
     private Button changeOrient = new Button();
+    @FXML
+    private Button returnDir = new Button();
+
+    private static final FileChooser fileChooser = new FileChooser();
+    static{
+        fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter(
+                "default filter",Const.file_types.toString()));
+        fileChooser.setInitialDirectory(Status.deafultDir);
+    }
 
     private void openFile(final File file) {
         FileParser.resetSetting(file);
         jumpToPage(FileParser.currentPage);
     }
     public void doLeft(){
-        if(Glo_Dto.orient == Const.L2R){
+        if(Status.orient == Const.L2R){
             nextPage();
         }else{
             prePage();
         }
     }
     public void doRight(){
-        if(Glo_Dto.orient == Const.R2L){
+        if(Status.orient == Const.R2L){
             nextPage();
         }else{
             prePage();
@@ -41,29 +51,37 @@ public class ViewerController implements Initializable {
     public void doPageClick(MouseEvent mouseEvent) {
         double x = mouseEvent.getX();
         double middle = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
-        if((x >= middle && Glo_Dto.orient== Const.L2R)
-                || (x<middle && Glo_Dto.orient== Const.R2L)){
+        if((x >= middle && Status.orient== Const.L2R)
+                || (x<middle && Status.orient== Const.R2L)){
             nextPage();
         }else{
             prePage();
         }
         mouseEvent.consume();
     }
-
+    //更改翻页方式
     public void changeOrient(MouseEvent mouseEvent) {
-        if(Glo_Dto.orient == Const.L2R){
-            Glo_Dto.orient = Const.R2L;
+        if(Status.orient == Const.L2R){
+            Status.orient = Const.R2L;
         }else{
-            Glo_Dto.orient = Const.L2R;
+            Status.orient = Const.L2R;
         }
         mouseEvent.consume();
     }
-    //刷新属性值
-    public void refreshSetting(){
-        FileParser.currentPage = 1;
-        Glo_Dto.orient = 1;
-        Glo_Dto.renderDpi = 800;
+    //返回目录
+    public void returnDir(MouseEvent mouseEvent) {
+//        ObservableList<Stage> stage = FXRobotHelper.getStages();
+//        Scene scene = null;
+//        try {
+//            scene = new Scene(FXMLLoader.load(getClass().getResource("fIleExplore/FIleExplore.fxml")));
+//            stage.get(0).setScene(scene);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        fileChooser.setInitialDirectory(Status.currentDir);
+        openFile(fileChooser.showOpenDialog(null));
     }
+
     private void nextPage(){
         FileParser.currentPage += 1;
         jumpToPage(FileParser.currentPage);
@@ -77,17 +95,17 @@ public class ViewerController implements Initializable {
         if (0 >= FileParser.totalPage) return;
 
         if (page > FileParser.totalPage) { //打开文件夹中下一文件
-            if(Glo_Dto.currentFileIndex < Glo_Dto.currentFileList.length){
-                Glo_Dto.currentFileIndex += 1;
-                openFile(Glo_Dto.currentFileList[Glo_Dto.currentFileIndex]);
+            if(Status.currentFileIndex < Status.currentFileList.length){
+                Status.currentFileIndex += 1;
+                openFile(Status.currentFileList[Status.currentFileIndex]);
             }else{
                 return;
             }
         }
         if (page < 1) //打开文件夹中上一文件
-            if(Glo_Dto.currentFileIndex > 0){
-                Glo_Dto.currentFileIndex -= 1;
-                openFile(Glo_Dto.currentFileList[Glo_Dto.currentFileIndex]);
+            if(Status.currentFileIndex > 0){
+                Status.currentFileIndex -= 1;
+                openFile(Status.currentFileList[Status.currentFileIndex]);
             }else{
                 return;
             }
@@ -114,13 +132,16 @@ public class ViewerController implements Initializable {
 //            imgView.setFitHeight(width);
 //        }
 //        imgView.setFitWidth(height * radio);
-        imgView.setFitWidth(400.0);
+        imgView.getNodeOrientation();
+        imgView.setFitWidth(766.0);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        File f = new FileChooser().showOpenDialog(null);
+        Status.onClickFile(f);
         resizeImgView();
-        openFile(Glo_Dto.currentFileList[Glo_Dto.currentFileIndex]);
+        openFile(Status.currentFileList[Status.currentFileIndex]);
     }
 
 }

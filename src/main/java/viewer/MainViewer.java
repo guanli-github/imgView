@@ -10,10 +10,11 @@ public class MainViewer extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("viewer.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/viewer.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setFullScreen(true);
+
         stage.show();
     }
 

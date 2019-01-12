@@ -4,15 +4,14 @@ import java.io.File;
 import java.io.FileFilter;
 
 //阅读设定，用来保存和在页面间传递信息
-public class Glo_Dto {
+public class Status {
 
     public static int orient = Const.R2L; //指示翻页方向
 
     public static int renderDpi = 800; //pdf界面，渲染的dpi值
 
     public static File deafultDir =  new File("E:\\");
-    public static File currentDir =  new File("E:\\");
-    private static FileFilter fileFilter = new FileFilter() {
+    public static FileFilter fileFilter = new FileFilter() {
         @Override
         public boolean accept(File file) {
             if(file.isDirectory()){
@@ -28,7 +27,8 @@ public class Glo_Dto {
             return false;
         }
     };
-    public static File[] currentFileList = currentDir.listFiles(fileFilter);
+    public static File currentDir =  null;
+    public static File[] currentFileList = null;
     public static int currentFileIndex = 0;
 
     public static boolean isSupportImg(String type){
@@ -39,4 +39,26 @@ public class Glo_Dto {
         }
         return false;
     }
+
+    //当前目录改变时调用
+    public static boolean onChangeDir(File f){
+        if(!f.isDirectory()) return false;
+        currentDir = f;
+        currentFileList = f.listFiles(fileFilter);
+        return true;
+    }
+    //在当前目录下点击文件时调用
+    public static boolean onClickFile(File f){
+        if(f.isDirectory()) return false;
+        currentDir = f.getParentFile();
+        currentFileList = currentDir.listFiles(fileFilter);
+        for(int i=0;i<currentFileList.length;i++){
+            if (currentFileList[i].equals(f)){
+                currentFileIndex = i;
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
