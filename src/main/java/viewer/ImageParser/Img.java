@@ -13,6 +13,7 @@ public class Img {
     }
 
     static Image getImageFromImg(int page){
+        Status.currentFileIndex = page;
         String path = "file:" + Status.currentFileList[Status.currentFileIndex].getAbsolutePath();
         return new Image(path);
     }

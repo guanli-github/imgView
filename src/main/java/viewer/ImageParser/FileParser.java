@@ -1,6 +1,7 @@
 package viewer.ImageParser;
 
 import data.Const;
+import data.Status;
 import javafx.scene.image.Image;
 
 import java.io.File;
@@ -37,6 +38,7 @@ public class FileParser {
 
         if(imgFilter.accept(file)) {
             fileType = Const.TYPE_IMG;
+            currentPage = Status.currentFileIndex;
             Img.reInitImg(file);
             return true;
         }
