@@ -9,7 +9,7 @@ import java.io.File;
 public class Img {
     static void reInitImg(File file){
         FileParser.fileType = Const.TYPE_IMG;
-        FileParser.totalPage = Glo_Dto.curre.length;
+        FileParser.totalPage = Glo_Dto.currentFileList.length;
     }
 
     static Image getImageFromImg(int page){
