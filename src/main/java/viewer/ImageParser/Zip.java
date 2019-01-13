@@ -5,6 +5,7 @@ import data.Status;
 import javafx.scene.image.Image;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
+import utls.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,8 +32,15 @@ public class Zip {
         Collections.sort(zes, new Comparator<ZipEntry>() {
             @Override
             public int compare(ZipEntry o1, ZipEntry o2) {
-                return o1.getName().toLowerCase()
-                        .compareTo(o2.getName().toLowerCase());
+                String o1Name = o1.getName().substring(
+                        o1.getName().lastIndexOf("/")+1,
+                        o1.getName().lastIndexOf(".")
+                );
+                String o2Name = o2.getName().substring(
+                        o2.getName().lastIndexOf("/")+1,
+                        o2.getName().lastIndexOf(".")
+                );
+                return FileUtil.sortByName(o1Name,o2Name);
             }
         });
         FileParser.totalPage = zes.size();

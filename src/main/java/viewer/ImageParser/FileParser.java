@@ -53,7 +53,6 @@ public class FileParser {
             Zip.reInitZip(file);
             return true;
         }
-
         return false;
     }
 
