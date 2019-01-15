@@ -3,10 +3,7 @@ package data;
 import utls.FileUtil;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 
 //阅读设定，用来保存和在页面间传递信息
@@ -17,40 +14,15 @@ public class Status {
     public static int renderDpi = 800; //pdf界面，渲染的dpi值
 
     public static File deafultDir =  new File("E:\\");
-    public static FileFilter fileFilter = new FileFilter() {
-        @Override
-        public boolean accept(File file) {
-            if(file.isDirectory()){
-                return true;
-            }
-            String fileName = file.getName();
-            String type = fileName.substring(fileName.lastIndexOf("."));
-            for (int i = 0; i < Const.file_types.length; i++) {
-                if (type.equals(Const.file_types[i])) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    };
     public static File currentDir =  null;
     public static File[] currentFileList = null;
     public static int currentFileIndex = 0;
-
-    public static boolean isSupportImg(String type){
-        for (int i = 0; i < Const.img_types.length; i++) {
-            if (type.equals(Const.img_types[i])) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     //当前目录改变时调用
     public static boolean onChangeDir(File f){
         if(!f.isDirectory()) return false;
         currentDir = f;
-        currentFileList = f.listFiles(fileFilter);
+        currentFileList = f.listFiles(FileUtil.fileFilter);
         return true;
     }
     //在当前目录下点击文件时调用
@@ -60,7 +32,7 @@ public class Status {
                 currentFileList == null ||
                 !currentDir.equals(f.getParentFile())){
             currentDir = f.getParentFile();
-            currentFileList = currentDir.listFiles(fileFilter);
+            currentFileList = currentDir.listFiles(FileUtil.fileFilter);
             Arrays.sort(currentFileList, new Comparator<File>() {
                 @Override
                 public int compare(File o1, File o2) {

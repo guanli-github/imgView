@@ -1,5 +1,6 @@
 package viewer;
 
+import data.BookMark;
 import data.Const;
 import data.Status;
 import javafx.fxml.FXML;
@@ -79,6 +80,7 @@ public class ViewerController implements Initializable {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+        BookMark.save(Status.currentFileList[Status.currentFileIndex],FileParser.currentPage);
         fileChooser.setInitialDirectory(Status.currentDir);
         openFile(fileChooser.showOpenDialog(null));
     }

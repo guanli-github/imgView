@@ -1,5 +1,6 @@
 package viewer.ImageParser;
 
+import data.BookMark;
 import data.Const;
 import data.Status;
 import javafx.scene.image.Image;
@@ -34,7 +35,7 @@ public class FileParser {
      * @param file
      */
     public static boolean resetSetting(File file){
-        currentPage = 1;
+        currentPage = BookMark.read(file);
 
         if(imgFilter.accept(file)) {
             fileType = Const.TYPE_IMG;

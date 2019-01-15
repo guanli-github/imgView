@@ -1,7 +1,6 @@
 package viewer.ImageParser;
 
 import data.Const;
-import data.Status;
 import javafx.scene.image.Image;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
@@ -26,7 +25,7 @@ public class Zip {
         }
         zes =  Collections.list(zipFile.getEntries());
         zes.removeIf((ze) -> ((ZipEntry) ze).isDirectory());//去除目录
-        zes.removeIf((ze) -> (!Status.isSupportImg(//去除非图片文件
+        zes.removeIf((ze) -> (!FileUtil.isSupportImg(//去除非图片文件
                 ze.getName().substring(
                         ze.getName().lastIndexOf(".")))));
         Collections.sort(zes, new Comparator<ZipEntry>() {
