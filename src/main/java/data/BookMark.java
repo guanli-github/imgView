@@ -49,7 +49,9 @@ public class BookMark {
             ObjectInputStream ois = new ObjectInputStream(
                     new FileInputStream(saveFile)
             );
-            bookMarkList = (Map<String, Integer>) ois.readObject();;
+            while(ois.readObject()!=null) {
+                bookMarkList = (Map<String, Integer>) ois.readObject();
+            }
             ois.close();
             return bookMarkList.get(file.getAbsolutePath());
         } catch (IOException e) {

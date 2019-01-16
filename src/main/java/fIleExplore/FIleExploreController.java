@@ -10,8 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -46,7 +44,7 @@ public class FIleExploreController implements Initializable {
         ObservableList<Stage> stage = FXRobotHelper.getStages();
         Scene scene = null;
         try {
-            scene = new Scene(FXMLLoader.load(getClass().getResource("viewer/viewer.fxml")));
+            scene = new Scene(FXMLLoader.load(getClass().getResource("/viewer.fxml")));
             stage.get(0).setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();

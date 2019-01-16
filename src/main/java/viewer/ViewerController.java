@@ -73,14 +73,14 @@ public class ViewerController implements Initializable {
     }
     //返回目录
     public void returnDir(MouseEvent mouseEvent) {
-//        ObservableList<Stage> stage = FXRobotHelper.getStages();
-//        Scene scene = null;
-//        try {
-//            scene = new Scene(FXMLLoader.load(getClass().getResource("fIleExplore/FIleExplore.fxml")));
-//            stage.get(0).setScene(scene);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        ObservableList<Stage> stage = FXRobotHelper.getStages();
+        Scene scene = null;
+        try {
+            scene = new Scene(FXMLLoader.load(getClass().getResource("/FIleExplore.fxml")));
+            stage.get(0).setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         BookMark.save(Status.currentFileList[Status.currentFileIndex],FileParser.currentPage);
         fileChooser.setInitialDirectory(Status.currentDir);
         openFile(fileChooser.showOpenDialog(null));
