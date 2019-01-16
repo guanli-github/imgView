@@ -48,7 +48,7 @@ public class FileUtil {
         @Override
         public boolean accept(File file) {
             if(file.isDirectory()){
-                return true;
+                return false;
             }
             String fileName = file.getName();
             String type = fileName.substring(fileName.lastIndexOf("."));

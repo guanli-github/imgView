@@ -1,12 +1,10 @@
 package data;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
 public class BookMark {
-    private static String savePath = "D:/1.txt";
     private static Map<String,Integer> bookMarkList  = new HashMap<>();
 
     /**
@@ -18,7 +16,7 @@ public class BookMark {
     public static boolean save(File file, int index){
         bookMarkList.put(file.getAbsolutePath(),index);
         try {
-            File saveFile = new File(savePath);
+            File saveFile = new File(Const.savePath);
             if(!saveFile.exists()){
                 saveFile.createNewFile();
             }
@@ -42,9 +40,14 @@ public class BookMark {
      * @return 最近的书签记录，没有则返回1
      */
     public static int read(File file){
+
         try {
+            File saveFile = new File(Const.savePath);
+            if(!saveFile.exists()){
+                saveFile.createNewFile();
+            }
             ObjectInputStream ois = new ObjectInputStream(
-                    new FileInputStream(savePath)
+                    new FileInputStream(saveFile)
             );
             bookMarkList = (Map<String, Integer>) ois.readObject();;
             ois.close();

@@ -1,18 +1,24 @@
 package viewer;
 
+import com.sun.javafx.robot.impl.FXRobotHelper;
 import data.BookMark;
 import data.Const;
 import data.Status;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import viewer.ImageParser.FileParser;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,11 +31,6 @@ public class ViewerController implements Initializable {
     private Button returnDir = new Button();
 
     private static final FileChooser fileChooser = new FileChooser();
-    static{
-        fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter(
-                "default filter",Const.file_types.toString()));
-        fileChooser.setInitialDirectory(Status.deafultDir);
-    }
 
     private void openFile(final File file) {
         Status.onClickFile(file);
@@ -141,6 +142,9 @@ public class ViewerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter(
+                "default filter",Const.file_types.toString()));
+        fileChooser.setInitialDirectory(Status.deafultDir);
         File f = new FileChooser().showOpenDialog(null);
         resizeImgView();
         openFile(f);

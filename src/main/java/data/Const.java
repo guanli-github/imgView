@@ -10,4 +10,5 @@ public class Const {
     public static String[] img_types = {".jpg",".jpeg",".gif",".png"};
     public static String[] file_types = {".zip",".pdf",".jpg",".jpeg",".gif",".png"};
 
+    public static String savePath = "D:/1.txt";
 }

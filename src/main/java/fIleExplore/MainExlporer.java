@@ -10,7 +10,7 @@ public class MainExlporer extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../../resources/FIleExplore.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/FIleExplore.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setFullScreen(true);

@@ -2,16 +2,20 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.control.Button?>
-<GridPane id="root" fx:controller="viewer.ViewerController"
-          xmlns:fx="http://javafx.com/fxml" alignment="center">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane id="root" fx:controller="viewer.ViewerController"
+            xmlns:fx="http://javafx.com/fxml">
     <children>
         <ImageView fx:id="imgView" preserveRatio="true"
                    onSwipeLeft="#doLeft" onSwipeRight="#doRight"
                    onMouseClicked="#doPageClick"
                     onRotate="#resizeImgView"></ImageView>
-        <Button  fx:id="changeOrient" opacity="0.3" minWidth="20" alignment="CENTER_RIGHT"
+        <HBox>
+        <Button  fx:id="changeOrient" opacity="0.3" minWidth="20"
         onMouseClicked="#changeOrient">切换方向</Button>
-        <Button  fx:id="returnDir" opacity="0.3" minWidth="20" alignment="BASELINE_LEFT"
+        <Button  fx:id="returnDir" opacity="0.3" minWidth="20"
                  onMouseClicked="#returnDir">返回目录</Button>
+        </HBox>
     </children>
-</GridPane>
+</AnchorPane>
