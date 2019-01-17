@@ -2,12 +2,13 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ScrollPane?>
 <AnchorPane id="root" fx:controller="fIleExplore.FIleExploreController"
             xmlns:fx="http://javafx.com/fxml">
     <children>
-        <FlowPane fx:id="fileListPane" >
-
-        </FlowPane>
+        <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="NEVER">
+            <HBox fx:id="fileBox"></HBox>
+        </ScrollPane>
         <Button fx:id="parentDir" onMouseClicked="#returnParDir" AnchorPane.leftAnchor="0.5">上级目录</Button>
     </children>
 </AnchorPane>
