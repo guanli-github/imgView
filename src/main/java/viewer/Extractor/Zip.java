@@ -1,10 +1,10 @@
-package viewer.ImageParser;
+package viewer.Extractor;
 
 import data.Const;
 import javafx.scene.image.Image;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
-import utls.FileUtil;
+import utils.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,11 +12,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-public class Zip {
+public class Zip implements IExtractor {
     private static ZipFile zipFile = null;
     private static ArrayList<ZipEntry> zes = null;
 
-    static void reInitZip(File file){
+    static void reInit(File file){
         FileParser.fileType = Const.TYPE_ZIP;
         try {
             zipFile = new ZipFile(file);
@@ -45,7 +45,7 @@ public class Zip {
         FileParser.totalPage = zes.size();
     }
 
-    static Image getImageFromZip(int page){
+    static Image getImage(int page){
         ZipEntry ze = zes.get(page);
         try {
             InputStream imgIs = zipFile.getInputStream(ze);

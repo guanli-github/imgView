@@ -1,4 +1,4 @@
-package viewer.ImageParser;
+package viewer.Extractor;
 
 import data.BookMark;
 import data.Const;
@@ -40,27 +40,27 @@ public class FileParser {
         if(imgFilter.accept(file)) {
             fileType = Const.TYPE_IMG;
             currentPage = Status.currentFileIndex;
-            Img.reInitImg(file);
+            Img.reInit(file);
             return true;
         }
         String fileName=file.getName();
         String type = fileName.substring(fileName.lastIndexOf("."));
         if(type.equals(Const.TYPE_PDF)) {
-            Pdf.reInitPdf(file);
+            Pdf.reInit(file);
             return true;
         }
         if(type.equals(Const.TYPE_ZIP)){
             fileType = Const.TYPE_ZIP;
-            Zip.reInitZip(file);
+            Zip.reInit(file);
             return true;
         }
         return false;
     }
 
     public static Image getImage(int page) {
-        if(fileType.equals(Const.TYPE_PDF)) return Pdf.getImageFromPdf(page);
-        if(fileType.equals(Const.TYPE_ZIP)) return Zip.getImageFromZip(page);
-        if(fileType.equals(Const.TYPE_IMG)) return Img.getImageFromImg(page);
+        if(fileType.equals(Const.TYPE_PDF)) return Pdf.getImage(page);
+        if(fileType.equals(Const.TYPE_ZIP)) return Zip.getImage(page);
+        if(fileType.equals(Const.TYPE_IMG)) return Img.getImage(page);
 
         return null;
     }

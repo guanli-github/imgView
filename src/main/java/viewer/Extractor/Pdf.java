@@ -1,4 +1,4 @@
-package viewer.ImageParser;
+package viewer.Extractor;
 
 import data.Const;
 import data.Status;
@@ -11,10 +11,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Pdf {
+public class Pdf implements IExtractor{
     private static PDFRenderer renderer;
 
-    static void reInitPdf(File file){
+    static void reInit(File file){
         FileParser.fileType = Const.TYPE_PDF;
         PDDocument doc = null;
         try {
@@ -25,11 +25,10 @@ public class Pdf {
         }
         FileParser.totalPage = doc.getNumberOfPages();
     }
-
-    static Image getImageFromPdf(int page){
+    static Image getImage(int page){
         BufferedImage image = null;
         try {
-            image = renderer.renderImageWithDPI(page, Status.renderDpi);
+            image = renderer.renderImageWithDPI(page-1, Status.renderDpi);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

@@ -1,24 +1,18 @@
 package viewer;
 
-import com.sun.javafx.robot.impl.FXRobotHelper;
 import data.BookMark;
 import data.Const;
 import data.Status;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import viewer.ImageParser.FileParser;
+import viewer.Extractor.FileParser;
 
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -73,14 +67,14 @@ public class ViewerController implements Initializable {
     }
     //返回目录
     public void returnDir(MouseEvent mouseEvent) {
-        ObservableList<Stage> stage = FXRobotHelper.getStages();
-        Scene scene = null;
-        try {
-            scene = new Scene(FXMLLoader.load(getClass().getResource("/FIleExplore.fxml")));
-            stage.get(0).setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        ObservableList<Stage> stage = FXRobotHelper.getStages();
+//        Scene scene = null;
+//        try {
+//            scene = new Scene(FXMLLoader.load(getClass().getResource("/FIleExplore.fxml")));
+//            stage.get(0).setScene(scene);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         BookMark.save(Status.currentFileList[Status.currentFileIndex],FileParser.currentPage);
         fileChooser.setInitialDirectory(Status.currentDir);
         openFile(fileChooser.showOpenDialog(null));
