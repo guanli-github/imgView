@@ -76,6 +76,11 @@ public class FIleExploreController implements Initializable {
         public void updateItem(File item, boolean empty) {
             super.updateItem(item, empty);
             if (item != null) {
+//                if(!item.isDirectory()){
+//
+//                }else{
+//                    this.setTextFill(Color.BLUE);
+//                }
                 this.setText(item.getName());
             }else{
                 this.setText("");

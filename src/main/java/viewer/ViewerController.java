@@ -125,6 +125,7 @@ public class ViewerController implements Initializable {
         );
         FileParser.currentPage = page;
         pageNum.setText(FileParser.currentPage+"/"+FileParser.totalPage);
+        jumpBar.setValue(FileParser.currentPage / FileParser.totalPage * 100);
     }
 
     /**
@@ -153,7 +154,7 @@ public class ViewerController implements Initializable {
         resizeImgView();
         jumpBar.valueProperty().addListener((ObservableValue<? extends Number> ov,
                                              Number old_val, Number new_val) -> {
-            jumpToPage(new_val.intValue());
+            jumpToPage(new_val.intValue()/100 *FileParser.totalPage);
         });
         openFile(Status.getCurrentFile());
     }

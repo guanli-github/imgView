@@ -43,7 +43,7 @@ public class Status {
             onChangeDir(f);
         }
         currentFileIndex = currentFileList.indexOf(f);
-        return false;
+        return true;
     }
 
     public static File getCurrentFile(){

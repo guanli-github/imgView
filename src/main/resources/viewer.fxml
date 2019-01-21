@@ -8,10 +8,8 @@
 <GridPane id="root" fx:controller="viewer.ViewerController" alignment="CENTER"
           xmlns:fx="http://javafx.com/fxml">
     <children>
-        <Label fx:id="pageNum" text="1/1"
-               GridPane.rowIndex="0" GridPane.columnIndex="0"></Label>
-
-        <HBox GridPane.rowIndex="0" GridPane.columnIndex="1">
+        <HBox GridPane.rowIndex="0" GridPane.columnIndex="0">
+            <Label fx:id="pageNum" text="1/1"></Label>
             <Button fx:id="changeOrient" opacity="0.3" minWidth="20"
                     onMouseClicked="#changeOrient">切换方向
             </Button>
@@ -25,7 +23,7 @@
                    onSwipeLeft="#doLeft" onSwipeRight="#doRight"
                    onMouseClicked="#doPageClick"
                    onRotate="#resizeImgView"></ImageView>
-        <ScrollBar fx:id="jumpBar" GridPane.rowIndex="2"
+        <ScrollBar fx:id="jumpBar" GridPane.rowIndex="2" GridPane.fillWidth="true" nodeOrientation="RIGHT_TO_LEFT"
                    max="100" min="1" value="1"></ScrollBar>
     </children>
 </GridPane>
