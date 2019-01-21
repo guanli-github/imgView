@@ -14,11 +14,10 @@ public class MainViewer extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/viewer.fxml"));
         Scene scene = new Scene(root);
-        scene.setFill(Color.BLACK);
         stage.setScene(scene);
         //stage.setFullScreen(true);
         scene.getStylesheets().add
-                (getClass().getResource("/viewer.css").toExternalForm());
+                (getClass().getResource("/explorer.css").toExternalForm());
         stage.show();
     }
 
