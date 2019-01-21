@@ -4,16 +4,20 @@ import com.sun.javafx.robot.impl.FXRobotHelper;
 import data.BookMark;
 import data.Const;
 import data.Status;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.tools.ant.taskdefs.Java;
 import viewer.Extractor.FileParser;
 
 import java.awt.*;
@@ -26,9 +30,13 @@ public class ViewerController implements Initializable {
     @FXML
     private ImageView imgView = new ImageView();
     @FXML
+    private Label pageNum = new Label();
+    @FXML
     private Button changeOrient = new Button();
     @FXML
     private Button returnDir = new Button();
+    @FXML
+    private ScrollBar jumpBar = new ScrollBar();
 
     private void openFile(final File file) {
         Status.onClickFile(file);
@@ -71,7 +79,7 @@ public class ViewerController implements Initializable {
     }
     //返回目录
     public void returnDir(MouseEvent mouseEvent) {
-        BookMark.save(Status.currentFileList[Status.currentFileIndex],FileParser.currentPage);
+        BookMark.saveCurrent();
         ObservableList<Stage> stage = FXRobotHelper.getStages();
         Scene scene = null;
         try {
@@ -94,25 +102,27 @@ public class ViewerController implements Initializable {
     private void jumpToPage(int page) {
         if (0 >= FileParser.totalPage) return;
 
-        if (page > FileParser.totalPage) { //打开文件夹中下一文件
-            if(Status.currentFileIndex < Status.currentFileList.length){
-                Status.currentFileIndex += 1;
-                openFile(Status.currentFileList[Status.currentFileIndex]);
-            }else{
-                return;
-            }
-        }
-        if (page < 1) //打开文件夹中上一文件
-            if(Status.currentFileIndex > 0){
-                Status.currentFileIndex -= 1;
-                openFile(Status.currentFileList[Status.currentFileIndex]);
-            }else{
-                return;
-            }
+//        if (page > FileParser.totalPage) { //打开文件夹中下一文件
+//            if(Status.currentFileIndex < Status.currentFileList.length){
+//                Status.currentFileIndex += 1;
+//                openFile(Status.currentFileList[Status.currentFileIndex]);
+//            }else{
+//                return;
+//            }
+//        }
+//        if (page < 1) //打开文件夹中上一文件
+//            if(Status.currentFileIndex > 0){
+//                Status.currentFileIndex -= 1;
+//                openFile(Status.currentFileList[Status.currentFileIndex]);
+//            }else{
+//                return;
+//            }
+
         imgView.setImage(
                 FileParser.getImage(page)
         );
         FileParser.currentPage = page;
+        pageNum.setText(FileParser.currentPage+"/"+FileParser.totalPage);
     }
 
     /**
@@ -138,11 +148,11 @@ public class ViewerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter(
-//                "default filter",Const.file_types.toString()));
-//        fileChooser.setInitialDirectory(Status.deafultDir);
-//        File f = new FileChooser().showOpenDialog(null);
-//        resizeImgView();
+        resizeImgView();
+        jumpBar.valueProperty().addListener((ObservableValue<? extends Number> ov,
+                                             Number old_val, Number new_val) -> {
+            jumpToPage(new_val.intValue());
+        });
         openFile(Status.currentFileList[Status.currentFileIndex]);
     }
 

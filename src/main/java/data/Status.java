@@ -13,6 +13,7 @@ public class Status {
 
     public static int renderDpi = 800; //pdf界面，渲染的dpi值
 
+    public static File[] roots = File.listRoots();
     public static File deafultDir =  new File("E:\\");
     public static File currentDir =  null;
     public static File[] currentFileList = null;
@@ -20,9 +21,13 @@ public class Status {
 
     //当前目录改变时调用
     public static boolean onChangeDir(File f){
-        if(!f.isDirectory()) return false;
-        currentDir = f;
-        currentFileList = f.listFiles(FileUtil.fileFilter);
+        if(null == f){
+            currentFileList = roots;
+        }else {
+            if(!f.isDirectory()) return false;
+            currentDir = f;
+            currentFileList = f.listFiles(FileUtil.fileFilter);
+        }
         return true;
     }
     //在当前目录下点击文件时调用

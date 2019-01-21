@@ -1,5 +1,6 @@
 package viewer;
 
+import data.BookMark;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,10 @@ public class MainViewer extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/viewer.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setOnCloseRequest((close)->{
+            BookMark.saveCurrent();
+            System.exit(0);
+        });
         //stage.setFullScreen(true);
         scene.getStylesheets().add
                 (getClass().getResource("/explorer.css").toExternalForm());

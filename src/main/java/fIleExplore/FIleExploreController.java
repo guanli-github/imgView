@@ -12,16 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class FIleExploreController implements Initializable {
@@ -30,36 +27,35 @@ public class FIleExploreController implements Initializable {
     @FXML
     private ListView<File> files = new ListView();
 
-    private static ObservableList<Label> fileLabels;
     //返回上一级目录
     public void returnParDir(){
         File par = Status.currentDir.getParentFile();
-        if (null == par) return;
-        showDir(par);
+        openDir(par);
     }
     //进入目录，显示文件视图
-    private void showDir(File dir) {
-        if (!Status.onChangeDir(dir)) {
-            clickFile(dir);
-        }
+    private void openDir(File dir) {
+        Status.onChangeDir(dir);
         files.setItems(FXCollections.observableList(
                 Arrays.asList(
                         Status.currentFileList)));
         files.setCellFactory((ListView<File> listView)->new FileCell());
-        //双击打开文件
-        files.setOnMouseClicked((click) -> {
-                    if (click.getClickCount() == 2) {
-                        //Use ListView's getSelected Item
-                        File f = files.getSelectionModel()
-                                .getSelectedItem();
-                        clickFile(f);
-                        //use this to do whatever you want to. Open Link etc.
-                    }
-                }
-                );
+        files.refresh();
     }
-    //点击跳转文件页面
-    private void clickFile(File f){
+    //双击打开文件
+    @FXML
+    private void clickFile(MouseEvent click){
+        if (click.getClickCount() == 2) {
+            File choosed = files.getSelectionModel()
+                    .getSelectedItem();
+            if(choosed.isDirectory()){
+                openDir(choosed);
+            }else{
+                openFile(choosed);
+            }
+        }
+    }
+
+    private void openFile(File f){
         Status.onClickFile(f);
         ObservableList<Stage> stage = FXRobotHelper.getStages();
         Scene scene = null;
@@ -73,7 +69,7 @@ public class FIleExploreController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        showDir(Status.deafultDir);
+        openDir(Status.deafultDir);
     }
 
     static class FileCell extends ListCell<File> {

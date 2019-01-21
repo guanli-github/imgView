@@ -1,6 +1,7 @@
 package data;
 
 import utils.ConfigUtils;
+import viewer.Extractor.FileParser;
 
 import java.io.*;
 import java.util.HashMap;
@@ -19,6 +20,13 @@ public class BookMark {
         ConfigUtils.setConfig("bookmark",file.getAbsolutePath(),index+"");
         return true;
     }
+    /**
+     * 保存当前进度
+     */
+    public static boolean saveCurrent(){
+        save(Status.currentFileList[Status.currentFileIndex], FileParser.currentPage);
+        return true;
+    }
 
     /**
      * 读取进度
@@ -28,8 +36,13 @@ public class BookMark {
     public static int read(File file){
         Integer index = null;
         try{
-        index = Integer.parseInt(
-                ConfigUtils.getConfig("bookmark",file.getAbsolutePath()));
+            String indexStr = ConfigUtils.getConfig("bookmark",file.getAbsolutePath());
+            if (null == indexStr || "".equals(indexStr)){
+                index = 1;
+            }else{
+                index = Integer.parseInt(indexStr);
+            }
+
         }catch(Exception e){
             e.printStackTrace();
         }

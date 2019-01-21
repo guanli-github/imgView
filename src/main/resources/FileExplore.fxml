@@ -11,7 +11,7 @@
         <Button fx:id="parentDir" onMouseClicked="#returnParDir" AnchorPane.leftAnchor="0.5">上级目录</Button>
         </HBox>
         <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="NEVER"  GridPane.columnIndex="1">
-            <ListView fx:id="files"></ListView>
+            <ListView fx:id="files" onMouseClicked="#clickFile"></ListView>
         </ScrollPane>
     </children>
 </GridPane>
