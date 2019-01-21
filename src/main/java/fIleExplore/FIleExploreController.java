@@ -35,11 +35,8 @@ public class FIleExploreController implements Initializable {
     //进入目录，显示文件视图
     private void openDir(File dir) {
         Status.onChangeDir(dir);
-        files.setItems(FXCollections.observableList(
-                Arrays.asList(
-                        Status.currentFileList)));
+        files.setItems(Status.currentFileList);
         files.setCellFactory((ListView<File> listView)->new FileCell());
-        files.refresh();
     }
     //双击打开文件
     @FXML
@@ -78,6 +75,8 @@ public class FIleExploreController implements Initializable {
             super.updateItem(item, empty);
             if (item != null) {
                 this.setText(item.getName());
+            }else{
+                this.setText("");
             }
         }
     }

@@ -20,6 +20,9 @@ public class FileParser {
     protected static FileFilter imgFilter = new FileFilter() {
         @Override
         public boolean accept(File file) {
+            if(file.isDirectory()){
+                return false;
+            }
             String fileName = file.getName();
             String type = fileName.substring(fileName.lastIndexOf("."));
             for (int i = 0; i < Const.img_types.length; i++) {
@@ -39,7 +42,6 @@ public class FileParser {
 
         if(imgFilter.accept(file)) {
             fileType = Const.TYPE_IMG;
-            currentPage = Status.currentFileIndex;
             Img.reInit(file);
             return true;
         }
@@ -58,11 +60,11 @@ public class FileParser {
     }
 
     public static Image getImage(int page) {
-        if(fileType.equals(Const.TYPE_IMG)) return Img.getImage(page);
-        //除图片外，文件排序以0开始
+        //文件排序以0开始
         page -= 1;
         if(fileType.equals(Const.TYPE_PDF)) return Pdf.getImage(page);
         if(fileType.equals(Const.TYPE_ZIP)) return Zip.getImage(page);
+        if(fileType.equals(Const.TYPE_IMG)) return Img.getImage(page);
 
         return null;
     }

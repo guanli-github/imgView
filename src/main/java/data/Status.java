@@ -1,10 +1,18 @@
 package data;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableNumberValue;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import utils.FileUtil;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 
 //阅读设定，用来保存和在页面间传递信息
 public class Status {
@@ -13,21 +21,16 @@ public class Status {
 
     public static int renderDpi = 800; //pdf界面，渲染的dpi值
 
-    public static File[] roots = File.listRoots();
     public static File deafultDir =  new File("E:\\");
     public static File currentDir =  null;
-    public static File[] currentFileList = null;
-    public static int currentFileIndex = 0;
+    public static ObservableList<File> currentFileList = FXCollections.observableArrayList();
+    public static int currentFileIndex = 1;
 
     //当前目录改变时调用
     public static boolean onChangeDir(File f){
-        if(null == f){
-            currentFileList = roots;
-        }else {
-            if(!f.isDirectory()) return false;
-            currentDir = f;
-            currentFileList = f.listFiles(FileUtil.fileFilter);
-        }
+        if(!f.isDirectory()) return false;
+        currentDir = f;
+        currentFileList.setAll(currentDir.listFiles(FileUtil.fileFilter));
         return true;
     }
     //在当前目录下点击文件时调用
@@ -35,32 +38,16 @@ public class Status {
         if(f.isDirectory()) return false;
         if(currentDir == null ||
                 currentFileList == null ||
-                !currentDir.equals(f.getParentFile())){
+                !currentDir.equals(f.getParentFile())) {
             currentDir = f.getParentFile();
-            currentFileList = currentDir.listFiles(FileUtil.fileFilter);
-            Arrays.sort(currentFileList, new Comparator<File>() {
-                @Override
-                public int compare(File o1, File o2) {
-                    String o1Name = o1.getName().substring(
-                            0,
-                            o1.getName().lastIndexOf(".")
-                    );
-                    String o2Name = o2.getName().substring(
-                            0,
-                            o2.getName().lastIndexOf(".")
-                    );
-                    return FileUtil.sortByName(o1Name,o2Name);
-                }
-            });
-
+            onChangeDir(f);
         }
-        for(int i=0;i<currentFileList.length;i++){
-            if (currentFileList[i].equals(f)){
-                currentFileIndex = i;
-                return true;
-            }
-        }
+        currentFileIndex = currentFileList.indexOf(f);
         return false;
+    }
+
+    public static File getCurrentFile(){
+        return currentFileList.get(currentFileIndex);
     }
 
 }

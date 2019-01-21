@@ -153,7 +153,7 @@ public class ViewerController implements Initializable {
                                              Number old_val, Number new_val) -> {
             jumpToPage(new_val.intValue());
         });
-        openFile(Status.currentFileList[Status.currentFileIndex]);
+        openFile(Status.getCurrentFile());
     }
 
 }

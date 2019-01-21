@@ -24,7 +24,7 @@ public class BookMark {
      * 保存当前进度
      */
     public static boolean saveCurrent(){
-        save(Status.currentFileList[Status.currentFileIndex], FileParser.currentPage);
+        save(Status.getCurrentFile(), FileParser.currentPage);
         return true;
     }
 
