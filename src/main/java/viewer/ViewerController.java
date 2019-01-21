@@ -101,6 +101,8 @@ public class ViewerController implements Initializable {
 
     private void jumpToPage(int page) {
         if (0 >= FileParser.totalPage) return;
+        if (page >= FileParser.totalPage) return;
+        if (page < 1) return;
 
 //        if (page > FileParser.totalPage) { //打开文件夹中下一文件
 //            if(Status.currentFileIndex < Status.currentFileList.length){

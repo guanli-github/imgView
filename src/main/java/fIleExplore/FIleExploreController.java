@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -44,6 +45,7 @@ public class FIleExploreController implements Initializable {
         if (click.getClickCount() == 2) {
             File choosed = files.getSelectionModel()
                     .getSelectedItem();
+            if(null == choosed) return;
             if(choosed.isDirectory()){
                 openDir(choosed);
             }else{

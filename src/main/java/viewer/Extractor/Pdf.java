@@ -28,7 +28,7 @@ public class Pdf implements IExtractor{
     static Image getImage(int page){
         BufferedImage image = null;
         try {
-            image = renderer.renderImageWithDPI(page-1, Status.renderDpi);
+            image = renderer.renderImageWithDPI(page, Status.renderDpi);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
