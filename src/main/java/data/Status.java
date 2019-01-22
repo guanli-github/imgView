@@ -47,7 +47,8 @@ public class Status {
     }
 
     public static File getCurrentFile(){
-        return currentFileList.get(currentFileIndex);
+        //return currentFileList.get(currentFileIndex);
+        return new File("D:/account.txt");
     }
 
 }

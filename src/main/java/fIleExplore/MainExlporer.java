@@ -14,7 +14,7 @@ public class MainExlporer extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         scene.getStylesheets().add
-                (getClass().getResource("/viewer.css").toExternalForm());
+                (getClass().getResource("/css/viewer.css").toExternalForm());
         stage.show();
     }
 

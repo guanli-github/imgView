@@ -3,9 +3,7 @@ package utils;
 import data.Const;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import net.coobird.thumbnailator.Thumbnails;
-import viewer.Extractor.Img;
 import viewer.Extractor.Pdf;
 import viewer.Extractor.Zip;
 
@@ -30,10 +28,10 @@ public class ThumbnailUtil {
 
     public static Image getFileThumbnail(File file){
         if(file.isDirectory()){
-            return new Image("/dir.jpg");
+            return new Image("/icons/dir.jpg");
         }
         if(!FileUtil.docFilter.accept(file)){
-            return new Image("/file.jpg");
+            return new Image("/icons/file.jpg");
         }
         if(FileUtil.imgFilter.accept(file)) {
             String path = "file:" + file.getAbsolutePath();

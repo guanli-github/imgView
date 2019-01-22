@@ -1,0 +1,11 @@
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextArea?>
+<GridPane id="root" fx:controller="textReader.TextController" alignment="CENTER"
+          xmlns:fx="http://javafx.com/fxml">
+    <children>
+        <TextArea fx:id="text" wrapText="true"
+                  onSwipeLeft="#doLeft" onSwipeRight="#doRight"
+                  onMouseClicked="#doPageClick"></TextArea>
+    </children>
+</GridPane>

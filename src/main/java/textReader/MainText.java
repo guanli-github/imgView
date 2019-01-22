@@ -1,26 +1,20 @@
-package viewer;
+package textReader;
 
-import data.BookMark;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class MainViewer extends Application {
+public class MainText extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/viewer.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/text.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setOnCloseRequest((close)->{
-            BookMark.saveCurrent();
-            System.exit(0);
-        });
-        //stage.setFullScreen(true);
         scene.getStylesheets().add
-                (getClass().getResource("/css/explorer.css").toExternalForm());
+                (getClass().getResource("/css/text.css").toExternalForm());
         stage.show();
     }
 
