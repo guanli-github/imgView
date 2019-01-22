@@ -1,9 +1,13 @@
 package utils;
 
+import data.Const;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import net.coobird.thumbnailator.Thumbnails;
+import viewer.Extractor.Img;
+import viewer.Extractor.Pdf;
+import viewer.Extractor.Zip;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -25,17 +29,24 @@ public class ThumbnailUtil {
     }
 
     public static Image getFileThumbnail(File file){
-        if(!FileUtil.docFilter.accept(file)){
-            return new Image("/icon.jpg");
+        if(file.isDirectory()){
+            return new Image("/dir.jpg");
         }
-        final javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
-        javax.swing.Icon icon = fc.getUI().getFileView(fc).getIcon(file);
-
-        BufferedImage bufferedImage = new BufferedImage(
-                icon.getIconWidth(),
-                icon.getIconHeight(),
-                BufferedImage.TYPE_INT_ARGB
-        );
-        return SwingFXUtils.toFXImage(bufferedImage,null);
+        if(!FileUtil.docFilter.accept(file)){
+            return new Image("/file.jpg");
+        }
+        if(FileUtil.imgFilter.accept(file)) {
+            String path = "file:" + file.getAbsolutePath();
+            return new Image(path);
+        }
+        String fileName=file.getName();
+        String type = fileName.substring(fileName.lastIndexOf("."));
+        if(type.equals(Const.TYPE_PDF)) {
+            return Pdf.getImage(0);
+        }
+        if(type.equals(Const.TYPE_ZIP)){
+           return Zip.getImage(0);
+        }
+        return null;
     }
 }

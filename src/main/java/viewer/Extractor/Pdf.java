@@ -25,7 +25,7 @@ public class Pdf implements IExtractor{
         }
         FileParser.totalPage = doc.getNumberOfPages();
     }
-    static Image getImage(int page){
+    public static Image getImage(int page){
         BufferedImage image = null;
         try {
             image = renderer.renderImageWithDPI(page, Status.renderDpi);

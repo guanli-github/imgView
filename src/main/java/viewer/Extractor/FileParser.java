@@ -2,11 +2,10 @@ package viewer.Extractor;
 
 import data.BookMark;
 import data.Const;
-import data.Status;
 import javafx.scene.image.Image;
+import utils.FileUtil;
 
 import java.io.File;
-import java.io.FileFilter;
 
 /**
  * 1 负责文件类型识别
@@ -17,22 +16,6 @@ public class FileParser {
     public static String fileType = "img";//默认解析成图片
     public static int currentPage = 1;
 
-    protected static FileFilter imgFilter = new FileFilter() {
-        @Override
-        public boolean accept(File file) {
-            if(file.isDirectory()){
-                return false;
-            }
-            String fileName = file.getName();
-            String type = fileName.substring(fileName.lastIndexOf("."));
-            for (int i = 0; i < Const.img_types.length; i++) {
-                if (type.equals(Const.img_types[i])) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    };
     /**
      * 打开一个新的文件/文件夹时调用
      * @param file
@@ -40,7 +23,7 @@ public class FileParser {
     public static boolean resetSetting(File file){
         currentPage = BookMark.read(file);
 
-        if(imgFilter.accept(file)) {
+        if(FileUtil.imgFilter.accept(file)) {
             fileType = Const.TYPE_IMG;
             Img.reInit(file);
             return true;

@@ -99,6 +99,7 @@ public class FIleExploreController implements Initializable {
                 this.setText(item.getName());
             }else{
                 this.setText("");
+                this.setGraphic(null);
             }
         }
     }

@@ -9,6 +9,23 @@ import java.util.List;
 
 public class FileUtil {
 
+    public static FileFilter imgFilter = new FileFilter() {
+        @Override
+        public boolean accept(File file) {
+            if(file.isDirectory()){
+                return false;
+            }
+            String fileName = file.getName();
+            String type = fileName.substring(fileName.lastIndexOf("."));
+            for (int i = 0; i < Const.img_types.length; i++) {
+                if (type.equals(Const.img_types[i])) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    };
+
     //按文件名排序（同一目录下）
     public static int sortByName(String name1,String name2){
         //将所有非数字替换成空格，便于后续处理

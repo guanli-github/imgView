@@ -42,7 +42,7 @@ public class Zip implements IExtractor {
         FileParser.totalPage = zes.size();
     }
 
-    static Image getImage(int page){
+    public static Image getImage(int page){
         ZipEntry ze = zes.get(page);
         try {
             InputStream imgIs = zipFile.getInputStream(ze);

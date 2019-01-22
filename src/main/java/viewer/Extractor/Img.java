@@ -15,7 +15,7 @@ public class Img implements IExtractor {
     static void reInit(File file){
         FileParser.fileType = Const.TYPE_IMG;
         for(File f:Status.currentFileList){
-            if(FileParser.imgFilter.accept(f)){
+            if(FileUtil.imgFilter.accept(f)){
                 imgFiles.add(f);
             }
         }
@@ -34,7 +34,7 @@ public class Img implements IExtractor {
         FileParser.currentPage = imgFiles.indexOf(file)+1;
     }
 
-    static Image getImage(int page){
+    public static Image getImage(int page){
         String path = "file:" + imgFiles.get(page).getAbsolutePath();
         return new Image(path);
     }
