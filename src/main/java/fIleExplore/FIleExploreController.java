@@ -4,6 +4,7 @@ import com.sun.javafx.robot.impl.FXRobotHelper;
 import data.Status;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,10 +13,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import utils.FileUtil;
+import utils.ThumbnailUtil;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -76,6 +84,13 @@ public class FIleExploreController implements Initializable {
         public void updateItem(File item, boolean empty) {
             super.updateItem(item, empty);
             if (item != null) {
+                ImageView iconView = new ImageView();
+
+
+                iconView.setImage(ThumbnailUtil.getFileThumbnail(item));
+                iconView.setFitWidth(20);
+                iconView.setFitHeight(20);
+                this.setGraphic(iconView);
 //                if(!item.isDirectory()){
 //
 //                }else{

@@ -60,6 +60,22 @@ public class FileUtil {
             return false;
         }
     };
+    public static FileFilter docFilter = new FileFilter() {
+        @Override
+        public boolean accept(File file) {
+            if(file.isDirectory()){
+                return false;
+            }
+            String fileName = file.getName();
+            String type = fileName.substring(fileName.lastIndexOf("."));
+            for (int i = 0; i < Const.file_types.length; i++) {
+                if (type.equals(Const.file_types[i])) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    };
     public static boolean isSupportImg(String type){
         for (int i = 0; i < Const.img_types.length; i++) {
             if (type.equals(Const.img_types[i])) {

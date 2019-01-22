@@ -4,6 +4,7 @@ import com.sun.javafx.robot.impl.FXRobotHelper;
 import data.BookMark;
 import data.Const;
 import data.Status;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,12 +13,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
+import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.input.SwipeEvent;
 import javafx.stage.Stage;
-import org.apache.tools.ant.taskdefs.Java;
 import viewer.Extractor.FileParser;
 
 import java.awt.*;
@@ -36,21 +37,21 @@ public class ViewerController implements Initializable {
     @FXML
     private Button returnDir = new Button();
     @FXML
-    private ScrollBar jumpBar = new ScrollBar();
+    private Slider jumpSlider = new Slider();
 
     private void openFile(final File file) {
         Status.onClickFile(file);
         FileParser.resetSetting(file);
         jumpToPage(FileParser.currentPage);
     }
-    public void doLeft(){
+    public void doLeft(SwipeEvent s){
         if(Status.orient == Const.L2R){
             nextPage();
         }else{
             prePage();
         }
     }
-    public void doRight(){
+    public void doRight(SwipeEvent s){
         if(Status.orient == Const.R2L){
             nextPage();
         }else{
@@ -125,7 +126,6 @@ public class ViewerController implements Initializable {
         );
         FileParser.currentPage = page;
         pageNum.setText(FileParser.currentPage+"/"+FileParser.totalPage);
-        jumpBar.setValue(FileParser.currentPage / FileParser.totalPage * 100);
     }
 
     /**
@@ -145,16 +145,19 @@ public class ViewerController implements Initializable {
 //            imgView.setFitHeight(width);
 //        }
 //        imgView.setFitWidth(height * radio);
-        imgView.getNodeOrientation();
         imgView.setFitWidth(766.0);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         resizeImgView();
-        jumpBar.valueProperty().addListener((ObservableValue<? extends Number> ov,
-                                             Number old_val, Number new_val) -> {
-            jumpToPage(new_val.intValue()/100 *FileParser.totalPage);
+        jumpSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                int page = (int)Math.round(new_val.doubleValue() * FileParser.totalPage);
+                jumpToPage(page);
+                pageNum.setText(FileParser.currentPage+"/"+FileParser.totalPage);
+            }
         });
         openFile(Status.getCurrentFile());
     }
