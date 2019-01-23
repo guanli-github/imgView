@@ -37,14 +37,14 @@ public class ThumbnailUtil {
             String path = "file:" + file.getAbsolutePath();
             return new Image(path);
         }
-        String fileName=file.getName();
-        String type = fileName.substring(fileName.lastIndexOf("."));
-        if(type.equals(Const.TYPE_PDF)) {
-            return Pdf.getImage(0);
-        }
-        if(type.equals(Const.TYPE_ZIP)){
-           return Zip.getImage(0);
-        }
+//        String fileName=file.getName();
+//        String type = fileName.substring(fileName.lastIndexOf("."));
+//        if(type.equals(Const.TYPE_PDF)) {
+//            return Pdf.getImage(0);
+//        }
+//        if(type.equals(Const.TYPE_ZIP)){
+//           return Zip.getImage(0);
+//        }
         return null;
     }
 }
