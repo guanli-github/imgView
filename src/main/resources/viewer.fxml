@@ -14,8 +14,7 @@
                     onMouseClicked="#changeOrient">切换方向
             </Button>
             <Button fx:id="returnDir" opacity="0.3" minWidth="20"
-                    onMouseClicked="#returnDir">返回
-                目录
+                    onMouseClicked="#returnDir">返回目录
             </Button>
         </HBox>
         <ImageView fx:id="imgView" GridPane.rowIndex="1"
@@ -23,9 +22,6 @@
                    onSwipeLeft="#doLeft" onSwipeRight="#doRight"
                    onMouseClicked="#doPageClick"
                    onRotate="#resizeImgView"></ImageView>
-        <!--<ScrollBar fx:id="jumpBar" GridPane.rowIndex="2" GridPane.fillWidth="true" nodeOrientation="RIGHT_TO_LEFT"-->
-                   <!--max="100" min="1" value="1"-->
-        <!--onScrollFinished="#scrollJump"></ScrollBar>-->
         <Slider fx:id="jumpSlider" GridPane.rowIndex="2"
                 max="1" min="0" value="0"  nodeOrientation="RIGHT_TO_LEFT"></Slider>
     </children>

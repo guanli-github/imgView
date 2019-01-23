@@ -1,11 +1,18 @@
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <GridPane id="root" fx:controller="textReader.TextController" alignment="CENTER"
           xmlns:fx="http://javafx.com/fxml">
     <children>
-        <TextArea fx:id="text" wrapText="true"
-                  onSwipeLeft="#doLeft" onSwipeRight="#doRight"
-                  onMouseClicked="#doPageClick"></TextArea>
+        <HBox GridPane.rowIndex="0" GridPane.columnIndex="0">
+            <Label fx:id="pageNum" text="1/1"></Label>
+            <Button fx:id="returnDir" opacity="0.3" minWidth="20"
+                    onMouseClicked="#returnDir">返回目录
+            </Button>
+            <Button fx:id="bgImg" opacity="0.3" minWidth="20"
+                    onMouseClicked="#setBgImg">背景图片
+            </Button>
+        </HBox>
+
+        <ScrollPane fx:id="text"></ScrollPane>
     </children>
 </GridPane>

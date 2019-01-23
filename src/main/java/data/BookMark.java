@@ -1,7 +1,7 @@
 package data;
 
 import utils.ConfigUtils;
-import viewer.Extractor.FileParser;
+import extractor.FileParser;
 
 import java.io.*;
 import java.util.HashMap;

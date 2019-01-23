@@ -1,4 +1,4 @@
-package viewer.Extractor;
+package extractor;
 
 import javafx.scene.image.Image;
 

@@ -1,4 +1,4 @@
-package viewer.Extractor;
+package extractor;
 
 import data.Const;
 import javafx.scene.image.Image;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+
 public class Zip implements IExtractor {
     private static ZipFile zipFile = null;
     private static ArrayList<ZipEntry> zes = null;

@@ -1,4 +1,4 @@
-package viewer.Extractor;
+package extractor;
 
 import data.Const;
 import data.Status;

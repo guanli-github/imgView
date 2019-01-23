@@ -4,6 +4,7 @@ import com.sun.javafx.robot.impl.FXRobotHelper;
 import data.BookMark;
 import data.Const;
 import data.Status;
+import extractor.FileParser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -18,7 +19,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.SwipeEvent;
 import javafx.stage.Stage;
-import viewer.Extractor.FileParser;
 
 import java.awt.*;
 import java.io.File;
@@ -40,24 +40,27 @@ public class ViewerController implements Initializable {
 
     private void openFile(final File file) {
         Status.onClickFile(file);
-        FileParser.resetSetting(file);
+        FileParser.refreash(file);
         jumpToPage(FileParser.currentPage);
     }
-    public void doLeft(SwipeEvent s){
+    @FXML
+    private void doLeft(SwipeEvent s){
         if(Status.orient == Const.L2R){
             nextPage();
         }else{
             prePage();
         }
     }
-    public void doRight(SwipeEvent s){
+    @FXML
+    private void doRight(SwipeEvent s){
         if(Status.orient == Const.R2L){
             nextPage();
         }else{
             prePage();
         }
     }
-    public void doPageClick(MouseEvent mouseEvent) {
+    @FXML
+    private void doPageClick(MouseEvent mouseEvent) {
         double x = mouseEvent.getX();
         double middle = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
         if((x >= middle && Status.orient== Const.L2R)
@@ -69,7 +72,8 @@ public class ViewerController implements Initializable {
         mouseEvent.consume();
     }
     //更改翻页方式
-    public void changeOrient(MouseEvent mouseEvent) {
+    @FXML
+    private void changeOrient(MouseEvent mouseEvent) {
         if(Status.orient == Const.L2R){
             Status.orient = Const.R2L;
         }else{
@@ -78,7 +82,8 @@ public class ViewerController implements Initializable {
         mouseEvent.consume();
     }
     //返回目录
-    public void returnDir(MouseEvent mouseEvent) {
+    @FXML
+    private void returnDir(MouseEvent mouseEvent) {
         BookMark.saveCurrent();
         ObservableList<Stage> stage = FXRobotHelper.getStages();
         Scene scene = null;
@@ -132,7 +137,8 @@ public class ViewerController implements Initializable {
      * 横屏时限制高度，宽度足够就放两张
      * 竖屏时根据宽度限制，只放一张
      * */
-    public void resizeImgView(){
+    @FXML
+    private void resizeImgView(){
 //        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
 //        double height = Toolkit.getDefaultToolkit().getScreenSize().height;
 //

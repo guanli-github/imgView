@@ -4,8 +4,8 @@ import data.Const;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import net.coobird.thumbnailator.Thumbnails;
-import viewer.Extractor.Pdf;
-import viewer.Extractor.Zip;
+import extractor.Pdf;
+import extractor.Zip;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

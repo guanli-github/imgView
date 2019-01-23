@@ -37,7 +37,8 @@ public class FIleExploreController implements Initializable {
     private ListView<File> files = new ListView();
 
     //返回上一级目录
-    public void returnParDir(){
+    @FXML
+    private void returnParDir(){
         File par = Status.currentDir.getParentFile();
         openDir(par);
     }
@@ -91,11 +92,6 @@ public class FIleExploreController implements Initializable {
                 iconView.setFitWidth(20);
                 iconView.setFitHeight(20);
                 this.setGraphic(iconView);
-//                if(!item.isDirectory()){
-//
-//                }else{
-//                    this.setTextFill(Color.BLUE);
-//                }
                 this.setText(item.getName());
             }else{
                 this.setText("");

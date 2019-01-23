@@ -1,3 +1,6 @@
 #root {
     -fx-background-color:black;
 }
+text-area {
+    -fx-background-color: transparent;
+}

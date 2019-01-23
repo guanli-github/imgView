@@ -1,4 +1,4 @@
-package viewer.Extractor;
+package extractor;
 
 import data.BookMark;
 import data.Const;
@@ -16,11 +16,12 @@ public class FileParser {
     public static String fileType = "img";//默认解析成图片
     public static int currentPage = 1;
 
+
     /**
      * 打开一个新的文件/文件夹时调用
      * @param file
      */
-    public static boolean resetSetting(File file){
+    public static boolean refreash(File file){
         currentPage = BookMark.read(file);
 
         if(FileUtil.imgFilter.accept(file)) {
