@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.GridPane?>
-<GridPane id="root" fx:controller="fIleExplore.FIleExploreController" alignment="CENTER"
+<GridPane id="root" fx:controller="fileExplore.FileExploreController" alignment="CENTER"
           xmlns:fx="http://javafx.com/fxml">
     <children>
         <HBox GridPane.rowIndex="0">

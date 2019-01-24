@@ -1,7 +1,7 @@
 package extractor;
 
 import data.Const;
-import data.Status;
+import data.Setting;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -28,7 +28,7 @@ public class Pdf implements IExtractor{
     public static Image getImage(int page){
         BufferedImage image = null;
         try {
-            image = renderer.renderImageWithDPI(page, Status.renderDpi);
+            image = renderer.renderImageWithDPI(page, Setting.renderDpi);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

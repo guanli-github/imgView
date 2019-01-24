@@ -1,36 +1,27 @@
-package fIleExplore;
+package fileExplore;
 
 import com.sun.javafx.robot.impl.FXRobotHelper;
+import data.FileTypeHandler;
 import data.Status;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import utils.FileUtil;
 import utils.ThumbnailUtil;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class FIleExploreController implements Initializable {
+public class FileExploreController implements Initializable {
     @FXML
     private Button parentDir = new Button();
     @FXML
@@ -68,7 +59,13 @@ public class FIleExploreController implements Initializable {
         ObservableList<Stage> stage = FXRobotHelper.getStages();
         Scene scene = null;
         try {
-            scene = new Scene(FXMLLoader.load(getClass().getResource("/viewer.fxml")));
+            if(FileTypeHandler.docFilter.accept(f)){
+                scene = new Scene(FXMLLoader.load(getClass().getResource("/viewer.fxml")));
+            }else{
+                scene = new Scene(FXMLLoader.load(getClass().getResource("/text.fxml")));
+                scene.getStylesheets().add
+                        (getClass().getResource("/css/text.css").toExternalForm());
+            }
             stage.get(0).setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();

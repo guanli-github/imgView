@@ -1,4 +1,4 @@
-package fIleExplore;
+package fileExplore;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

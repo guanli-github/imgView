@@ -1,11 +1,9 @@
 package utils;
 
-import data.Const;
+import data.FileTypeHandler;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import net.coobird.thumbnailator.Thumbnails;
-import extractor.Pdf;
-import extractor.Zip;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -30,10 +28,10 @@ public class ThumbnailUtil {
         if(file.isDirectory()){
             return new Image("/icons/dir.jpg");
         }
-        if(!FileUtil.docFilter.accept(file)){
+        if(!FileTypeHandler.docFilter.accept(file)){
             return new Image("/icons/file.jpg");
         }
-        if(FileUtil.imgFilter.accept(file)) {
+        if(FileTypeHandler.imgFilter.accept(file)) {
             String path = "file:" + file.getAbsolutePath();
             return new Image(path);
         }

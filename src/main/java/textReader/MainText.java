@@ -4,7 +4,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
+import utils.TextUtil;
+
+import java.io.File;
 
 public class MainText extends Application {
 
@@ -12,9 +18,9 @@ public class MainText extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/text.fxml"));
         Scene scene = new Scene(root);
-        stage.setScene(scene);
         scene.getStylesheets().add
                 (getClass().getResource("/css/text.css").toExternalForm());
+        stage.setScene(scene);
         stage.show();
     }
 

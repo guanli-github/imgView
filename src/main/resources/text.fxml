@@ -1,6 +1,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane id="root" fx:controller="textReader.TextController" alignment="CENTER"
+<?import javafx.scene.text.Text?>
+<GridPane id="root" fx:id="root" fx:controller="textReader.TextController" alignment="CENTER"
           xmlns:fx="http://javafx.com/fxml">
     <children>
         <HBox GridPane.rowIndex="0" GridPane.columnIndex="0">
@@ -12,7 +13,6 @@
                     onMouseClicked="#setBgImg">背景图片
             </Button>
         </HBox>
-
-        <ScrollPane fx:id="text"></ScrollPane>
+            <TextArea fx:id="text" wrapText="true" editable="false" GridPane.rowIndex="1"></TextArea>
     </children>
 </GridPane>

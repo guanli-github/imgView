@@ -1,6 +1,7 @@
 package extractor;
 
 import data.Const;
+import data.FileTypeHandler;
 import data.Status;
 import javafx.scene.image.Image;
 import utils.FileUtil;
@@ -15,7 +16,7 @@ public class Img implements IExtractor {
     static void reInit(File file){
         FileParser.fileType = Const.TYPE_IMG;
         for(File f:Status.currentFileList){
-            if(FileUtil.imgFilter.accept(f)){
+            if(FileTypeHandler.imgFilter.accept(f)){
                 imgFiles.add(f);
             }
         }

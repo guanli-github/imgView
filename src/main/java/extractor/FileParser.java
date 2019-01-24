@@ -2,8 +2,8 @@ package extractor;
 
 import data.BookMark;
 import data.Const;
+import data.FileTypeHandler;
 import javafx.scene.image.Image;
-import utils.FileUtil;
 
 import java.io.File;
 
@@ -24,7 +24,7 @@ public class FileParser {
     public static boolean refreash(File file){
         currentPage = BookMark.read(file);
 
-        if(FileUtil.imgFilter.accept(file)) {
+        if(FileTypeHandler.imgFilter.accept(file)) {
             fileType = Const.TYPE_IMG;
             Img.reInit(file);
             return true;

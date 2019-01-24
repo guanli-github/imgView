@@ -1,25 +1,12 @@
 package data;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableNumberValue;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import utils.FileUtil;
 
 import java.io.File;
-import java.util.*;
 
 //阅读设定，用来保存和在页面间传递信息
 public class Status {
-
-    public static int orient = Const.R2L; //指示翻页方向
-
-    public static int renderDpi = 800; //pdf界面，渲染的dpi值
 
     public static File deafultDir =  new File("E:\\");
     public static File currentDir =  null;
@@ -30,7 +17,7 @@ public class Status {
     public static boolean onChangeDir(File f){
         if(!f.isDirectory()) return false;
         currentDir = f;
-        currentFileList.setAll(currentDir.listFiles(FileUtil.fileFilter));
+        currentFileList.setAll(currentDir.listFiles());
         return true;
     }
     //在当前目录下点击文件时调用
@@ -47,8 +34,7 @@ public class Status {
     }
 
     public static File getCurrentFile(){
-        //return currentFileList.get(currentFileIndex);
-        return new File("D:/account.txt");
+        return currentFileList.get(currentFileIndex);
     }
 
 }

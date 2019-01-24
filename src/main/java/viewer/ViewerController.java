@@ -3,6 +3,7 @@ package viewer;
 import com.sun.javafx.robot.impl.FXRobotHelper;
 import data.BookMark;
 import data.Const;
+import data.Setting;
 import data.Status;
 import extractor.FileParser;
 import javafx.beans.value.ChangeListener;
@@ -45,7 +46,7 @@ public class ViewerController implements Initializable {
     }
     @FXML
     private void doLeft(SwipeEvent s){
-        if(Status.orient == Const.L2R){
+        if(Setting.orient == Const.L2R){
             nextPage();
         }else{
             prePage();
@@ -53,7 +54,7 @@ public class ViewerController implements Initializable {
     }
     @FXML
     private void doRight(SwipeEvent s){
-        if(Status.orient == Const.R2L){
+        if(Setting.orient == Const.R2L){
             nextPage();
         }else{
             prePage();
@@ -63,8 +64,8 @@ public class ViewerController implements Initializable {
     private void doPageClick(MouseEvent mouseEvent) {
         double x = mouseEvent.getX();
         double middle = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
-        if((x >= middle && Status.orient== Const.L2R)
-                || (x<middle && Status.orient== Const.R2L)){
+        if((x >= middle && Setting.orient== Const.L2R)
+                || (x<middle && Setting.orient== Const.R2L)){
             nextPage();
         }else{
             prePage();
@@ -74,10 +75,10 @@ public class ViewerController implements Initializable {
     //更改翻页方式
     @FXML
     private void changeOrient(MouseEvent mouseEvent) {
-        if(Status.orient == Const.L2R){
-            Status.orient = Const.R2L;
+        if(Setting.orient == Const.L2R){
+            Setting.orient = Const.R2L;
         }else{
-            Status.orient = Const.L2R;
+            Setting.orient = Const.L2R;
         }
         mouseEvent.consume();
     }
