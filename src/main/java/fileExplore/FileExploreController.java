@@ -1,6 +1,7 @@
 package fileExplore;
 
 import data.FileTypeHandler;
+import data.Setting;
 import data.Status;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,14 +54,17 @@ public class FileExploreController implements Initializable {
         Status.onClickFile(f);
         if(FileTypeHandler.docFilter.accept(f)){
             SceneManager.toViewer();
-        }else{
+        }else if(FileTypeHandler.txtFilter.accept(f)){
             SceneManager.toText();
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        openDir(Status.deafultDir);
+        if(null != Status.currentDir){
+            openDir(Status.currentDir);
+        }
+        openDir(Setting.deafultDir);
     }
 
     static class FileCell extends ListCell<File> {
@@ -69,8 +73,6 @@ public class FileExploreController implements Initializable {
             super.updateItem(item, empty);
             if (item != null) {
                 ImageView iconView = new ImageView();
-
-
                 iconView.setImage(ThumbnailUtil.getFileThumbnail(item));
                 iconView.setFitWidth(20);
                 iconView.setFitHeight(20);

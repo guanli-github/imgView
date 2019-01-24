@@ -13,6 +13,7 @@
                     onMouseClicked="#setBgImg">背景图片
             </Button>
         </HBox>
-            <TextArea fx:id="text" wrapText="true" editable="false" GridPane.rowIndex="1"></TextArea>
+            <TextArea fx:id="text" wrapText="true" editable="false"
+                      GridPane.rowIndex="1" ></TextArea>
     </children>
 </GridPane>

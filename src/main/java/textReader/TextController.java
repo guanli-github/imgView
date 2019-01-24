@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import utils.SceneManager;
 import utils.TextUtil;
@@ -44,6 +45,8 @@ public class TextController implements Initializable {
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
         root.setBackground(background);
+
+        //text.setPrefHeight(backgroundSize.getHeight());
     }
     @FXML
     private void scrollTo(int index){
@@ -53,14 +56,13 @@ public class TextController implements Initializable {
     private void resizeText(){
         int base = 760;
         text.setPrefWidth(base);
-
-        //text.setPrefHeight();
+        text.setPrefHeight(1300);
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         resizeText();
         fullContent = TextUtil.readTxt(Status.getCurrentFile());
         text.setText(fullContent);
-
+        text.setFont(Font.font (16));
     }
 }

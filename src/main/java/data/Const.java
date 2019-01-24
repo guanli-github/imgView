@@ -11,5 +11,6 @@ public class Const {
     public static final String TYPE_IMG = ".img";
     public static String[] img_types = {".jpg",".jpeg",".gif",".png"};
     public static String[] doc_types = {".zip",".pdf"};
+    public static String[] txt_types = {".txt",".html",".log",".java",".py",".sql"};
 
 }

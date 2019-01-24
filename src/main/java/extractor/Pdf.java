@@ -37,4 +37,18 @@ public class Pdf implements IExtractor{
             return SwingFXUtils.toFXImage(image,null);
         }
     }
+    public static Image getThumnbnail(File file){
+//        BufferedImage image = null;
+//        try {
+//            image = renderer.renderImageWithDPI(0, 90);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }finally {
+//            return SwingFXUtils.toFXImage(image,null);
+//        }
+        return null;
+    }
+
 }

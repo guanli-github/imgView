@@ -52,4 +52,21 @@ public class Zip implements IExtractor {
         }
         return null;
     }
+
+    public static Image getThumnbnail(File file) {
+        try {
+            zipFile = new ZipFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        zes =  Collections.list(zipFile.getEntries());
+        ZipEntry ze = zes.get(0);
+        try {
+            InputStream imgIs = zipFile.getInputStream(ze);
+            return  new Image(imgIs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
