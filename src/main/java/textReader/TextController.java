@@ -45,10 +45,22 @@ public class TextController implements Initializable {
         Background background = new Background(backgroundImage);
         root.setBackground(background);
     }
+    @FXML
+    private void scrollTo(int index){
 
+    }
+    @FXML
+    private void resizeText(){
+        int base = 760;
+        text.setPrefWidth(base);
+
+        //text.setPrefHeight();
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        resizeText();
         fullContent = TextUtil.readTxt(Status.getCurrentFile());
         text.setText(fullContent);
+
     }
 }
