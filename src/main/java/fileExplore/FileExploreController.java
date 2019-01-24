@@ -14,6 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import utils.SceneManager;
 import utils.ThumbnailUtil;
 
 import java.io.File;
@@ -56,19 +57,10 @@ public class FileExploreController implements Initializable {
 
     private void openFile(File f){
         Status.onClickFile(f);
-        ObservableList<Stage> stage = FXRobotHelper.getStages();
-        Scene scene = null;
-        try {
-            if(FileTypeHandler.docFilter.accept(f)){
-                scene = new Scene(FXMLLoader.load(getClass().getResource("/viewer.fxml")));
-            }else{
-                scene = new Scene(FXMLLoader.load(getClass().getResource("/text.fxml")));
-                scene.getStylesheets().add
-                        (getClass().getResource("/css/text.css").toExternalForm());
-            }
-            stage.get(0).setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(FileTypeHandler.docFilter.accept(f)){
+            SceneManager.toViewer();
+        }else{
+            SceneManager.toText();
         }
     }
 

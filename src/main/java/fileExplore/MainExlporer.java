@@ -10,11 +10,11 @@ public class MainExlporer extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/FileExplore.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/explorer.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         scene.getStylesheets().add
-                (getClass().getResource("/css/FileExplore.css").toExternalForm());
+                (getClass().getResource("/css/explorer.css").toExternalForm());
         stage.show();
     }
 

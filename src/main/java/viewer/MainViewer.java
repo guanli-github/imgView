@@ -20,7 +20,7 @@ public class MainViewer extends Application {
         });
         //stage.setFullScreen(true);
         scene.getStylesheets().add
-                (getClass().getResource("/css/explorer.css").toExternalForm());
+                (getClass().getResource("/css/viewer.css").toExternalForm());
         stage.show();
     }
 

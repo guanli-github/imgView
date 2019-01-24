@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import utils.SceneManager;
 import utils.TextUtil;
 
 import java.io.File;
@@ -41,14 +42,7 @@ public class TextController implements Initializable {
     private static String fullContent;
     @FXML
     private void returnDir(){
-        ObservableList<Stage> stage = FXRobotHelper.getStages();
-        Scene scene = null;
-        try {
-            scene = new Scene(FXMLLoader.load(getClass().getResource("/FileExplore.fxml")));
-            stage.get(0).setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        SceneManager.toExplorer();
     }
     @FXML
     private void setBgImg(){

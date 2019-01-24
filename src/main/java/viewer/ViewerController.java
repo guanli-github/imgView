@@ -20,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.SwipeEvent;
 import javafx.stage.Stage;
+import utils.SceneManager;
 
 import java.awt.*;
 import java.io.File;
@@ -86,14 +87,7 @@ public class ViewerController implements Initializable {
     @FXML
     private void returnDir(MouseEvent mouseEvent) {
         BookMark.saveCurrent();
-        ObservableList<Stage> stage = FXRobotHelper.getStages();
-        Scene scene = null;
-        try {
-            scene = new Scene(FXMLLoader.load(getClass().getResource("/FileExplore.fxml")));
-            stage.get(0).setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        SceneManager.toExplorer();
     }
 
     private void nextPage(){
@@ -107,7 +101,7 @@ public class ViewerController implements Initializable {
 
     private void jumpToPage(int page) {
         if (0 >= FileParser.totalPage) return;
-        if (page >= FileParser.totalPage) return;
+        if (page > FileParser.totalPage) return;
         if (page < 1) return;
 
 //        if (page > FileParser.totalPage) { //打开文件夹中下一文件
