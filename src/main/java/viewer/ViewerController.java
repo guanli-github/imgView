@@ -1,6 +1,5 @@
 package viewer;
 
-import com.sun.javafx.robot.impl.FXRobotHelper;
 import data.BookMark;
 import data.Const;
 import data.Setting;
@@ -8,23 +7,18 @@ import data.Status;
 import extractor.FileParser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.SwipeEvent;
-import javafx.stage.Stage;
 import utils.SceneManager;
 
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

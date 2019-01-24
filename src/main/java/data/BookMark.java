@@ -1,14 +1,11 @@
 package data;
 
-import utils.ConfigUtils;
 import extractor.FileParser;
+import utils.ConfigUtils;
 
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
 
 public class BookMark {
-    private static Map<String,Integer> bookMarkList  = new HashMap<>();
 
     /**
      * 保存进度

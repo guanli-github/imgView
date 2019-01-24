@@ -1,26 +1,18 @@
 package textReader;
 
-import com.sun.javafx.robot.impl.FXRobotHelper;
 import data.Status;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import utils.SceneManager;
 import utils.TextUtil;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -52,13 +44,11 @@ public class TextController implements Initializable {
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
         root.setBackground(background);
-        text.setPrefWidth(image.getWidth());
-        text.setPrefHeight(image.getHeight());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-         fullContent = TextUtil.readTxt(Status.getCurrentFile());
+        fullContent = TextUtil.readTxt(Status.getCurrentFile());
         text.setText(fullContent);
     }
 }

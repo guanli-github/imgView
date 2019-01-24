@@ -1,24 +1,18 @@
 package fileExplore;
 
-import com.sun.javafx.robot.impl.FXRobotHelper;
 import data.FileTypeHandler;
 import data.Status;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import utils.SceneManager;
 import utils.ThumbnailUtil;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

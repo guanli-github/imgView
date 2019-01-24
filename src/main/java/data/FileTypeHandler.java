@@ -5,8 +5,12 @@ import extractor.IExtractor;
 import java.io.File;
 import java.io.FileFilter;
 
-//将文件类型与处理者绑定
 public class FileTypeHandler {
+    //将文件类型与处理者绑定
+    public IExtractor getHandler(String fileType){
+        return null;
+    }
+
     public static FileFilter imgFilter = ((File file)->{
             if(file.isDirectory()){
                 return false;
@@ -26,11 +30,16 @@ public class FileTypeHandler {
                 return false;
             }
             String type = getFileType(file);
-            for (int i = 0; i < Const.file_types.length; i++) {
-                if (type.equals(Const.file_types[i])) {
+            for (int i = 0; i < Const.doc_types.length; i++) {
+                if (type.equals(Const.doc_types[i])) {
                     return true;
                 }
             }
+        for (int i = 0; i < Const.img_types.length; i++) {
+            if (type.equals(Const.img_types[i])) {
+                return true;
+            }
+        }
             return false;
         });
 
@@ -43,10 +52,5 @@ public class FileTypeHandler {
             return null;
         }
         return type;
-    }
-
-    public IExtractor getHandler(String fileType){
-
-        return null;
     }
 }
