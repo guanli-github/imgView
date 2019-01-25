@@ -2,7 +2,7 @@ package extractor;
 
 import data.Const;
 import data.FileTypeHandler;
-import data.Status;
+import data.dto.Status;
 import javafx.scene.image.Image;
 import utils.FileUtil;
 

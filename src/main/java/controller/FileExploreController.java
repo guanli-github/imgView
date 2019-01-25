@@ -2,7 +2,7 @@ package controller;
 
 import data.FileTypeHandler;
 import data.Setting;
-import data.Status;
+import data.dto.Status;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -37,7 +37,7 @@ public class FileExploreController implements Initializable {
     private void openDir(File dir) {
         Status.onChangeDir(dir);
         files.setItems(Status.currentFileList);
-        files.setCellFactory((ListView<File> listView)->new FileCell());
+        files.setCellFactory((files)->new FileCell());
     }
     //双击打开文件
     @FXML

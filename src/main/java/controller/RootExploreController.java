@@ -1,6 +1,6 @@
 package controller;
 
-import data.Status;
+import data.dto.Status;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;

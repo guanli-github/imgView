@@ -3,9 +3,8 @@ package controller;
 import data.BookMark;
 import data.Const;
 import data.Setting;
-import data.Status;
+import data.dto.Status;
 import extractor.FileParser;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -145,14 +144,12 @@ public class ViewerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         resizeImgView();
-        jumpSlider.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov,
-                                Number old_val, Number new_val) {
+        jumpSlider.valueProperty().addListener((ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val)-> {
                 int page = (int)Math.round(new_val.doubleValue() * FileParser.totalPage);
                 jumpToPage(page);
                 pageNum.setText(FileParser.currentPage+"/"+FileParser.totalPage);
-            }
-        });
+            });
         openFile(Status.getCurrentFile());
     }
 

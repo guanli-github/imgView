@@ -1,5 +1,6 @@
 package data;
 
+import data.dto.Status;
 import extractor.FileParser;
 import utils.ConfigUtils;
 

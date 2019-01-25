@@ -1,12 +1,15 @@
 package controller;
 
-import data.Status;
+import data.Const;
+import data.dto.Status;
+import data.dto.TextSearchDto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
@@ -30,9 +33,11 @@ public class TextController implements Initializable {
     private Button returnDir = new Button();
     @FXML
     private Button bgImg = new Button();
+    @FXML
+    private Button toSearch = new Button();
+
     private final static FileChooser fileChooser = new FileChooser();
 
-    private static String fullContent;
     @FXML
     private void returnDir(){
         SceneManager.toExplorer();
@@ -50,8 +55,20 @@ public class TextController implements Initializable {
         //text.setPrefHeight(backgroundSize.getHeight());
     }
     @FXML
+    private void toSearch(MouseEvent mouseEvent) {
+        TextSearchDto.readIndex = text.getScrollTop();//保存阅读进度
+        SceneManager.toSearch();
+        return;
+    }
+    @FXML
     private void scrollTo(int index){
-
+        int topIndex = index-Const.textBias;
+        double top = (topIndex / TextSearchDto.fullContent.length() * text.getHeight());
+        //int pixel = text.getFont().getSize().
+        if(top<=1){
+            text.setScrollTop(1);
+        }
+        text.setScrollTop(top);
     }
     @FXML
     private void resizeText(){
@@ -62,8 +79,8 @@ public class TextController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         resizeText();
-        fullContent = TextUtil.readTxt(Status.getCurrentFile());
-        text.setText(fullContent);
+        TextSearchDto.fullContent = TextUtil.readTxt(Status.getCurrentFile());
+        text.setText(TextSearchDto.fullContent);
         text.setFont(Font.font (16));
     }
 }

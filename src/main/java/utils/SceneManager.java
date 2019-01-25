@@ -11,46 +11,29 @@ import java.io.IOException;
 public class SceneManager {
     private static ObservableList<Stage> stage = FXRobotHelper.getStages();
     public static void toExplorer(){
-        Scene scene = null;
-        try {
-            scene = new Scene(FXMLLoader.load(SceneManager.class.getResource("/explorer.fxml")));
-            scene.getStylesheets().add
-                    (SceneManager.class.getResource("/css/explorer.css").toExternalForm());
-            stage.get(0).setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        changeScene("/explorer.fxml","/css/explorer.css");
     }
     public static void toRoot(){
-        Scene scene = null;
-        try {
-            scene = new Scene(FXMLLoader.load(SceneManager.class.getResource("/rootExplorer.fxml")));
-            scene.getStylesheets().add
-                    (SceneManager.class.getResource("/css/explorer.css").toExternalForm());
-            stage.get(0).setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        changeScene("/rootExplorer.fxml","/css/explorer.css");
     }
     public static void toViewer(){
         stage.get(0).setFullScreen(true);
         stage.get(0).setMaximized(true);
-        Scene scene = null;
-        try {
-            scene = new Scene(FXMLLoader.load(SceneManager.class.getResource("/viewer.fxml")));
-            scene.getStylesheets().add
-                    (SceneManager.class.getResource("/css/text.css").toExternalForm());
-            stage.get(0).setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        changeScene("/viewer.fxml","/css/text.css");
     }
     public static void toText(){
+        changeScene("/text.fxml","/css/text.css");
+    }
+    public static void toSearch(){
+        changeScene("/textSearch.fxml","/css/text.css");
+    }
+
+    private static void changeScene(String fxmlUrl,String cssUrl){
         Scene scene = null;
         try {
-            scene = new Scene(FXMLLoader.load(SceneManager.class.getResource("/text.fxml")));
+            scene = new Scene(FXMLLoader.load(SceneManager.class.getResource(fxmlUrl)));
             scene.getStylesheets().add
-                    (SceneManager.class.getResource("/css/text.css").toExternalForm());
+                    (SceneManager.class.getResource(cssUrl).toExternalForm());
             stage.get(0).setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
