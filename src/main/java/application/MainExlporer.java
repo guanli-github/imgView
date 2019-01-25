@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class MainExlporer extends Application {
 
@@ -13,8 +12,8 @@ public class MainExlporer extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/explorer.fxml"));
         stage.setMaximized(true);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setFullScreen(true);
+        //stage.initStyle(StageStyle.UNDECORATED);
+        //stage.setFullScreen(true);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         scene.getStylesheets().add

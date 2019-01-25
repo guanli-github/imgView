@@ -2,10 +2,16 @@ package controller;
 
 import data.dto.Status;
 import data.dto.TextSearchDto;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -38,12 +44,13 @@ public class TextController implements Initializable {
     private final static FileChooser fileChooser = new FileChooser();
 
     @FXML
-    private void returnDir(){
+    private void returnDir() {
         SceneManager.toExplorer();
         return;
     }
+
     @FXML
-    private void setBgImg(){
+    private void setBgImg() {
         File f = fileChooser.showOpenDialog(null);
         Image image = new Image("file:" + f.getAbsolutePath());
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
@@ -53,30 +60,75 @@ public class TextController implements Initializable {
 
         //text.setPrefHeight(backgroundSize.getHeight());
     }
+
     @FXML
     private void toSearch(MouseEvent mouseEvent) {
         TextSearchDto.readIndex = text.getScrollTop();//保存阅读进度
         SceneManager.toSearch();
         return;
     }
+
     //https://stackoverflow.com/questions/19121486/how-to-scroll-javafx-textarea-after-settext?r=SearchResults
     //https://stackoverflow.com/questions/14206692/javafx-textarea-hiding-scroll-bars?r=SearchResults
     @FXML
-    private void scrollTo(double location){
-        text.setScrollTop(location * 100);
+    private void scrollTo(double location) {
+        Node text1 = text.lookup(".content");
+        Node scrollPane = text.lookup(".scroll-pane");
+
+        if (text1 == null || scrollPane == null) {
+            return;
+        }
+
+        double textHeight = text1.getLayoutBounds().getHeight();
+        double textAreaHeight = ((ScrollPane) scrollPane).getViewportBounds().getHeight();
+
+        int testStr = (int) (location * TextSearchDto.fullContent.length());
+        System.out.println(TextSearchDto.fullContent.substring(testStr-10,testStr+10));
+        System.out.println(location * (textHeight-textAreaHeight)  * 10);
+        text.setScrollTop(location * (textHeight-textAreaHeight)  * 10);
     }
+
     @FXML
-    private void resizeText(){
+    private void resizeText() {
+//        text.setPrefWidth(root.getBoundsInParent().getWidth());
+//        text.setPrefHeight(root.getBoundsInParent().getHeight());
         int base = 760;
         text.setPrefWidth(base);
-        text.setPrefHeight(130);
+        text.setPrefHeight(1300);
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         resizeText();
         TextSearchDto.fullContent = TextUtil.readTxt(Status.getCurrentFile());
         text.setText(TextSearchDto.fullContent);
-        text.setFont(Font.font (16));
-        scrollTo(TextSearchDto.hitLocation);
+        text.setFont(Font.font(16));
+        Platform.runLater(() ->
+        {
+            scrollTo(TextSearchDto.hitLocal);
+        });
+        DoubleProperty percentScrolled = new SimpleDoubleProperty();
+        percentScrolled.bind(Bindings.createDoubleBinding(() -> {
+
+            Node text1 = text.lookup(".content");
+            Node scrollPane = text.lookup(".scroll-pane");
+
+            if (text1 == null || scrollPane == null) {
+                return 0.0 ;
+            }
+
+            double textHeight = text1.getLayoutBounds().getHeight();
+            double textAreaHeight = ((ScrollPane) scrollPane).getViewportBounds().getHeight();
+
+            if (textHeight <= textAreaHeight) {
+                return 100.0 ;
+            }
+
+            return 100.0 * text.getScrollTop() / (textHeight - textAreaHeight) ;
+
+
+        }, text.scrollTopProperty()));
+        pageNum.textProperty().bind(percentScrolled.asString("%.5f"));
     }
+
 }

@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import utils.SceneManager;
@@ -27,9 +29,11 @@ public class TextSearchController implements Initializable {
     private TextField searchWord = new TextField();
     @FXML
     private Button doSearch = new Button();
+    @FXML
+    private Button toText = new Button();
 
     @FXML
-    private void doSearch(MouseEvent mouseEvent) {
+    private void doSearch() {
         String word = searchWord.getText().trim();
         if (word.equals(TextSearchDto.searchWord)) {
             return;
@@ -39,7 +43,17 @@ public class TextSearchController implements Initializable {
         TextSearchDto.searchResultList.setAll(getResults(word));
         showResult();
     }
-
+    @FXML
+    private void enterSearch(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.ENTER){
+            doSearch();
+        }
+    }
+    @FXML
+    private  void toText(MouseEvent mouseEvent) {
+        SceneManager.toText();
+        return;
+    }
     //点击某条搜索结果时调用
     @FXML
     private void hitResult(MouseEvent click) {
@@ -49,8 +63,8 @@ public class TextSearchController implements Initializable {
             if (null == hitted) return;
             TextSearchDto.hitIndex = results.getItems().indexOf(hitted);//保存搜索进度
             //索引值除以总长度
-            TextSearchDto.hitLocation = (hitted.indexInString * 1.0  / TextSearchDto.fullContent.length());
-
+            TextSearchDto.hitLocal = hitted.indexInString / (double) TextSearchDto.fullContent.length();
+            System.out.println(hitted.indexInString /(double) TextSearchDto.fullContent.length());
             SceneManager.toText();
             return;
         }
@@ -61,8 +75,13 @@ public class TextSearchController implements Initializable {
         int bias = Const.textBias;
         List<Integer> indexes = new ArrayList();
         int a = TextSearchDto.fullContent.indexOf(searchWord);//*第一个出现的索引位置
+
         while (a != -1) {
-            indexes.add(a);
+            if(a > Const.txtBias){
+                indexes.add(a - Const.txtBias);
+            }else{
+                indexes.add(Const.txtBias);
+            }
             a = TextSearchDto.fullContent.indexOf(searchWord, a + 1);//*从这个索引往后开始第一个出现的位置
         }
         List<SearchResult> list = new ArrayList<>();

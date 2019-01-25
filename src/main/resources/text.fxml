@@ -4,7 +4,7 @@
           xmlns:fx="http://javafx.com/fxml">
     <children>
         <HBox GridPane.rowIndex="0" GridPane.columnIndex="0">
-            <Label fx:id="pageNum" text="1/1"></Label>
+            <Label fx:id="pageNum" text="0.00%"></Label>
             <Button fx:id="returnDir" opacity="0.3" minWidth="20"
                     onMouseClicked="#returnDir">返回目录
             </Button>
@@ -15,7 +15,7 @@
                     onMouseClicked="#toSearch">搜索
             </Button>
         </HBox>
-            <TextArea fx:id="text" wrapText="true" editable="false"
+            <TextArea fx:id="text" wrapText="true"
                       GridPane.rowIndex="1" ></TextArea>
     </children>
 </GridPane>
