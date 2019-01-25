@@ -21,7 +21,20 @@ public class SceneManager {
             e.printStackTrace();
         }
     }
+    public static void toRoot(){
+        Scene scene = null;
+        try {
+            scene = new Scene(FXMLLoader.load(SceneManager.class.getResource("/rootExplorer.fxml")));
+            scene.getStylesheets().add
+                    (SceneManager.class.getResource("/css/explorer.css").toExternalForm());
+            stage.get(0).setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void toViewer(){
+        stage.get(0).setFullScreen(true);
+        stage.get(0).setMaximized(true);
         Scene scene = null;
         try {
             scene = new Scene(FXMLLoader.load(SceneManager.class.getResource("/viewer.fxml")));

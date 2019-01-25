@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
-<GridPane id="root" fx:controller="viewer.ViewerController" alignment="CENTER"
+<GridPane id="root" fx:controller="controller.ViewerController" alignment="CENTER"
           xmlns:fx="http://javafx.com/fxml">
     <children>
         <HBox GridPane.rowIndex="0" GridPane.columnIndex="0">

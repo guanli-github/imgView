@@ -51,6 +51,11 @@ public class Status {
         return true;
     }
 
+    //跳转根目录列表
+    public static void changeToRoot(){
+        File[] roots = File.listRoots();
+        currentFileList.setAll(roots);
+    }
     public static File getCurrentFile(){
         return currentFileList.get(currentFileIndex);
     }

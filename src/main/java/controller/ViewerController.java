@@ -1,4 +1,4 @@
-package viewer;
+package controller;
 
 import data.BookMark;
 import data.Const;

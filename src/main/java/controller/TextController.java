@@ -1,4 +1,4 @@
-package textReader;
+package controller;
 
 import data.Status;
 import javafx.fxml.FXML;
@@ -36,6 +36,7 @@ public class TextController implements Initializable {
     @FXML
     private void returnDir(){
         SceneManager.toExplorer();
+        return;
     }
     @FXML
     private void setBgImg(){

@@ -4,14 +4,14 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.GridPane?>
-<GridPane id="root" fx:controller="fileExplore.FileExploreController" alignment="CENTER"
+<GridPane id="root" fx:controller="controller.FileExploreController" alignment="CENTER"
           xmlns:fx="http://javafx.com/fxml">
     <children>
         <HBox GridPane.rowIndex="0">
         <Button fx:id="parentDir" onMouseClicked="#returnParDir" AnchorPane.leftAnchor="0.5">上级目录</Button>
         </HBox>
         <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="NEVER"  GridPane.rowIndex="1">
-            <ListView fx:id="files"  prefWidth="760" prefHeight="1000" fixedCellSize="60" GridPane.fillWidth="true"
+            <ListView fx:id="files"  prefWidth="760" prefHeight="100" fixedCellSize="60" GridPane.fillWidth="true"
                       onMouseClicked="#clickFile"></ListView>
         </ScrollPane>
     </children>

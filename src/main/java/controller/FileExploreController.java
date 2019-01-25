@@ -1,4 +1,4 @@
-package fileExplore;
+package controller;
 
 import data.FileTypeHandler;
 import data.Setting;
@@ -27,6 +27,10 @@ public class FileExploreController implements Initializable {
     @FXML
     private void returnParDir(){
         File par = Status.currentDir.getParentFile();
+        if(null == par){
+            SceneManager.toRoot();
+            return;
+        }
         openDir(par);
     }
     //进入目录，显示文件视图
@@ -54,8 +58,10 @@ public class FileExploreController implements Initializable {
         Status.onClickFile(f);
         if(FileTypeHandler.docFilter.accept(f)){
             SceneManager.toViewer();
+            return;
         }else if(FileTypeHandler.txtFilter.accept(f)){
             SceneManager.toText();
+            return;
         }
     }
 
