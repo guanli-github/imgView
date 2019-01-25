@@ -3,9 +3,12 @@
 <GridPane id="root" fx:id="root" fx:controller="controller.TextSearchController" alignment="CENTER"
           xmlns:fx="http://javafx.com/fxml">
     <children>
-        <TextField fx:id="searchWord"></TextField>
-        <Button fx:id="doSearch" onMouseClicked="#doSearch"></Button>
-        <ListView fx:id="results"  prefWidth="760" prefHeight="100" fixedCellSize="60" GridPane.fillWidth="true"
+        <HBox GridPane.rowIndex="0">
+            <TextField fx:id="searchWord"></TextField>
+            <Button fx:id="doSearch" onMouseClicked="#doSearch"></Button>
+        </HBox>
+        <ListView fx:id="results" prefWidth="760" prefHeight="100" fixedCellSize="60"
+                  GridPane.fillWidth="true" GridPane.rowIndex="1"
                   onMouseClicked="#hitResult"></ListView>
     </children>
 </GridPane>

@@ -1,6 +1,5 @@
 package controller;
 
-import data.Const;
 import data.dto.Status;
 import data.dto.TextSearchDto;
 import javafx.fxml.FXML;
@@ -60,21 +59,17 @@ public class TextController implements Initializable {
         SceneManager.toSearch();
         return;
     }
+    //https://stackoverflow.com/questions/19121486/how-to-scroll-javafx-textarea-after-settext?r=SearchResults
+    //https://stackoverflow.com/questions/14206692/javafx-textarea-hiding-scroll-bars?r=SearchResults
     @FXML
-    private void scrollTo(int index){
-        int topIndex = index-Const.textBias;
-        double top = (topIndex / TextSearchDto.fullContent.length() * text.getHeight());
-        //int pixel = text.getFont().getSize().
-        if(top<=1){
-            text.setScrollTop(1);
-        }
-        text.setScrollTop(top);
+    private void scrollTo(double location){
+        text.setScrollTop(location * 100);
     }
     @FXML
     private void resizeText(){
         int base = 760;
         text.setPrefWidth(base);
-        text.setPrefHeight(1300);
+        text.setPrefHeight(130);
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -82,5 +77,6 @@ public class TextController implements Initializable {
         TextSearchDto.fullContent = TextUtil.readTxt(Status.getCurrentFile());
         text.setText(TextSearchDto.fullContent);
         text.setFont(Font.font (16));
+        scrollTo(TextSearchDto.hitLocation);
     }
 }
