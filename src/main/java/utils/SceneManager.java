@@ -1,7 +1,6 @@
 package utils;
 
 import com.sun.javafx.robot.impl.FXRobotHelper;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,7 +8,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SceneManager {
-    private static ObservableList<Stage> stage = FXRobotHelper.getStages();
+    private final static Stage stage = FXRobotHelper.getStages().get(0);
+
     public static void toExplorer(){
         changeScene("/explorer.fxml","/css/explorer.css");
     }
@@ -17,8 +17,8 @@ public class SceneManager {
         changeScene("/rootExplorer.fxml","/css/explorer.css");
     }
     public static void toViewer(){
-        stage.get(0).setFullScreen(true);
-        stage.get(0).setMaximized(true);
+        stage.setFullScreen(true);
+        stage.setMaximized(true);
         changeScene("/viewer.fxml","/css/text.css");
     }
     public static void toText(){
@@ -34,9 +34,13 @@ public class SceneManager {
             scene = new Scene(FXMLLoader.load(SceneManager.class.getResource(fxmlUrl)));
             scene.getStylesheets().add
                     (SceneManager.class.getResource(cssUrl).toExternalForm());
-            stage.get(0).setScene(scene);
+            stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Stage getStage(){
+        return stage;
     }
 }

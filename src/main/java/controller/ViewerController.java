@@ -5,6 +5,7 @@ import data.Const;
 import data.Setting;
 import data.dto.Status;
 import extractor.FileParser;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,44 +39,49 @@ public class ViewerController implements Initializable {
         FileParser.refreash(file);
         jumpToPage(FileParser.currentPage);
     }
+
     @FXML
-    private void doLeft(SwipeEvent s){
-        if(Setting.orient == Const.L2R){
+    private void doLeft(SwipeEvent s) {
+        if (Setting.orient == Const.L2R) {
             nextPage();
-        }else{
+        } else {
             prePage();
         }
     }
+
     @FXML
-    private void doRight(SwipeEvent s){
-        if(Setting.orient == Const.R2L){
+    private void doRight(SwipeEvent s) {
+        if (Setting.orient == Const.R2L) {
             nextPage();
-        }else{
+        } else {
             prePage();
         }
     }
+
     @FXML
     private void doPageClick(MouseEvent mouseEvent) {
         double x = mouseEvent.getX();
         double middle = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
-        if((x >= middle && Setting.orient== Const.L2R)
-                || (x<middle && Setting.orient== Const.R2L)){
+        if ((x >= middle && Setting.orient == Const.L2R)
+                || (x < middle && Setting.orient == Const.R2L)) {
             nextPage();
-        }else{
+        } else {
             prePage();
         }
         mouseEvent.consume();
     }
+
     //更改翻页方式
     @FXML
     private void changeOrient(MouseEvent mouseEvent) {
-        if(Setting.orient == Const.L2R){
+        if (Setting.orient == Const.L2R) {
             Setting.orient = Const.R2L;
-        }else{
+        } else {
             Setting.orient = Const.L2R;
         }
         mouseEvent.consume();
     }
+
     //返回目录
     @FXML
     private void returnDir(MouseEvent mouseEvent) {
@@ -83,11 +89,12 @@ public class ViewerController implements Initializable {
         SceneManager.toExplorer();
     }
 
-    private void nextPage(){
+    private void nextPage() {
         FileParser.currentPage += 1;
         jumpToPage(FileParser.currentPage);
     }
-    private void prePage(){
+
+    private void prePage() {
         FileParser.currentPage -= 1;
         jumpToPage(FileParser.currentPage);
     }
@@ -117,40 +124,45 @@ public class ViewerController implements Initializable {
                 FileParser.getImage(page)
         );
         FileParser.currentPage = page;
-        pageNum.setText(FileParser.currentPage+"/"+FileParser.totalPage);
+        pageNum.setText(FileParser.currentPage + "/" + FileParser.totalPage);
     }
 
-    /**
-     * 只判断两种情况
-     * 横屏时限制高度，宽度足够就放两张
-     * 竖屏时根据宽度限制，只放一张
-     * */
     @FXML
-    private void resizeImgView(){
-//        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
-//        double height = Toolkit.getDefaultToolkit().getScreenSize().height;
-//
-//        double radio = imgView.getImage().getWidth() / imgView.getImage().getHeight();
-//        System.out.println("wight:"+width+"; height:"+height);
-//        if(width>height){
-//            imgView.setFitHeight(height);
-//        }else{
-//            imgView.setFitHeight(width);
-//        }
-//        imgView.setFitWidth(height * radio);
-        imgView.setFitWidth(766.0);
+    private void resize() {
+        double width = SceneManager.getStage().getWidth();
+        double height = SceneManager.getStage().getHeight();
+
+        //System.out.println("width:" + width + "; height:" + height);
+        if (width > height) {
+            imgView.setFitHeight(height);
+            imgView.setFitWidth(0);
+        } else {
+            imgView.setFitWidth(width);
+            imgView.setFitHeight(0);
+
+        }
+        //System.out.println("imagewidth:" + imgView.getFitWidth() + "; imageheight:" + imgView.getFitHeight());
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        resizeImgView();
+        resize();
+        SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
+            Platform.runLater(() -> {
+                        resize();
+                    }
+            );
+        });
+        //滚动条
         jumpSlider.valueProperty().addListener((ObservableValue<? extends Number> ov,
-                                Number old_val, Number new_val)-> {
-                int page = (int)Math.round(new_val.doubleValue() * FileParser.totalPage);
-                jumpToPage(page);
-                pageNum.setText(FileParser.currentPage+"/"+FileParser.totalPage);
-            });
+                                                Number old_val, Number new_val) -> {
+            int page = (int) Math.round(new_val.doubleValue() * FileParser.totalPage);
+            jumpToPage(page);
+            pageNum.setText(FileParser.currentPage + "/" + FileParser.totalPage);
+        });
         openFile(Status.getCurrentFile());
+
     }
 
 }

@@ -36,8 +36,10 @@ public class FileExploreController implements Initializable {
     //进入目录，显示文件视图
     private void openDir(File dir) {
         Status.onChangeDir(dir);
+        files.setItems(null);
         files.setItems(Status.currentFileList);
         files.setCellFactory((files)->new FileCell());
+
     }
     //双击打开文件
     @FXML
@@ -69,8 +71,9 @@ public class FileExploreController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         if(null != Status.currentDir){
             openDir(Status.currentDir);
+        }else{
+            openDir(Setting.deafultDir);
         }
-        openDir(Setting.deafultDir);
     }
 
     static class FileCell extends ListCell<File> {

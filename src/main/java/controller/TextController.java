@@ -21,6 +21,7 @@ import javafx.stage.FileChooser;
 import utils.SceneManager;
 import utils.TextUtil;
 
+import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -90,11 +91,15 @@ public class TextController implements Initializable {
 
     @FXML
     private void resizeText() {
-//        text.setPrefWidth(root.getBoundsInParent().getWidth());
-//        text.setPrefHeight(root.getBoundsInParent().getHeight());
-        int base = 760;
-        text.setPrefWidth(base);
-        text.setPrefHeight(1300);
+
+        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
+        double height = Toolkit.getDefaultToolkit().getScreenSize().height;
+        System.out.println("wight:"+width+"; height:"+height);
+        if(width>height){
+            text.setPrefHeight(height);
+        }else{
+            text.setPrefWidth(width);
+        }
     }
 
     @Override
@@ -107,6 +112,7 @@ public class TextController implements Initializable {
         {
             scrollTo(TextSearchDto.hitLocal);
         });
+        //进度显示
         DoubleProperty percentScrolled = new SimpleDoubleProperty();
         percentScrolled.bind(Bindings.createDoubleBinding(() -> {
 

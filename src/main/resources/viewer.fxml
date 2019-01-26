@@ -21,7 +21,7 @@
                    preserveRatio="true"
                    onSwipeLeft="#doLeft" onSwipeRight="#doRight"
                    onMouseClicked="#doPageClick"
-                   onRotate="#resizeImgView"></ImageView>
+                   onRotate="#resize"></ImageView>
         <Slider fx:id="jumpSlider" GridPane.rowIndex="2"
                 max="1" min="0" value="0"  nodeOrientation="RIGHT_TO_LEFT"></Slider>
     </children>
