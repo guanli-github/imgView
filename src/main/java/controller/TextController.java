@@ -1,5 +1,6 @@
 package controller;
 
+import data.Setting;
 import data.dto.Status;
 import data.dto.TextSearchDto;
 import javafx.application.Platform;
@@ -21,7 +22,6 @@ import javafx.stage.FileChooser;
 import utils.SceneManager;
 import utils.TextUtil;
 
-import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -69,8 +69,6 @@ public class TextController implements Initializable {
         return;
     }
 
-    //https://stackoverflow.com/questions/19121486/how-to-scroll-javafx-textarea-after-settext?r=SearchResults
-    //https://stackoverflow.com/questions/14206692/javafx-textarea-hiding-scroll-bars?r=SearchResults
     @FXML
     private void scrollTo(double location) {
         Node text1 = text.lookup(".content");
@@ -84,27 +82,27 @@ public class TextController implements Initializable {
         double textAreaHeight = ((ScrollPane) scrollPane).getViewportBounds().getHeight();
 
         int testStr = (int) (location * TextSearchDto.fullContent.length());
-        System.out.println(TextSearchDto.fullContent.substring(testStr-10,testStr+10));
-        System.out.println(location * (textHeight-textAreaHeight)  * 10);
         text.setScrollTop(location * (textHeight-textAreaHeight)  * 10);
     }
 
-    @FXML
-    private void resizeText() {
+    private void resize() {
 
-        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
-        double height = Toolkit.getDefaultToolkit().getScreenSize().height;
-        System.out.println("wight:"+width+"; height:"+height);
-        if(width>height){
-            text.setPrefHeight(height);
-        }else{
-            text.setPrefWidth(width);
-        }
+        double width = SceneManager.getStage().getWidth();
+        double height = SceneManager.getStage().getHeight();
+
+        text.setPrefHeight(height);
+        text.setPrefWidth(width);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        resizeText();
+        resize();
+        SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
+            Platform.runLater(() -> {
+                        resize();
+                    }
+            );
+        });
         TextSearchDto.fullContent = TextUtil.readTxt(Status.getCurrentFile());
         text.setText(TextSearchDto.fullContent);
         text.setFont(Font.font(16));
@@ -134,7 +132,12 @@ public class TextController implements Initializable {
 
 
         }, text.scrollTopProperty()));
-        pageNum.textProperty().bind(percentScrolled.asString("%.5f"));
+        pageNum.textProperty().bind(percentScrolled.asString("%.2f"));
+        //
+        fileChooser.setInitialDirectory(Setting.bgImgDir);
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
+                "image filter","*.jpg","*.jpeg","*.gif","*.png","*.bmp"
+        ));
     }
 
 }

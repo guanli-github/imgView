@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import utils.SceneManager;
 import utils.ThumbnailUtil;
 
+import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +19,11 @@ public class RootExploreController implements Initializable {
 
     @FXML
     private ListView<File> files = new ListView();
+
+    @FXML
+    private void exit(MouseEvent mouseEvent) {
+        System.exit(0);
+    }
 
     //双击打开文件
     @FXML
@@ -39,6 +45,8 @@ public class RootExploreController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        files.setPrefWidth(Toolkit.getDefaultToolkit().getScreenSize().width);
+        files.setPrefHeight(Toolkit.getDefaultToolkit().getScreenSize().height);
         Status.changeToRoot();
         files.setItems(Status.currentFileList);
         files.setCellFactory((ListView<File> listView)->new RootExploreController.RootCell());

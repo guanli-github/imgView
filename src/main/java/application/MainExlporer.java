@@ -11,7 +11,6 @@ public class MainExlporer extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/explorer.fxml"));
-        stage.setMaximized(true);
         stage.setFullScreen(true);
         Scene scene = new Scene(root);
         stage.setScene(scene);

@@ -127,21 +127,20 @@ public class ViewerController implements Initializable {
         pageNum.setText(FileParser.currentPage + "/" + FileParser.totalPage);
     }
 
-    @FXML
     private void resize() {
         double width = SceneManager.getStage().getWidth();
         double height = SceneManager.getStage().getHeight();
 
-        //System.out.println("width:" + width + "; height:" + height);
-        if (width > height) {
-            imgView.setFitHeight(height);
-            imgView.setFitWidth(0);
-        } else {
-            imgView.setFitWidth(width);
-            imgView.setFitHeight(0);
-
-        }
-        //System.out.println("imagewidth:" + imgView.getFitWidth() + "; imageheight:" + imgView.getFitHeight());
+//        if (width > height) {
+//            imgView.setFitHeight(height);
+//            imgView.setFitWidth(0);
+//        } else {
+//            imgView.setFitWidth(width);
+//            imgView.setFitHeight(0);
+//
+//        }
+        imgView.setFitWidth(width);
+        imgView.setFitHeight(height);
 
     }
 

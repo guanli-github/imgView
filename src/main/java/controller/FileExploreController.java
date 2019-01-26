@@ -1,5 +1,6 @@
 package controller;
 
+import data.Const;
 import data.FileTypeHandler;
 import data.Setting;
 import data.dto.Status;
@@ -13,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import utils.SceneManager;
 import utils.ThumbnailUtil;
 
+import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,6 +22,10 @@ import java.util.ResourceBundle;
 public class FileExploreController implements Initializable {
     @FXML
     private Button parentDir = new Button();
+    @FXML
+    private Button exit = new Button();
+    @FXML
+    private Button resize = new Button();
     @FXML
     private ListView<File> files = new ListView();
 
@@ -32,6 +38,10 @@ public class FileExploreController implements Initializable {
             return;
         }
         openDir(par);
+    }
+    @FXML
+    private void exit(MouseEvent mouseEvent) {
+        System.exit(0);
     }
     //进入目录，显示文件视图
     private void openDir(File dir) {
@@ -66,9 +76,15 @@ public class FileExploreController implements Initializable {
             return;
         }
     }
+    @FXML
+    private void resize(){
+        files.setPrefWidth(Toolkit.getDefaultToolkit().getScreenSize().width);
+        files.setPrefHeight(Toolkit.getDefaultToolkit().getScreenSize().height);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        resize();
         if(null != Status.currentDir){
             openDir(Status.currentDir);
         }else{
@@ -83,8 +99,8 @@ public class FileExploreController implements Initializable {
             if (item != null) {
                 ImageView iconView = new ImageView();
                 iconView.setImage(ThumbnailUtil.getFileThumbnail(item));
-                iconView.setFitWidth(20);
-                iconView.setFitHeight(20);
+                iconView.setFitWidth(Const.iconSize);
+                iconView.setFitHeight(Const.iconSize);
                 this.setGraphic(iconView);
                 this.setText(item.getName());
             }else{

@@ -3,12 +3,13 @@
 <GridPane id="root" fx:id="root" fx:controller="controller.TextSearchController" alignment="CENTER"
           xmlns:fx="http://javafx.com/fxml">
     <children>
-        <HBox GridPane.rowIndex="0">
+        <HBox GridPane.rowIndex="0"
+              spacing="8">
             <TextField fx:id="searchWord"></TextField>
             <Button fx:id="doSearch" onMouseClicked="#doSearch" onKeyTyped="#enterSearch">搜索</Button>
             <Button fx:id="toText" onMouseClicked="#toText">返回</Button>
         </HBox>
-        <ListView fx:id="results" prefWidth="760" prefHeight="1000" fixedCellSize="60"
+        <ListView fx:id="results" fixedCellSize="60"
                   GridPane.fillWidth="true" GridPane.rowIndex="1"
                   onMouseClicked="#hitResult"></ListView>
     </children>

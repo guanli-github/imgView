@@ -1,11 +1,16 @@
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <GridPane id="root" fx:controller="controller.RootExploreController" alignment="CENTER"
           xmlns:fx="http://javafx.com/fxml">
     <children>
         <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="NEVER">
-            <ListView fx:id="files"  prefWidth="760" prefHeight="1000" fixedCellSize="60" GridPane.fillWidth="true"
+            <HBox GridPane.rowIndex="0">
+                <Button fx:id="exit" onMouseClicked="#exit" >退出</Button>
+            </HBox>
+            <ListView fx:id="files" fixedCellSize="60" GridPane.fillWidth="true"
                       onMouseClicked="#clickFile"></ListView>
         </ScrollPane>
     </children>

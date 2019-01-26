@@ -3,6 +3,7 @@ package controller;
 import data.Const;
 import data.SearchResult;
 import data.dto.TextSearchDto;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -105,8 +106,23 @@ public class TextSearchController implements Initializable {
         results.setCellFactory((results) -> new ResultCell());
     }
 
+    private void resize() {
+
+        double width = SceneManager.getStage().getWidth();
+        double height = SceneManager.getStage().getHeight();
+
+        results.setPrefHeight(height);
+        results.setPrefWidth(width);
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        resize();
+        SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
+            Platform.runLater(() -> {
+                        resize();
+                    }
+            );
+        });
         if (TextSearchDto.searchWord != null && !"".equals(TextSearchDto.searchWord)) {
             showResult();
         }

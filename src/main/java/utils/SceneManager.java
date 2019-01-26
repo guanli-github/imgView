@@ -17,9 +17,7 @@ public class SceneManager {
         changeScene("/rootExplorer.fxml","/css/explorer.css");
     }
     public static void toViewer(){
-        stage.setFullScreen(true);
-        stage.setMaximized(true);
-        changeScene("/viewer.fxml","/css/text.css");
+       changeScene("/viewer.fxml","/css/viewer.css");
     }
     public static void toText(){
         changeScene("/text.fxml","/css/text.css");
