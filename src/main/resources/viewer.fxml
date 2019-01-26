@@ -5,7 +5,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ScrollBar?>
 <GridPane id="root" fx:id="root" fx:controller="controller.ViewerController" alignment="CENTER"
+          onSwipeLeft="#doLeft" onSwipeRight="#doRight"
+          onMouseClicked="#doPageClick"
           xmlns:fx="http://javafx.com/fxml">
     <children>
         <HBox GridPane.rowIndex="0" GridPane.columnIndex="0"
@@ -19,10 +22,7 @@
             <Label fx:id="pageNum" text="1/1"></Label>
         </HBox>
         <ImageView fx:id="imgView" GridPane.rowIndex="1"
-                   preserveRatio="true"
-                   onSwipeLeft="#doLeft" onSwipeRight="#doRight"
-                   onMouseClicked="#doPageClick"></ImageView>
-        <Slider fx:id="jumpSlider" GridPane.rowIndex="2"
-                max="1" min="0" value="0"  nodeOrientation="RIGHT_TO_LEFT"></Slider>
+                   preserveRatio="true"></ImageView>
+        <ScrollBar fx:id="jumpBar" visible="false"></ScrollBar>
     </children>
 </GridPane>

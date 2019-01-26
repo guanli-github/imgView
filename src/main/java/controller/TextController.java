@@ -10,7 +10,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -33,14 +32,6 @@ public class TextController implements Initializable {
     private TextArea text = new TextArea();
     @FXML
     private Label pageNum = new Label();
-    @FXML
-    private Button changeOrient = new Button();
-    @FXML
-    private Button returnDir = new Button();
-    @FXML
-    private Button bgImg = new Button();
-    @FXML
-    private Button toSearch = new Button();
 
     private final static FileChooser fileChooser = new FileChooser();
 

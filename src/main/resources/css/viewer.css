@@ -1,3 +1,6 @@
 #root {
     -fx-background-color:black;
 }
+#pageNum {
+    -fx-font-size:16;
+}

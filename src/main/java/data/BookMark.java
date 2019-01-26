@@ -15,6 +15,8 @@ public class BookMark {
      * @return 成功与否
      */
     public static boolean save(File file, int index){
+        if (index <=1)
+            return true;
         ConfigUtils.setConfig("bookmark",file.getAbsolutePath(),index+"");
         return true;
     }

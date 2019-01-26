@@ -6,7 +6,6 @@ import data.Setting;
 import data.dto.Status;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
@@ -20,12 +19,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class FileExploreController implements Initializable {
-    @FXML
-    private Button parentDir = new Button();
-    @FXML
-    private Button exit = new Button();
-    @FXML
-    private Button resize = new Button();
     @FXML
     private ListView<File> files = new ListView();
 

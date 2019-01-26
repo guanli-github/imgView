@@ -6,14 +6,12 @@ import data.dto.TextSearchDto;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import utils.SceneManager;
 
 import java.net.URL;
@@ -23,15 +21,9 @@ import java.util.ResourceBundle;
 
 public class TextSearchController implements Initializable {
     @FXML
-    private GridPane root = new GridPane();
-    @FXML
     private ListView results = new ListView();
     @FXML
     private TextField searchWord = new TextField();
-    @FXML
-    private Button doSearch = new Button();
-    @FXML
-    private Button toText = new Button();
 
     @FXML
     private void doSearch() {

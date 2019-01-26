@@ -6,12 +6,10 @@ import data.Setting;
 import data.dto.Status;
 import extractor.FileParser;
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.SwipeEvent;
@@ -28,11 +26,7 @@ public class ViewerController implements Initializable {
     @FXML
     private Label pageNum = new Label();
     @FXML
-    private Button changeOrient = new Button();
-    @FXML
-    private Button returnDir = new Button();
-    @FXML
-    private Slider jumpSlider = new Slider();
+    private ScrollBar jumpBar = new ScrollBar();
 
     private void openFile(final File file) {
         Status.onClickFile(file);
@@ -60,6 +54,13 @@ public class ViewerController implements Initializable {
 
     @FXML
     private void doPageClick(MouseEvent mouseEvent) {
+        //进度条
+//        double y = mouseEvent.getY();
+//        if(y > Toolkit.getDefaultToolkit().getScreenSize().height / 2){
+//            jumpBar.setVisible(true);
+//        }
+
+        //翻页
         double x = mouseEvent.getX();
         double middle = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
         if ((x >= middle && Setting.orient == Const.L2R)
@@ -125,6 +126,7 @@ public class ViewerController implements Initializable {
         );
         FileParser.currentPage = page;
         pageNum.setText(FileParser.currentPage + "/" + FileParser.totalPage);
+
     }
 
     private void resize() {
@@ -153,13 +155,11 @@ public class ViewerController implements Initializable {
                     }
             );
         });
-        //滚动条
-        jumpSlider.valueProperty().addListener((ObservableValue<? extends Number> ov,
-                                                Number old_val, Number new_val) -> {
-            int page = (int) Math.round(new_val.doubleValue() * FileParser.totalPage);
-            jumpToPage(page);
-            pageNum.setText(FileParser.currentPage + "/" + FileParser.totalPage);
-        });
+        //当前页
+//        IntegerProperty presentPage = new ReadOnlyIntegerWrapper(FileParser.currentPage);
+//        presentPage.addListener((observable)->{
+//            pageNum.setText(FileParser.currentPage + "/" + FileParser.totalPage);
+//        });
         openFile(Status.getCurrentFile());
 
     }
