@@ -15,7 +15,7 @@
                     onMouseClicked="#returnDir">返回目录
             </Button>
             <Button fx:id="changeOrient" opacity="0.3" minWidth="20"
-                    onMouseClicked="#changeOrient">切换方向
+                    onMouseClicked="#changeOrient">右->左
             </Button>
             <Label fx:id="pageNum" text="1/1" textFill="coral"></Label>
         </HBox>

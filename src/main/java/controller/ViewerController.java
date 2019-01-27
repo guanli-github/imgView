@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
 
 public class ViewerController implements Initializable {
     @FXML
+    private javafx.scene.control.Button changeOrient = new javafx.scene.control.Button();
+    @FXML
     private ImageView imgView = new ImageView();
     @FXML
     private Label pageNum = new Label();
@@ -68,8 +70,10 @@ public class ViewerController implements Initializable {
     private void changeOrient(MouseEvent mouseEvent) {
         if (Setting.orient == Const.L2R) {
             Setting.orient = Const.R2L;
+            changeOrient.setText("右->左");
         } else {
             Setting.orient = Const.L2R;
+            changeOrient.setText("左->右");
         }
         mouseEvent.consume();
     }

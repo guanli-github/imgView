@@ -87,7 +87,6 @@ public class TextController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        resize();
         SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
             Platform.runLater(() -> {
                         resize();
@@ -99,7 +98,15 @@ public class TextController implements Initializable {
         text.setFont(Font.font(16));
         Platform.runLater(() ->
         {
+            resize();
             scrollTo(TextSearchDto.hitLocal);
+            //背景图片
+            if (null != TextSearchDto.bgImg){
+                BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+                BackgroundImage backgroundImage = new BackgroundImage(TextSearchDto.bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+                Background background = new Background(backgroundImage);
+                root.setBackground(background);
+            }
         });
         //进度显示
         DoubleProperty percentScrolled = new SimpleDoubleProperty();
@@ -124,17 +131,6 @@ public class TextController implements Initializable {
 
         }, text.scrollTopProperty()));
         pageNum.textProperty().bind(percentScrolled.asString("%.2f"));
-        //背景图片
-        System.out.println(null != TextSearchDto.bgImg);
-        if (null != TextSearchDto.bgImg){
-            BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
-            BackgroundImage backgroundImage = new BackgroundImage(TextSearchDto.bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
-            Background background = new Background(backgroundImage);
-            Platform.runLater(() ->
-            {
-                root.setBackground(background);
-            });
-        }
         //背景图片选择
         fileChooser.setInitialDirectory(Setting.bgImgDir);
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
