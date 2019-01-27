@@ -4,7 +4,6 @@ import data.Const;
 import data.FileTypeHandler;
 import data.Setting;
 import data.dto.Status;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
@@ -14,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import utils.SceneManager;
 import utils.ThumbnailUtil;
 
+import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -71,8 +71,8 @@ public class FileExploreController implements Initializable {
     }
     @FXML
     private void resize(){
-        double width = SceneManager.getStage().getWidth();
-        double height = SceneManager.getStage().getHeight();
+        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
+        double height = Toolkit.getDefaultToolkit().getScreenSize().height;
 
         files.setPrefWidth(width);
         files.setPrefHeight(height);
@@ -80,9 +80,7 @@ public class FileExploreController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(()->{
-            resize();
-        });
+        resize();
         if(null != Status.currentDir){
             openDir(Status.currentDir);
         }else{
