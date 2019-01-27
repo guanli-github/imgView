@@ -9,7 +9,7 @@
           onMouseClicked="#doPageClick"
           xmlns:fx="http://javafx.com/fxml">
     <children>
-        <HBox GridPane.rowIndex="0" GridPane.columnIndex="0"
+        <HBox GridPane.rowIndex="0"
               spacing="10">
             <Button fx:id="returnDir" opacity="0.3" minWidth="20"
                     onMouseClicked="#returnDir">返回目录

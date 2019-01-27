@@ -136,7 +136,9 @@ public class ViewerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        resize();
+        Platform.runLater(() -> {
+                    resize();
+                });
         SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
             Platform.runLater(() -> {
                         resize();

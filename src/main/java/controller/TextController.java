@@ -44,9 +44,9 @@ public class TextController implements Initializable {
     @FXML
     private void setBgImg() {
         File f = fileChooser.showOpenDialog(null);
-        Image image = new Image("file:" + f.getAbsolutePath());
+        TextSearchDto.bgImg = new Image("file:" + f.getAbsolutePath());
         BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
-        BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+        BackgroundImage backgroundImage = new BackgroundImage(TextSearchDto.bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
         root.setBackground(background);
 
@@ -124,7 +124,18 @@ public class TextController implements Initializable {
 
         }, text.scrollTopProperty()));
         pageNum.textProperty().bind(percentScrolled.asString("%.2f"));
-        //
+        //背景图片
+        System.out.println(null != TextSearchDto.bgImg);
+        if (null != TextSearchDto.bgImg){
+            BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
+            BackgroundImage backgroundImage = new BackgroundImage(TextSearchDto.bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
+            Background background = new Background(backgroundImage);
+            Platform.runLater(() ->
+            {
+                root.setBackground(background);
+            });
+        }
+        //背景图片选择
         fileChooser.setInitialDirectory(Setting.bgImgDir);
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
                 "image filter","*.jpg","*.jpeg","*.gif","*.png","*.bmp"

@@ -12,7 +12,7 @@
         <Button fx:id="exit" onMouseClicked="#exit" >退出</Button>
         </HBox>
         <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="NEVER"  GridPane.rowIndex="1">
-            <ListView fx:id="files"  prefWidth="760" prefHeight="1000" fixedCellSize="60" GridPane.fillWidth="true"
+            <ListView fx:id="files" fixedCellSize="60" GridPane.fillWidth="true"
                       onMouseClicked="#clickFile" onSwipeLeft="#returnParDir"></ListView>
         </ScrollPane>
     </children>
