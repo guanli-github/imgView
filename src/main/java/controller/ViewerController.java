@@ -9,7 +9,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.SwipeEvent;
@@ -25,8 +24,6 @@ public class ViewerController implements Initializable {
     private ImageView imgView = new ImageView();
     @FXML
     private Label pageNum = new Label();
-    @FXML
-    private ScrollBar jumpBar = new ScrollBar();
 
     private void openFile(final File file) {
         Status.onClickFile(file);
@@ -54,12 +51,6 @@ public class ViewerController implements Initializable {
 
     @FXML
     private void doPageClick(MouseEvent mouseEvent) {
-        //进度条
-//        double y = mouseEvent.getY();
-//        if(y > Toolkit.getDefaultToolkit().getScreenSize().height / 2){
-//            jumpBar.setVisible(true);
-//        }
-
         //翻页
         double x = mouseEvent.getX();
         double middle = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
@@ -133,17 +124,14 @@ public class ViewerController implements Initializable {
         double width = SceneManager.getStage().getWidth();
         double height = SceneManager.getStage().getHeight();
 
-//        if (width > height) {
-//            imgView.setFitHeight(height);
-//            imgView.setFitWidth(0);
-//        } else {
-//            imgView.setFitWidth(width);
-//            imgView.setFitHeight(0);
-//
-//        }
-        imgView.setFitWidth(width);
-        imgView.setFitHeight(height);
+        if (width > height) {
+            imgView.setFitHeight(height);
+            imgView.setFitWidth(0);
+        } else {
+            imgView.setFitWidth(width);
+            imgView.setFitHeight(0);
 
+        }
     }
 
     @Override
