@@ -1,5 +1,6 @@
 package utils;
 
+import data.BookMark;
 import data.FileTypeHandler;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -25,6 +26,9 @@ public class ThumbnailUtil {
     }
 
     public static Image getFileThumbnail(File file){
+        if(BookMark.read(file) != 1){ //已读
+            return new Image("/icons/readed.jpg");
+        }
         if(file.isDirectory()){
             return new Image("/icons/dir.jpg");
         }
