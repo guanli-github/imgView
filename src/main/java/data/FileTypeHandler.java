@@ -1,18 +1,14 @@
 package data;
 
-import extractor.IExtractor;
-
 import java.io.File;
 import java.io.FileFilter;
-import java.util.HashMap;
-import java.util.Map;
 
 public class FileTypeHandler {
     //将文件类型与处理者绑定
-    public IExtractor getHandler(String fileType){
-        Map<String,Class> typeMap = new HashMap();
-        return null;
-    }
+//    public IExtractor getHandler(String fileType){
+//        Map<String,Class> typeMap = new HashMap();
+//        return null;
+//    }
 
     public static FileFilter imgFilter = ((File file)->{
             if(file.isDirectory()){
