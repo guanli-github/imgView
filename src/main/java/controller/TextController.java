@@ -1,7 +1,7 @@
 package controller;
 
 import data.Setting;
-import data.dto.Status;
+import data.dto.FileDto;
 import data.dto.TextSearchDto;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -93,7 +93,7 @@ public class TextController implements Initializable {
                     }
             );
         });
-        TextSearchDto.fullContent = TextUtil.readTxt(Status.getCurrentFile());
+        TextSearchDto.fullContent = TextUtil.readTxt(FileDto.getCurrentFile());
         text.setText(TextSearchDto.fullContent);
         text.setFont(Font.font(16));
         Platform.runLater(() ->

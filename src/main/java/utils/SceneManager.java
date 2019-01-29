@@ -39,6 +39,8 @@ public class SceneManager {
     }
 
     public static Stage getStage(){
+        stage.setFullScreen(true);
+        stage.setResizable(false);
         return stage;
     }
 }

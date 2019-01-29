@@ -8,7 +8,7 @@ import utils.FileUtil;
 import java.io.File;
 
 //阅读设定，用来保存和在页面间传递信息
-public class Status {
+public class FileDto {
 
     public static File currentDir =  null;
     public static ObservableList<File> currentFileList = FXCollections.observableArrayList();
@@ -60,5 +60,18 @@ public class Status {
     public static File getCurrentFile(){
         return currentFileList.get(currentFileIndex);
     }
-
+    //打开文件夹中下一文件
+    public static File nextFile(){
+        if(currentFileIndex < currentFileList.size()){
+            return currentFileList.get(currentFileIndex+1);
+        }
+        return getCurrentFile();
+    }
+    //打开文件夹中上一文件
+    public static File preFile(){
+        if(currentFileIndex > 1){
+            return currentFileList.get(currentFileIndex-1);
+        }
+        return getCurrentFile();
+    }
 }

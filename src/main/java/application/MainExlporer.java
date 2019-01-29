@@ -12,6 +12,7 @@ public class MainExlporer extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/explorer.fxml"));
         stage.setFullScreen(true);
+        stage.setResizable(false);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         scene.getStylesheets().add

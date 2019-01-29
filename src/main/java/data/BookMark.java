@@ -1,6 +1,6 @@
 package data;
 
-import data.dto.Status;
+import data.dto.FileDto;
 import extractor.FileParser;
 import utils.ConfigUtils;
 
@@ -24,7 +24,7 @@ public class BookMark {
      * 保存当前进度
      */
     public static boolean saveCurrent(){
-        save(Status.getCurrentFile(), FileParser.currentPage);
+        save(FileDto.getCurrentFile(), FileParser.currentPage);
         return true;
     }
 

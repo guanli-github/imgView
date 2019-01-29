@@ -3,7 +3,7 @@ package controller;
 import data.Const;
 import data.FileTypeHandler;
 import data.Setting;
-import data.dto.Status;
+import data.dto.FileDto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
@@ -25,7 +25,7 @@ public class FileExploreController implements Initializable {
     //返回上一级目录
     @FXML
     private void returnParDir(){
-        File par = Status.currentDir.getParentFile();
+        File par = FileDto.currentDir.getParentFile();
         if(null == par){
             SceneManager.toRoot();
             return;
@@ -38,9 +38,9 @@ public class FileExploreController implements Initializable {
     }
     //进入目录，显示文件视图
     private void openDir(File dir) {
-        Status.onChangeDir(dir);
+        FileDto.onChangeDir(dir);
         files.setItems(null);
-        files.setItems(Status.currentFileList);
+        files.setItems(FileDto.currentFileList);
         files.setCellFactory((files)->new FileCell());
 
     }
@@ -60,7 +60,7 @@ public class FileExploreController implements Initializable {
     }
 
     private void openFile(File f){
-        Status.onClickFile(f);
+        FileDto.onClickFile(f);
         if(FileTypeHandler.docFilter.accept(f)){
             SceneManager.toViewer();
             return;
@@ -81,8 +81,8 @@ public class FileExploreController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         resize();
-        if(null != Status.currentDir){
-            openDir(Status.currentDir);
+        if(null != FileDto.currentDir){
+            openDir(FileDto.currentDir);
         }else{
             openDir(Setting.deafultDir);
         }

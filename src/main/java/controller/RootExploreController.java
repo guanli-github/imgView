@@ -1,6 +1,6 @@
 package controller;
 
-import data.dto.Status;
+import data.dto.FileDto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
@@ -38,7 +38,7 @@ public class RootExploreController implements Initializable {
     }
 
     private void openFile(File f) {
-        Status.onChangeDir(f);
+        FileDto.onChangeDir(f);
         SceneManager.toExplorer();
         return;
     }
@@ -47,8 +47,8 @@ public class RootExploreController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         files.setPrefWidth(Toolkit.getDefaultToolkit().getScreenSize().width);
         files.setPrefHeight(Toolkit.getDefaultToolkit().getScreenSize().height);
-        Status.changeToRoot();
-        files.setItems(Status.currentFileList);
+        FileDto.changeToRoot();
+        files.setItems(FileDto.currentFileList);
         files.setCellFactory((ListView<File> listView)->new RootExploreController.RootCell());
     }
 

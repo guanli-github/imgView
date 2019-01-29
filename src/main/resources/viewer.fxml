@@ -5,6 +5,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <GridPane id="root" fx:id="root" fx:controller="controller.ViewerController"
+          alignment="CENTER"
+          gridLinesVisible="true"
           onSwipeLeft="#doLeft" onSwipeRight="#doRight"
           onMouseClicked="#doPageClick"
           xmlns:fx="http://javafx.com/fxml">

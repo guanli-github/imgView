@@ -3,7 +3,7 @@ package controller;
 import data.BookMark;
 import data.Const;
 import data.Setting;
-import data.dto.Status;
+import data.dto.FileDto;
 import extractor.FileParser;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -28,7 +28,7 @@ public class ViewerController implements Initializable {
     private Label pageNum = new Label();
 
     private void openFile(final File file) {
-        Status.onClickFile(file);
+        FileDto.onClickFile(file);
         FileParser.refreash(file);
         jumpToPage(FileParser.currentPage);
     }
@@ -100,22 +100,12 @@ public class ViewerController implements Initializable {
         if (page > FileParser.totalPage) return;
         if (page < 1) return;
 
-//        if (page > FileParser.totalPage) { //打开文件夹中下一文件
-//            if(Status.currentFileIndex < Status.currentFileList.length){
-//                Status.currentFileIndex += 1;
-//                openFile(Status.currentFileList[Status.currentFileIndex]);
-//            }else{
-//                return;
-//            }
-//        }
-//        if (page < 1) //打开文件夹中上一文件
-//            if(Status.currentFileIndex > 0){
-//                Status.currentFileIndex -= 1;
-//                openFile(Status.currentFileList[Status.currentFileIndex]);
-//            }else{
-//                return;
-//            }
-
+        if (page > FileParser.totalPage) { //打开文件夹中下一文件
+            openFile(FileDto.nextFile());
+        }
+        if (page < 1) {//打开文件夹中上一文件
+            openFile(FileDto.preFile());
+        }
         imgView.setImage(
                 FileParser.getImage(page)
         );
@@ -127,6 +117,8 @@ public class ViewerController implements Initializable {
     private void resize() {
         double width = SceneManager.getStage().getWidth();
         double height = SceneManager.getStage().getHeight();
+//        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
+//        double height = Toolkit.getDefaultToolkit().getScreenSize().height;
 
         if (width > height) {
             imgView.setFitHeight(height);
@@ -134,7 +126,6 @@ public class ViewerController implements Initializable {
         } else {
             imgView.setFitWidth(width);
             imgView.setFitHeight(0);
-
         }
     }
 
@@ -154,7 +145,7 @@ public class ViewerController implements Initializable {
 //        presentPage.addListener((observable)->{
 //            pageNum.setText(FileParser.currentPage + "/" + FileParser.totalPage);
 //        });
-        openFile(Status.getCurrentFile());
+        openFile(FileDto.getCurrentFile());
 
     }
 

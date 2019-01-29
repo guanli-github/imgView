@@ -17,3 +17,7 @@
 .text-area .scroll-pane .content{
     -fx-background-color: transparent;
 }
+//隐藏滚动条
+.text-area .scroll-bar:vertical:disabled {
+    -fx-opacity: 0;
+}
