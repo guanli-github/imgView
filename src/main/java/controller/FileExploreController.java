@@ -33,7 +33,7 @@ public class FileExploreController implements Initializable {
         openDir(par);
     }
     @FXML
-    private void exit(MouseEvent mouseEvent) {
+    private void exit() {
         System.exit(0);
     }
     //进入目录，显示文件视图

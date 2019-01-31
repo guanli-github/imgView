@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Img implements IExtractor {
+public class Img {
     private static List<File> imgFiles = new ArrayList<>();
 
     static void reInit(File file) {

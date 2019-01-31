@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Pdf implements IExtractor{
+public class Pdf {
     private static PDFRenderer renderer;
 
     static void reInit(File file){

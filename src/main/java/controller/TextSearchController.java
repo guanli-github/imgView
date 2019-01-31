@@ -38,12 +38,12 @@ public class TextSearchController implements Initializable {
     }
     @FXML
     private void enterSearch(KeyEvent keyEvent) {
-        if(keyEvent.getCode() == KeyCode.ENTER){
+        if(keyEvent.getCode().equals(KeyCode.ENTER)){
             doSearch();
         }
     }
     @FXML
-    private  void toText(MouseEvent mouseEvent) {
+    private  void toText() {
         SceneManager.toText();
         return;
     }

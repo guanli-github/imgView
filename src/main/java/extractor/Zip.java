@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Zip implements IExtractor {
+public class Zip {
     private static ZipFile zipFile = null;
     private static ArrayList<ZipEntry> zes = null;
 

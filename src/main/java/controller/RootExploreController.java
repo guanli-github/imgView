@@ -21,7 +21,7 @@ public class RootExploreController implements Initializable {
     private ListView<File> files = new ListView();
 
     @FXML
-    private void exit(MouseEvent mouseEvent) {
+    private void exit() {
         System.exit(0);
     }
 

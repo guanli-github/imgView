@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
@@ -54,7 +53,7 @@ public class TextController implements Initializable {
     }
 
     @FXML
-    private void toSearch(MouseEvent mouseEvent) {
+    private void toSearch() {
         TextSearchDto.readIndex = text.getScrollTop();//保存阅读进度
         SceneManager.toSearch();
         return;

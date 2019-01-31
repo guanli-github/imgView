@@ -42,7 +42,7 @@ public class FileDto {
     //在当前目录下点击文件时调用
     public static boolean onClickFile(File f){
         if(f.isDirectory()) return false;
-        if(currentDir == null ||
+        if(currentDir == null ||      //初始化时赋值
                 currentFileList == null ||
                 !currentDir.equals(f.getParentFile())) {
             currentDir = f.getParentFile();
@@ -62,7 +62,7 @@ public class FileDto {
     }
     //打开文件夹中下一文件
     public static File nextFile(){
-        if(currentFileIndex < currentFileList.size()){
+        if(currentFileIndex < currentFileList.size()-1){
             return currentFileList.get(currentFileIndex+1);
         }
         return getCurrentFile();

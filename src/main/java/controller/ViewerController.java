@@ -10,8 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.SwipeEvent;
 import utils.SceneManager;
 
 import java.awt.*;
@@ -34,7 +35,7 @@ public class ViewerController implements Initializable {
     }
 
     @FXML
-    private void doLeft(SwipeEvent s) {
+    private void doLeft() {
         if (Setting.orient == Const.L2R) {
             nextPage();
         } else {
@@ -43,7 +44,7 @@ public class ViewerController implements Initializable {
     }
 
     @FXML
-    private void doRight(SwipeEvent s) {
+    private void doRight() {
         if (Setting.orient == Const.R2L) {
             nextPage();
         } else {
@@ -64,7 +65,15 @@ public class ViewerController implements Initializable {
         }
         mouseEvent.consume();
     }
-
+    @FXML
+    private void keyPressed(KeyEvent keyEvent) {
+        if(keyEvent.getCode().equals(KeyCode.LEFT)){
+            doLeft();
+        }else if(keyEvent.getCode().equals(KeyCode.RIGHT)){
+            doRight();
+        }
+        keyEvent.consume();
+    }
     //更改翻页方式
     @FXML
     private void changeOrient(MouseEvent mouseEvent) {
@@ -80,7 +89,7 @@ public class ViewerController implements Initializable {
 
     //返回目录
     @FXML
-    private void returnDir(MouseEvent mouseEvent) {
+    private void returnDir() {
         BookMark.saveCurrent();
         SceneManager.toExplorer();
     }
@@ -98,14 +107,16 @@ public class ViewerController implements Initializable {
     private void jumpToPage(int page) {
         if (0 >= FileParser.totalPage) return;
         if (page > FileParser.totalPage) return;
-        if (page < 1) return;
+        if (page < 0) return;
 
-        if (page > FileParser.totalPage) { //打开文件夹中下一文件
-            openFile(FileDto.nextFile());
-        }
-        if (page < 1) {//打开文件夹中上一文件
-            openFile(FileDto.preFile());
-        }
+        //1 前后的文件可能是文本类型的
+        // 2 文件列表没按默认方式排序
+//        if (page > FileParser.totalPage) { //打开文件夹中下一文件
+//            openFile(FileDto.nextFile());
+//        }
+//        if (page < 1) {//打开文件夹中上一文件
+//            openFile(FileDto.preFile());
+//        }
         imgView.setImage(
                 FileParser.getImage(page)
         );
@@ -117,8 +128,6 @@ public class ViewerController implements Initializable {
     private void resize() {
         double width = SceneManager.getStage().getWidth();
         double height = SceneManager.getStage().getHeight();
-//        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
-//        double height = Toolkit.getDefaultToolkit().getScreenSize().height;
 
         if (width > height) {
             imgView.setFitHeight(height);
@@ -140,11 +149,6 @@ public class ViewerController implements Initializable {
                     }
             );
         });
-        //当前页
-//        IntegerProperty presentPage = new ReadOnlyIntegerWrapper(FileParser.currentPage);
-//        presentPage.addListener((observable)->{
-//            pageNum.setText(FileParser.currentPage + "/" + FileParser.totalPage);
-//        });
         openFile(FileDto.getCurrentFile());
 
     }

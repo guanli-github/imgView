@@ -8,6 +8,7 @@
           alignment="CENTER"
           onSwipeLeft="#doLeft" onSwipeRight="#doRight"
           onMouseClicked="#doPageClick"
+          onKeyPressed="#keyPressed"
           xmlns:fx="http://javafx.com/fxml">
     <children>
         <HBox GridPane.rowIndex="0"
