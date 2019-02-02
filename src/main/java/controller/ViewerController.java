@@ -95,13 +95,11 @@ public class ViewerController implements Initializable {
     }
 
     private void nextPage() {
-        FileParser.currentPage += 1;
-        jumpToPage(FileParser.currentPage);
+        jumpToPage(FileParser.currentPage+1);
     }
 
     private void prePage() {
-        FileParser.currentPage -= 1;
-        jumpToPage(FileParser.currentPage);
+        jumpToPage(FileParser.currentPage-1);
     }
 
     private void jumpToPage(int page) {
