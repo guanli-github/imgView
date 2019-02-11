@@ -58,7 +58,7 @@ public class ViewerController implements Initializable {
         double x = mouseEvent.getX();
         double middle = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
         if (x >= middle) {
-            doLeft();
+            doRight();
         } else {
             doLeft();
         }
@@ -94,13 +94,11 @@ public class ViewerController implements Initializable {
     }
 
     private void nextPage() {
-        FileParser.currentPage += 1;
-        jumpToPage(FileParser.currentPage);
+        jumpToPage(FileParser.currentPage+1);
     }
 
     private void prePage() {
-        FileParser.currentPage -= 1;
-        jumpToPage(FileParser.currentPage);
+        jumpToPage(FileParser.currentPage-1);
     }
 
     private void jumpToPage(int page) {
