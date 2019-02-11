@@ -13,7 +13,8 @@
         </HBox>
         <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="NEVER"  GridPane.rowIndex="1">
             <ListView fx:id="files" fixedCellSize="60" GridPane.fillWidth="true"
-                      onMouseClicked="#clickFile" onSwipeLeft="#returnParDir"></ListView>
+                      onMouseClicked="#clickFile" onTouchReleased="#moveFileToTrash"
+                      onSwipeLeft="#returnParDir"></ListView>
         </ScrollPane>
     </children>
 </GridPane>

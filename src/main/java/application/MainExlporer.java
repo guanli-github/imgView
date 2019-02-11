@@ -13,6 +13,7 @@ public class MainExlporer extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/explorer.fxml"));
         stage.setFullScreen(true);
         stage.setResizable(false);
+        stage.setFullScreenExitHint("");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         scene.getStylesheets().add

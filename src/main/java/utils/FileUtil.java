@@ -1,9 +1,10 @@
 package utils;
 
+import com.sun.jna.platform.FileUtils;
 import data.Const;
 
 import java.io.File;
-import java.io.FileFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,25 @@ public class FileUtil {
             result[i] = Integer.parseInt(tmp.get(i));
         }
         return result;
+    }
+    /**
+     *
+     * @param filePath
+     * @return true on successful deletion of the file, filePath is null (or) empty.
+     *         false in all other cases.
+     */
+    public static boolean moveFileToTrash(File[] filesToDel) {
+        FileUtils fileUtils = FileUtils.getInstance();
+        if (!fileUtils.hasTrash()) {
+            return false;
+        }
+        try {
+            fileUtils.moveToTrash(filesToDel);
+            return true;
+        } catch (IOException e) {
+            System.out.println("Error while moving the file to trash " + e.getMessage());
+            return false;
+        }
     }
 
     public static boolean isSupportImg(String type){

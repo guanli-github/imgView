@@ -36,7 +36,7 @@ public class ViewerController implements Initializable {
 
     @FXML
     private void doLeft() {
-        if (Setting.orient == Const.L2R) {
+        if (Setting.orient == Const.R2L) {
             nextPage();
         } else {
             prePage();
@@ -45,7 +45,7 @@ public class ViewerController implements Initializable {
 
     @FXML
     private void doRight() {
-        if (Setting.orient == Const.R2L) {
+        if (Setting.orient == Const.L2R) {
             nextPage();
         } else {
             prePage();
@@ -57,11 +57,10 @@ public class ViewerController implements Initializable {
         //翻页
         double x = mouseEvent.getX();
         double middle = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
-        if ((x >= middle && Setting.orient == Const.L2R)
-                || (x < middle && Setting.orient == Const.R2L)) {
-            nextPage();
+        if (x >= middle) {
+            doLeft();
         } else {
-            prePage();
+            doLeft();
         }
         mouseEvent.consume();
     }
