@@ -71,8 +71,9 @@ public class FileExploreController implements Initializable {
         Alert isDelete = new Alert(Alert.AlertType.CONFIRMATION,"确认删除"+filename+"?");
         isDelete.setTitle("");
         isDelete.setHeaderText("");
+        isDelete.initOwner(SceneManager.getStage());
         Optional<ButtonType> confirm = isDelete.showAndWait();
-        if (confirm.get() == ButtonType.OK){
+        if (confirm.isPresent() && confirm.get() == ButtonType.OK){
             boolean result = FileUtil.moveFileToTrash(
                     new File[]{choosed}
             );
@@ -80,6 +81,7 @@ public class FileExploreController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION,filename+resultStr);
             alert.setTitle("");
             alert.setHeaderText("");
+            alert.initOwner(SceneManager.getStage());
             alert.show();
             openDir(FileDto.currentDir);
         }
