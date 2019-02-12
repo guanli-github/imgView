@@ -6,7 +6,7 @@ public class Const {
 
     public static final int iconSize = 20; //icon尺寸
 
-    public static final int textBias = 10; //中心字与搜索top的差值
+    public static final int textBias = 30; //中心字与搜索top的差值
     public static final int txtBias = 0; //中心字与页首的差值
 
 

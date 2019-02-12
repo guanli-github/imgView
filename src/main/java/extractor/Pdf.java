@@ -28,7 +28,6 @@ public class Pdf {
         FileParser.totalPage = document.getNumberOfPages();
     }
     public static Image getImage(int page){
-        System.out.println(page);
         BufferedImage image=null;
         try {
             image=(BufferedImage)document.getPageImage(page,

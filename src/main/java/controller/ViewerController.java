@@ -8,7 +8,9 @@ import extractor.FileParser;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -27,6 +29,8 @@ public class ViewerController implements Initializable {
     private ImageView imgView = new ImageView();
     @FXML
     private Label pageNum = new Label();
+    @FXML
+    private Slider slider = new Slider();
 
     private void openFile(final File file) {
         FileDto.onClickFile(file);
@@ -54,6 +58,11 @@ public class ViewerController implements Initializable {
 
     @FXML
     private void doPageClick(MouseEvent mouseEvent) {
+        //双击显示进度条
+        if(mouseEvent.getClickCount() == 2){
+            showSlider();
+            return;
+        }
         //翻页
         double x = mouseEvent.getX();
         double middle = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
@@ -64,12 +73,34 @@ public class ViewerController implements Initializable {
         }
         mouseEvent.consume();
     }
+    //显示进度条
+    private void showSlider(){
+        if(Setting.orient == Const.R2L){
+            slider.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        }
+        slider.setMax(FileParser.totalPage);
+        imgView.toBack();
+        imgView.setOpacity(0.1);
+        slider.setVisible(true);
+    }
+    @FXML
+    private void onSliderChanged(){
+        int page = (int)slider.getValue();
+        jumpToPage(page);
+        slider.setVisible(false);
+        imgView.setOpacity(1.0);
+        imgView.toFront();
+    }
     @FXML
     private void keyPressed(KeyEvent keyEvent) {
+        System.out.println(keyEvent.getCode());
         if(keyEvent.getCode().equals(KeyCode.LEFT)){
             doLeft();
         }else if(keyEvent.getCode().equals(KeyCode.RIGHT)){
             doRight();
+        }else if(keyEvent.getCode().equals(KeyCode.SPACE)){
+            //空格键显示进度条
+            showSlider();
         }
         keyEvent.consume();
     }

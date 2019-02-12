@@ -57,7 +57,6 @@ public class TextSearchController implements Initializable {
             TextSearchDto.hitIndex = results.getItems().indexOf(hitted);//保存搜索进度
             //索引值除以总长度
             TextSearchDto.hitLocal = hitted.indexInString / (double) TextSearchDto.fullContent.length();
-            System.out.println(hitted.indexInString /(double) TextSearchDto.fullContent.length());
             SceneManager.toText();
             return;
         }
