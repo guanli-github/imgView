@@ -63,6 +63,7 @@ public class ViewerController implements Initializable {
             showSlider();
             return;
         }
+
         //翻页
         double x = mouseEvent.getX();
         double middle = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
@@ -98,8 +99,8 @@ public class ViewerController implements Initializable {
             doLeft();
         }else if(keyEvent.getCode().equals(KeyCode.RIGHT)){
             doRight();
-        }else if(keyEvent.getCode().equals(KeyCode.SPACE)){
-            //空格键显示进度条
+        }else if(keyEvent.getCode().equals(KeyCode.SHIFT)){
+            //Shift键显示进度条
             showSlider();
         }
         keyEvent.consume();
