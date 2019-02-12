@@ -58,9 +58,15 @@ public class ViewerController implements Initializable {
 
     @FXML
     private void doPageClick(MouseEvent mouseEvent) {
-        //双击显示进度条
-        if(mouseEvent.getClickCount() == 2){
-            showSlider();
+        //点击下方显示进度条
+        double y = mouseEvent.getY();
+        if(y >=
+                (Toolkit.getDefaultToolkit().getScreenSize().height *2/3)){
+            try{
+                showSlider();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             return;
         }
 
@@ -76,6 +82,12 @@ public class ViewerController implements Initializable {
     }
     //显示进度条
     private void showSlider(){
+        if(slider.visibleProperty().getValue()){//进度条已显示就隐藏
+            slider.setVisible(false);
+            imgView.setOpacity(1.0);
+            imgView.toFront();
+            return;
+        }
         if(Setting.orient == Const.R2L){
             slider.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         }
@@ -94,7 +106,6 @@ public class ViewerController implements Initializable {
     }
     @FXML
     private void keyPressed(KeyEvent keyEvent) {
-        System.out.println(keyEvent.getCode());
         if(keyEvent.getCode().equals(KeyCode.LEFT)){
             doLeft();
         }else if(keyEvent.getCode().equals(KeyCode.RIGHT)){

@@ -1,7 +1,6 @@
 package utils;
 
 import data.BookMark;
-import data.FileTypeHandler;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import net.coobird.thumbnailator.Thumbnails;

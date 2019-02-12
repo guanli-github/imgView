@@ -2,7 +2,7 @@ package extractor;
 
 import data.BookMark;
 import data.Const;
-import data.FileTypeHandler;
+import utils.FileTypeHandler;
 import javafx.scene.image.Image;
 
 import java.io.File;

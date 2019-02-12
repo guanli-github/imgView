@@ -1,7 +1,7 @@
 package controller;
 
 import data.Const;
-import data.FileTypeHandler;
+import utils.FileTypeHandler;
 import data.Setting;
 import data.dto.FileDto;
 import javafx.fxml.FXML;

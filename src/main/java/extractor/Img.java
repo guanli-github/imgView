@@ -1,7 +1,7 @@
 package extractor;
 
 import data.Const;
-import data.FileTypeHandler;
+import utils.FileTypeHandler;
 import data.dto.FileDto;
 import javafx.scene.image.Image;
 import utils.FileUtil;

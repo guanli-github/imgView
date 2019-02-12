@@ -1,6 +1,6 @@
 package data.dto;
 
-import data.FileTypeHandler;
+import utils.FileTypeHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import utils.FileUtil;
