@@ -25,7 +25,8 @@ public class FileUtil {
                     :
                     -1;
         }
-        return 0;
+        //使用String的比较方法作为最后手段
+        return name1.compareTo(name2);
     }
     //清除分隔符号，（待定）将字母转换成可比较的数字，便于进一步比较
     private static long[] clearDelimitor(String str) {
@@ -54,7 +55,6 @@ public class FileUtil {
             fileUtils.moveToTrash(filesToDel);
             return true;
         } catch (IOException e) {
-            System.out.println("Error while moving the file to trash " + e.getMessage());
             return false;
         }
     }

@@ -59,4 +59,19 @@ public class ConfigUtils {
         return true;
     }
 
+    public static boolean removeConfig(String propertyName, String key){
+        Properties props = new Properties();
+        try {
+            props.load(new FileInputStream(confdir + propertyName + ".properties"));
+            OutputStream fos = new FileOutputStream(confdir + propertyName + ".properties");
+            props.remove(key);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:ss:mm");
+            props.store(fos, sdf.format(new Date()));
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

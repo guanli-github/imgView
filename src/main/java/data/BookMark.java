@@ -2,9 +2,11 @@ package data;
 
 import data.dto.FileDto;
 import extractor.FileParser;
+import org.apache.tools.ant.util.DateUtils;
 import utils.ConfigUtils;
 
 import java.io.File;
+import java.util.Date;
 
 public class BookMark {
 
@@ -15,14 +17,25 @@ public class BookMark {
      * @return 成功与否
      */
     public static boolean save(File file, int index){
-//        if (index <=1)
-////            return true;
+        if (index <=1){
+            ConfigUtils.removeConfig("bookmark",file.getAbsolutePath());
+            return true;
+        }
         ConfigUtils.setConfig("bookmark",file.getAbsolutePath(),index+"");
+        if(index == FileParser.totalPage){ //已经读完
+            ConfigUtils.setConfig("readed",file.getAbsolutePath(),DateUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
+        }
+
         return true;
     }
-    /**
-     * 保存当前进度
-     */
+    //是否读完
+    public static boolean isReaded(File file){
+        String record = ConfigUtils.getConfig("",file.getAbsolutePath());
+        return null != record?true:false;
+    }
+        /**
+         * 保存当前进度
+         */
     public static boolean saveCurrent(){
         save(FileDto.getCurrentFile(), FileParser.currentPage);
         return true;

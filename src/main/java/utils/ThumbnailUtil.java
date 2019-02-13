@@ -25,8 +25,11 @@ public class ThumbnailUtil {
     }
 
     public static Image getFileThumbnail(File file){
-        if(BookMark.read(file) != 1){ //已读
+        if(BookMark.isReaded(file)){ //已读
             return new Image("/icons/readed.jpg");
+        }
+        if(BookMark.read(file) != 1){ //正在读
+            return new Image("/icons/reading.jpg");
         }
         if(file.isDirectory()){
             return new Image("/icons/dir.jpg");

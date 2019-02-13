@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import utils.ModalUtil;
 import utils.SceneManager;
 
 import java.awt.*;
@@ -83,18 +84,14 @@ public class ViewerController implements Initializable {
     //显示进度条
     private void showSlider(){
         if(slider.visibleProperty().getValue()){//进度条已显示就隐藏
-            slider.setVisible(false);
-            imgView.setOpacity(1.0);
-            imgView.toFront();
+            ModalUtil.hide(slider,imgView);
             return;
         }
         if(Setting.orient == Const.R2L){
             slider.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         }
         slider.setMax(FileParser.totalPage);
-        imgView.toBack();
-        imgView.setOpacity(0.1);
-        slider.setVisible(true);
+        ModalUtil.show(slider,imgView);
     }
     @FXML
     private void onSliderChanged(){

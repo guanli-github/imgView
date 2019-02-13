@@ -43,30 +43,36 @@ public class TextSearchController implements Initializable {
         }
     }
     @FXML
-    private  void toText() {
+    private void toText() {
         SceneManager.toText();
         return;
+    }
+    //显示目录
+    @FXML
+    private void toChapter(){
+        results.setItems(TextSearchDto.getChapterNames());
+        results.setCellFactory((results) -> new ChapterCell());
     }
     //点击某条搜索结果时调用
     @FXML
     private void hitResult(MouseEvent click) {
-        if (click.getClickCount() == 2) {
-            SearchResult hitted = (SearchResult) results.getSelectionModel()
-                    .getSelectedItem();
-            if (null == hitted) return;
-            TextSearchDto.hitIndex = results.getItems().indexOf(hitted);//保存搜索进度
-            //索引值除以总长度
-            TextSearchDto.hitLocal = hitted.indexInString / (double) TextSearchDto.fullContent.length();
-            SceneManager.toText();
-            return;
-        }
+//        if (click.getClickCount() != 2) return;
+//
+//        SearchResult hitted = (SearchResult) results.getSelectionModel()
+//                .getSelectedItem();
+//        if (null == hitted) return;
+//        TextSearchDto.hitIndex = results.getItems().indexOf(hitted);//保存搜索进度
+//        //索引值除以总长度
+//        TextSearchDto.hitLocal = hitted.indexInChapter / (double) TextSearchDto.document.getContent().length();
+//        SceneManager.toText();
+        return;
     }
 
     //搜索出结果
     private List<SearchResult> getResults(String searchWord) {
         int bias = Const.textBias;
         List<Integer> indexes = new ArrayList();
-        int a = TextSearchDto.fullContent.indexOf(searchWord);//*第一个出现的索引位置
+        int a = TextSearchDto.document.getContent().indexOf(searchWord);//*第一个出现的索引位置
 
         while (a != -1) {
             if(a > Const.txtBias){
@@ -74,20 +80,20 @@ public class TextSearchController implements Initializable {
             }else{
                 indexes.add(Const.txtBias);
             }
-            a = TextSearchDto.fullContent.indexOf(searchWord, a + 1);//*从这个索引往后开始第一个出现的位置
+            a = TextSearchDto.document.getContent().indexOf(searchWord, a + 1);//*从这个索引往后开始第一个出现的位置
         }
         List<SearchResult> list = new ArrayList<>();
-        int length = TextSearchDto.fullContent.length();
+        int length = TextSearchDto.document.getContent().length();
         int count = indexes.size();
 
         if ((indexes.get(0) - bias) <= 0) indexes.set(0,bias);
         if ((indexes.get(count-1) + bias) >= length) indexes.set(count-1,(length - bias));
-        for (int index : indexes) {
-            list.add(
-                    new SearchResult(index,
-                            TextSearchDto.fullContent.substring(index - bias, index + bias))
-            );
-        }
+//        for (int index : indexes) {
+//            list.add(
+//                    new SearchResult(index,
+//                            TextSearchDto.document.getContent().substring(index - bias, index + bias))
+//            );
+//        }
         return list;
     }
 
@@ -130,6 +136,16 @@ public class TextSearchController implements Initializable {
             }
         }
     }
-
+    static class ChapterCell extends ListCell<String> {
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            if (item != null) {
+                this.setText(item);
+            } else {
+                this.setText("");
+            }
+        }
+    }
 
 }
