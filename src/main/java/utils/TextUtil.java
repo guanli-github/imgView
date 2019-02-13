@@ -1,5 +1,7 @@
 package utils;
 
+import data.ChapteredText;
+
 import java.io.*;
 
 public class TextUtil {
@@ -67,4 +69,20 @@ public class TextUtil {
 
     }
 
+    /**
+     * 解析出章节目录
+     * @param content 文本
+     * @return 划分好章节的文本
+     */
+    public static ChapteredText splitChapter(String content) {
+        String[] patterns;
+        int[] ints = new int[10];
+        String[] strs = new String[10];
+        if(ints.length == 0){
+
+        }
+        ChapteredText document = new ChapteredText(content,strs,ints);
+
+        return document;
+    }
 }

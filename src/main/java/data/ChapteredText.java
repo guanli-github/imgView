@@ -5,8 +5,7 @@ public class ChapteredText {
     private String[] chapterNames;//章节名的数组
     private int[] chaterIndexes;//章节起始点在文本中的位置
 
-    private ChapteredText() {
-    }
+    private ChapteredText() {}
 
     public String getContent() {
         return content;
@@ -16,10 +15,14 @@ public class ChapteredText {
         return chapterNames;
     }
 
-    public ChapteredText(String content) {
+    public double getScrollInChapter(int chapterIndex,int indexInChapter){
+        int length = chaterIndexes[chapterIndex+1]-chaterIndexes[chapterIndex];
+        return indexInChapter / (double)length;
+    }
+    public ChapteredText(String content, String[] chapterNames, int[] chaterIndexes) {
         this.content = content;
-        this.chaterIndexes = splitChapter(content);
-        //this.chapterNames=;
+        this.chapterNames = chapterNames;
+        this.chaterIndexes = chaterIndexes;
     }
 
     public int getChapterNum() {
@@ -42,13 +45,18 @@ public class ChapteredText {
     }
 
     /**
-     * 解析出章节目录
-     *
-     * @param content 文本
-     * @return 各章节起始位置
+     * 根据全文中的位置获取章节编号
+     * @param index 全文中的位置
+     * @return
      */
-    private static int[] splitChapter(String content) {
-        int[] ints = new int[10];
-        return ints;
+    public int inChapter(int index){
+        int len = chaterIndexes.length;
+        for(int i=0;i<len;i++){
+            if(chaterIndexes[i]<index && chaterIndexes[i+1]>index){
+                return i;
+            }
+        }
+        return 0;
     }
+
 }

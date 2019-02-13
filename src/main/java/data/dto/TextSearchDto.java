@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 public class TextSearchDto {
     public static ChapteredText document;
     private static int presentChapter; //当前章节
-    public static int presentScroll; //当前章节中的阅读进度
+    public static double presentScroll; //当前章节中的阅读进度
     public static Image bgImg =null;//背景图片
     public static String searchWord;
 
@@ -28,4 +28,8 @@ public class TextSearchDto {
         return document.getChapter(presentChapter);
     }
     public static ObservableList<SearchResult> searchResultList = FXCollections.observableArrayList();
+
+    public static void setPresentChapter(int presentChapter) {
+        TextSearchDto.presentChapter = presentChapter;
+    }
 }

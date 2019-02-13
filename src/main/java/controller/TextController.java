@@ -1,10 +1,12 @@
 package controller;
 
-import data.ChapteredText;
 import data.Setting;
 import data.dto.FileDto;
 import data.dto.TextSearchDto;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -105,7 +107,8 @@ public class TextController implements Initializable {
                     }
             );
         });
-        TextSearchDto.document = new ChapteredText(
+        //初始化文档
+        TextSearchDto.document = TextUtil.splitChapter(
                 TextUtil.readTxt(FileDto.getCurrentFile()));
         text.setText(TextSearchDto.document.getChapter(1));
         text.setFont(Font.font(16));
@@ -121,29 +124,29 @@ public class TextController implements Initializable {
                 root.setBackground(background);
             }
         });
-//        //进度显示
-//        DoubleProperty percentScrolled = new SimpleDoubleProperty();
-//        percentScrolled.bind(Bindings.createDoubleBinding(() -> {
-//
-//            Node text1 = text.lookup(".content");
-//            Node scrollPane = text.lookup(".scroll-pane");
-//
-//            if (text1 == null || scrollPane == null) {
-//                return 0.0 ;
-//            }
-//
-//            double textHeight = text1.getLayoutBounds().getHeight();
-//            double textAreaHeight = ((ScrollPane) scrollPane).getViewportBounds().getHeight();
-//
-//            if (textHeight <= textAreaHeight) {
-//                return 100.0 ;
-//            }
-//
-//            return 100.0 * text.getScrollTop() / (textHeight - textAreaHeight) ;
-//
-//
-//        }, text.scrollTopProperty()));
-//        pageNum.textProperty().bind(percentScrolled.asString("%.2f"));
+        //进度显示
+        DoubleProperty percentScrolled = new SimpleDoubleProperty();
+        percentScrolled.bind(Bindings.createDoubleBinding(() -> {
+
+            Node text1 = text.lookup(".content");
+            Node scrollPane = text.lookup(".scroll-pane");
+
+            if (text1 == null || scrollPane == null) {
+                return 0.0 ;
+            }
+
+            double textHeight = text1.getLayoutBounds().getHeight();
+            double textAreaHeight = ((ScrollPane) scrollPane).getViewportBounds().getHeight();
+
+            if (textHeight <= textAreaHeight) {
+                return 100.0 ;
+            }
+
+            return 100.0 * text.getScrollTop() / (textHeight - textAreaHeight) ;
+
+
+        }, text.scrollTopProperty()));
+        pageNum.textProperty().bind(percentScrolled.asString("%.2f"));
         //背景图片选择
         fileChooser.setInitialDirectory(Setting.bgImgDir);
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(

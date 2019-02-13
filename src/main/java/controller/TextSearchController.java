@@ -56,15 +56,14 @@ public class TextSearchController implements Initializable {
     //点击某条搜索结果时调用
     @FXML
     private void hitResult(MouseEvent click) {
-//        if (click.getClickCount() != 2) return;
-//
-//        SearchResult hitted = (SearchResult) results.getSelectionModel()
-//                .getSelectedItem();
-//        if (null == hitted) return;
-//        TextSearchDto.hitIndex = results.getItems().indexOf(hitted);//保存搜索进度
-//        //索引值除以总长度
-//        TextSearchDto.hitLocal = hitted.indexInChapter / (double) TextSearchDto.document.getContent().length();
-//        SceneManager.toText();
+        if (click.getClickCount() != 2) return;
+
+        SearchResult hitted = (SearchResult) results.getSelectionModel()
+                .getSelectedItem();
+        if (null == hitted) return;
+        TextSearchDto.setPresentChapter(hitted.chapterIndex);
+        //索引值除以总长度
+        TextSearchDto.presentScroll = TextSearchDto.document.getScrollInChapter(hitted.chapterIndex,hitted.indexInChapter);
         return;
     }
 
@@ -88,12 +87,15 @@ public class TextSearchController implements Initializable {
 
         if ((indexes.get(0) - bias) <= 0) indexes.set(0,bias);
         if ((indexes.get(count-1) + bias) >= length) indexes.set(count-1,(length - bias));
-//        for (int index : indexes) {
-//            list.add(
-//                    new SearchResult(index,
-//                            TextSearchDto.document.getContent().substring(index - bias, index + bias))
-//            );
-//        }
+        //生成结果列表
+        for (int index : indexes) {
+            int chapterIndex=TextSearchDto.document.inChapter(index);
+            int indexInChapter = index-chapterIndex;
+            list.add(
+                    new SearchResult(chapterIndex,indexInChapter,
+                            TextSearchDto.document.getContent().substring(index - bias, index + bias))
+            );
+        }
         return list;
     }
 
