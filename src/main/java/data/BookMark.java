@@ -37,6 +37,11 @@ public class BookMark {
          * 保存当前进度
          */
     public static boolean saveCurrent(){
+        if(FileParser.fileType.equals(Const.TYPE_IMG)){
+            //图片文件类型
+            save(FileDto.currentDir,FileDto.currentFileIndex);
+            return true;
+        }
         save(FileDto.getCurrentFile(), FileParser.currentPage);
         return true;
     }

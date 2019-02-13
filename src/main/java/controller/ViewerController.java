@@ -59,25 +59,15 @@ public class ViewerController implements Initializable {
 
     @FXML
     private void doPageClick(MouseEvent mouseEvent) {
-        //点击下方显示进度条
-        double y = mouseEvent.getY();
-        if(y >=
-                (Toolkit.getDefaultToolkit().getScreenSize().height *2/3)){
-            try{
-                showSlider();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            return;
-        }
-
         //翻页
         double x = mouseEvent.getX();
-        double middle = Toolkit.getDefaultToolkit().getScreenSize().width / 2;
-        if (x >= middle) {
+        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
+        if (x >= width*0.6) {
             doRight();
-        } else {
+        } else if(x < width*0.4) {
             doLeft();
+        }else{
+            showSlider();//点击中间方显示进度条
         }
         mouseEvent.consume();
     }
@@ -91,6 +81,9 @@ public class ViewerController implements Initializable {
             slider.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         }
         slider.setMax(FileParser.totalPage);
+        //固定在下方
+        double y = Toolkit.getDefaultToolkit().getScreenSize().height;
+        slider.setTranslateY(y*0.45);//在1/3和1/2之间
         ModalUtil.show(slider,imgView);
     }
     @FXML

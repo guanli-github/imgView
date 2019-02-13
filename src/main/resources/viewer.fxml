@@ -28,6 +28,7 @@
                 minorTickCount="1" onMouseReleased="#onSliderChanged"
                 showTickLabels="true"
                 snapToTicks="true"
-                GridPane.rowIndex="1" ></Slider>
+                prefHeight="200"
+                GridPane.rowIndex="1"></Slider>
     </children>
 </GridPane>
