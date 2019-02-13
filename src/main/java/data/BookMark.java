@@ -30,7 +30,7 @@ public class BookMark {
     }
     //是否读完
     public static boolean isReaded(File file){
-        String record = ConfigUtils.getConfig("",file.getAbsolutePath());
+        String record = ConfigUtils.getConfig("readed",file.getAbsolutePath());
         return null != record?true:false;
     }
         /**
