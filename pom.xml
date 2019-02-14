@@ -47,12 +47,6 @@
             <artifactId>thumbnailator</artifactId>
             <version>0.4.8</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.icepdf.os/icepdf-core -->
-        <dependency>
-            <groupId>org.icepdf.os</groupId>
-            <artifactId>icepdf-core</artifactId>
-            <version>6.2.2</version>
-        </dependency>
 
     </dependencies>
 </project>

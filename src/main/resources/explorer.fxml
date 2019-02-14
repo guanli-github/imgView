@@ -6,12 +6,15 @@
         <HBox spacing="8" GridPane.rowIndex="0">
             <Button onMouseClicked="#resize">重置</Button>
             <Button onMouseClicked="#returnParDir">上级目录</Button>
-        <Button fx:id="exit" onMouseClicked="#exit" >退出</Button>
+            <Button onMouseClicked="#deleteDialog" >删除文件</Button>
+            <Button onMouseClicked="#exit" >退出</Button>
         </HBox>
+        <ScrollPane vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" GridPane.rowIndex="1">
         <ListView fx:id="files" fixedCellSize="60"
-                  GridPane.fillWidth="true" GridPane.rowIndex="1"
-                  onMouseClicked="#clickFile" onTouchReleased="#deleteDialog"
+                  GridPane.fillWidth="true"
+                  onMouseClicked="#clickFile"
                   onSwipeLeft="#returnParDir"></ListView>
+        </ScrollPane>
         <VBox fx:id="dialog" visible="false" managed="false" GridPane.rowIndex="1"
               alignment="CENTER" spacing="20"
               maxWidth="150" maxHeight="100">

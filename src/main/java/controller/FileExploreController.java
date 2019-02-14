@@ -66,6 +66,9 @@ public class FileExploreController implements Initializable {
     private void deleteDialog() {
         File choosed = files.getSelectionModel()
                 .getSelectedItem();
+        if(null == choosed){
+            return;
+        }
         String filename = choosed.getName();
         dialogInfo.setText("确认删除"+filename+"?");
         //设置对话框位置到正中
