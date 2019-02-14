@@ -109,7 +109,7 @@ public class TextController implements Initializable {
         });
         //初始化文档
         TextSearchDto.document = TextUtil.splitChapter(
-                TextUtil.readTxt(FileDto.getCurrentFile()));
+                FileDto.getCurrentFile());
         text.setText(TextSearchDto.document.getChapter(1));
         text.setFont(Font.font(16));
         Platform.runLater(() ->
