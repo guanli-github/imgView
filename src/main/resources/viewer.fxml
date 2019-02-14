@@ -2,8 +2,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.*?>
 <GridPane id="root" fx:id="root" fx:controller="controller.ViewerController"
           alignment="CENTER"
           onSwipeLeft="#doLeft" onSwipeRight="#doRight"
@@ -11,7 +10,7 @@
           onKeyPressed="#keyPressed"
           xmlns:fx="http://javafx.com/fxml">
     <children>
-        <HBox GridPane.rowIndex="0"
+        <VBox
               spacing="10">
             <Button fx:id="returnDir" opacity="0.3" minWidth="20"
                     onMouseClicked="#returnDir">返回目录
@@ -20,12 +19,13 @@
                     onMouseClicked="#changeOrient">右->左
             </Button>
             <Label fx:id="pageNum" text="1/1" textFill="coral"></Label>
-        </HBox>
+        </VBox>
         <ImageView fx:id="imgView" GridPane.rowIndex="1"
                    preserveRatio="true"></ImageView>
         <Slider fx:id="slider" visible="false"
+                onMouseDragged="#onSliderChanging" onMouseReleased="#onSliderChanged"
                 blockIncrement="1.0" majorTickUnit="1" max="1" min="1"
-                minorTickCount="1" onMouseReleased="#onSliderChanged"
+                minorTickCount="1"
                 showTickLabels="true"
                 snapToTicks="true"
                 prefHeight="200"

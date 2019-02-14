@@ -62,38 +62,37 @@ public class TextSearchController implements Initializable {
                 .getSelectedItem();
         if (null == hitted) return;
         TextSearchDto.setPresentChapter(hitted.chapterIndex);
-        //索引值除以总长度
+        //索引值除以章节长度
         TextSearchDto.presentScroll = TextSearchDto.document.getScrollInChapter(hitted.chapterIndex,hitted.indexInChapter);
         return;
     }
 
     //搜索出结果
     private List<SearchResult> getResults(String searchWord) {
-        int bias = Const.textBias;
         List<Integer> indexes = new ArrayList();
-        int a = TextSearchDto.document.getContent().indexOf(searchWord);//*第一个出现的索引位置
+        int a = TextSearchDto.document.content.indexOf(searchWord);//*第一个出现的索引位置
 
         while (a != -1) {
-            if(a > Const.txtBias){
-                indexes.add(a - Const.txtBias);
-            }else{
-                indexes.add(Const.txtBias);
-            }
-            a = TextSearchDto.document.getContent().indexOf(searchWord, a + 1);//*从这个索引往后开始第一个出现的位置
+            indexes.add(a);
+            a = TextSearchDto.document.content.indexOf(searchWord, a + 1);//*从这个索引往后开始第一个出现的位置
         }
         List<SearchResult> list = new ArrayList<>();
-        int length = TextSearchDto.document.getContent().length();
-        int count = indexes.size();
 
-        if ((indexes.get(0) - bias) <= 0) indexes.set(0,bias);
-        if ((indexes.get(count-1) + bias) >= length) indexes.set(count-1,(length - bias));
+        //截取结果时防止越界
+        int length = TextSearchDto.document.content.length();
+        int count = indexes.size();
+        int bias = Const.textBias;
+        if ((indexes.get(0) - bias) <= 0)
+            indexes.set(0,bias);
+        if (indexes.get(count-1) >=(length-bias))
+            indexes.set(count-1,(length - bias));
         //生成结果列表
         for (int index : indexes) {
             int chapterIndex=TextSearchDto.document.inChapter(index);
             int indexInChapter = index-chapterIndex;
             list.add(
-                    new SearchResult(chapterIndex,indexInChapter,
-                            TextSearchDto.document.getContent().substring(index - bias, index + bias))
+                    new SearchResult(chapterIndex, indexInChapter,
+                            TextSearchDto.document.content.substring(index - bias, index + bias))
             );
         }
         return list;

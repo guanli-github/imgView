@@ -1,32 +1,19 @@
 package data;
 
 public class ChapteredText {
-    private String content;//文本
-    private String[] chapterNames;//章节名的数组
-    private int[] chaterIndexes;//章节起始点在文本中的位置
+    public String content;//文本
+    public String[] chapterNames;//章节名的数组
+    public Integer[] chaterIndexes;//章节起始点在文本中的位置
 
     private ChapteredText() {}
-
-    public String getContent() {
-        return content;
-    }
-
-    public String[] getChapterNames() {
-        return chapterNames;
-    }
-
     public double getScrollInChapter(int chapterIndex,int indexInChapter){
         int length = chaterIndexes[chapterIndex+1]-chaterIndexes[chapterIndex];
         return indexInChapter / (double)length;
     }
-    public ChapteredText(String content, String[] chapterNames, int[] chaterIndexes) {
+    public ChapteredText(String content, String[] chapterNames, Integer[] chaterIndexes) {
         this.content = content;
         this.chapterNames = chapterNames;
         this.chaterIndexes = chaterIndexes;
-    }
-
-    public int getChapterNum() {
-        return chapterNames.length;
     }
 
     /**

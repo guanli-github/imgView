@@ -87,12 +87,15 @@ public class ViewerController implements Initializable {
         ModalUtil.show(slider,imgView);
     }
     @FXML
+    private void onSliderChanging(){
+        //滚动时页码变化
+        pageNum.setText((int)slider.getValue() + "/" + FileParser.totalPage);
+    }
+    @FXML
     private void onSliderChanged(){
         int page = (int)slider.getValue();
         jumpToPage(page);
-        slider.setVisible(false);
-        imgView.setOpacity(1.0);
-        imgView.toFront();
+        ModalUtil.hide(slider,imgView);
     }
     @FXML
     private void keyPressed(KeyEvent keyEvent) {
@@ -152,7 +155,6 @@ public class ViewerController implements Initializable {
         );
         FileParser.currentPage = page;
         pageNum.setText(FileParser.currentPage + "/" + FileParser.totalPage);
-
     }
 
     private void resize() {

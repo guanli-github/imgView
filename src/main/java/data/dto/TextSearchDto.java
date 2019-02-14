@@ -14,16 +14,17 @@ public class TextSearchDto {
     public static String searchWord;
 
     public static ObservableList<String> getChapterNames(){
-        String[] chapterNames = document.getChapterNames();
-        return FXCollections.observableArrayList(chapterNames);
+        return FXCollections.observableArrayList(document.chapterNames);
     }
     public static String nextChapter(){
-        if(presentChapter==document.getChapterNum())return "";
+        if(presentChapter==document.chapterNames.length)
+            return "";
         presentChapter += 1;
         return document.getChapter(presentChapter);
     }
     public static String preChapter(){
-        if(presentChapter==1)return "";
+        if(presentChapter==1)
+            return "";
         presentChapter -= 1;
         return document.getChapter(presentChapter);
     }

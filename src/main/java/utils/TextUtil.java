@@ -3,6 +3,10 @@ package utils;
 import data.ChapteredText;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TextUtil {
     public static String readTxt(File file) {
@@ -75,14 +79,34 @@ public class TextUtil {
      * @return 划分好章节的文本
      */
     public static ChapteredText splitChapter(String content) {
-        String[] patterns;
-        int[] ints = new int[10];
-        String[] strs = new String[10];
-        if(ints.length == 0){
-
+//        ^\s*[第卷][0123456789一二三四五六七八九十零〇百千两]*[章回部节集卷].*
+//
+//^         \s*Chapter\s*[0123456789]*
+//          附加规则
+//          ^\s*[0123456789１２３４５６]
+//          ^\s*(简介|序言|序[1-9]|序曲|简介|后记|尾声)
+//            \s*(前言|自序|附录)
+        List<Integer> chpIndexes = new ArrayList<>();
+        List<String> titles = new ArrayList<>();
+        //匹配章节名，划分章节
+        //https://www.bbsmax.com/A/Vx5M0YmaJN/
+        Pattern p = Pattern.compile("(^\\s*第?)([0123456789一二三四五六七八九十零〇百千两]{1,9})[章节卷集部篇回楼 #](\\s*)(.*)(\n|\r|\r\n)");
+        Matcher matcher = p.matcher(content);
+        //整个表达式是第一个group
+        while (matcher.find()) {
+                chpIndexes.add(matcher.start(0));
+                titles.add(matcher.group(0));
+            }
+        //没有匹配到结果的情况
+        if(chpIndexes.isEmpty()){
+            chpIndexes.add(1);
+            titles.add(content.substring(0,20));
         }
-        ChapteredText document = new ChapteredText(content,strs,ints);
 
-        return document;
+        return new ChapteredText(
+                content,
+                (String[])titles.toArray(),
+                (Integer[])chpIndexes.toArray()
+        );
     }
 }
