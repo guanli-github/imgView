@@ -1,6 +1,7 @@
 package utils;
 
 import data.ChapteredText;
+import data.Setting;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,30 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TextUtil {
-//    public static String readTxt(File file) {
-//        StringBuffer sb = new StringBuffer();
-//        BufferedReader br = null;
-//        InputStreamReader isr = null;
-//        try {
-//            String txtCharSet = resolveTxtCharSet(file);
-//            isr = new InputStreamReader(new FileInputStream(file), txtCharSet);
-//            br = new BufferedReader(isr);
-//            String data = null;
-//            while ((data = br.readLine()) != null) {
-//                sb.append(data);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                isr.close();
-//                br.close();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            return sb.toString();
-//        }
-//    }
     private static void write(File file, StringBuffer buffer) {
         PrintWriter p = null;
         try {
@@ -90,7 +67,7 @@ public class TextUtil {
         List<String> titles = new ArrayList<>();
         //匹配章节名，划分章节
         //https://www.bbsmax.com/A/Vx5M0YmaJN/
-        Pattern p = Pattern.compile("(^\\s*第)(.{1,9})[章节卷集部篇回](\\s*)(.*)");
+        Pattern p = Pattern.compile("(^.*第)(.{1,9})[章节卷集部篇回](\\s*)(.*)");
         StringBuffer sb = new StringBuffer();
         BufferedReader br = null;
         InputStreamReader isr = null;
@@ -99,15 +76,17 @@ public class TextUtil {
             String txtCharSet = resolveTxtCharSet(file);
             isr = new InputStreamReader(new FileInputStream(file), txtCharSet);
             br = new BufferedReader(isr);
-            int index = 0;
             while((line = br.readLine()) != null) {
                 sb.append(line);
                 Matcher matcher = p.matcher(line);
-            //整个表达式是第一个group
-                while (matcher.find()) {
-                    index +=1;
-                    chpIndexes.add(index);
-                    titles.add(matcher.group(0));
+                if (matcher.find()) {
+                    chpIndexes.add(sb.length() - line.length());
+                    //整个表达式是第一个group
+                    String title = matcher.group(0);
+                    if(title.length()> Setting.maxTitleLength){
+                        title = title.substring(0,Setting.maxTitleLength);
+                    }
+                    titles.add(title);
                 }
             }
         }catch(Exception e){
@@ -128,12 +107,12 @@ public class TextUtil {
     }
 
     public static void main(String[] args) {
-        File f = new File("E://sample.txt");
+        File f = new File("E://sample2.txt");
         ChapteredText ctt = splitChapter(f);
-        int len = ctt.chaterIndexes.length;
+        int len = ctt.chptPositions.length;
         for(int i=0;i<len;i++){
-            System.out.println("index:"+ctt.chaterIndexes[i]);
-            System.out.println("title:"+ctt.chapterNames[i]);
+            System.out.println("index:"+ctt.chptPositions[i]);
+            System.out.println("title:"+ctt.titles[i]);
         }
     }
 }

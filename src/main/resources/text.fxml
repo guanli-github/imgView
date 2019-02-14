@@ -20,7 +20,6 @@
             <Button fx:id="returnDir" opacity="0.3" minWidth="20"
                     onMouseClicked="#returnDir">返回目录
             </Button>
-            <Label fx:id="pageNum" text="0.00"></Label>
         </HBox>
             <TextArea fx:id="text" wrapText="true" editable="false"
                       GridPane.rowIndex="1" ></TextArea>

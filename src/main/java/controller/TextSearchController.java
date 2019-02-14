@@ -47,26 +47,32 @@ public class TextSearchController implements Initializable {
         SceneManager.toText();
         return;
     }
-    //显示目录
-    @FXML
-    private void toChapter(){
-        results.setItems(TextSearchDto.getChapterNames());
-        results.setCellFactory((results) -> new ChapterCell());
-    }
     //点击某条搜索结果时调用
     @FXML
     private void hitResult(MouseEvent click) {
         if (click.getClickCount() != 2) return;
-
         SearchResult hitted = (SearchResult) results.getSelectionModel()
                 .getSelectedItem();
         if (null == hitted) return;
-        TextSearchDto.setPresentChapter(hitted.chapterIndex);
+        TextSearchDto.setPresentChapter(hitted.chapterNo);
         //索引值除以章节长度
-        TextSearchDto.presentScroll = TextSearchDto.document.getScrollInChapter(hitted.chapterIndex,hitted.indexInChapter);
+        TextSearchDto.presentScroll = TextSearchDto.document.getScrollInChapter(hitted.chapterNo,hitted.positionInChapter);
+        SceneManager.toText();
         return;
     }
+    //显示目录
+    @FXML
+    private void toChapter(){
+//        results.setItems(TextSearchDto.getChapterNames());
+//        results.setCellFactory((results) -> new ChapterCell());
+    }
+    //点击章节名时调用
+    @FXML
+    private void hitChapter(MouseEvent click) {
+        if (click.getClickCount() != 2) return;
 
+        return;
+    }
     //搜索出结果
     private List<SearchResult> getResults(String searchWord) {
         List<Integer> indexes = new ArrayList();
@@ -88,10 +94,10 @@ public class TextSearchController implements Initializable {
             indexes.set(count-1,(length - bias));
         //生成结果列表
         for (int index : indexes) {
-            int chapterIndex=TextSearchDto.document.inChapter(index);
-            int indexInChapter = index-chapterIndex;
+            int chapterNo= TextSearchDto.inChapter(index);
+            int posInChapter = index-TextSearchDto.document.chptPositions[chapterNo];
             list.add(
-                    new SearchResult(chapterIndex, indexInChapter,
+                    new SearchResult(chapterNo, posInChapter,
                             TextSearchDto.document.content.substring(index - bias, index + bias))
             );
         }
@@ -132,17 +138,6 @@ public class TextSearchController implements Initializable {
             super.updateItem(item, empty);
             if (item != null) {
                 this.setText(item.partContent);
-            } else {
-                this.setText("");
-            }
-        }
-    }
-    static class ChapterCell extends ListCell<String> {
-        @Override
-        public void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            if (item != null) {
-                this.setText(item);
             } else {
                 this.setText("");
             }

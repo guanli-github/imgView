@@ -9,7 +9,7 @@
             <TextField fx:id="searchWord"></TextField>
             <Button fx:id="doSearch" onMouseClicked="#doSearch" onKeyTyped="#enterSearch">搜索</Button>
             <Button fx:id="toText" onMouseClicked="#toText">返回</Button>
-            <Button fx:id="toChapter" onMouseClicked="#toChapter" HBox.margin="10">目录</Button>
+            <Button fx:id="toChapter" onMouseClicked="#toChapter">查看目录</Button>
         </HBox>
         <ListView fx:id="results" fixedCellSize="60"
                   GridPane.fillWidth="true" GridPane.rowIndex="1"

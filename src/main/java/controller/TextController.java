@@ -4,13 +4,9 @@ import data.Setting;
 import data.dto.FileDto;
 import data.dto.TextSearchDto;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -29,8 +25,6 @@ public class TextController implements Initializable {
     private GridPane root = new GridPane();
     @FXML
     private TextArea text = new TextArea();
-    @FXML
-    private Label pageNum = new Label();
 
     private final static FileChooser fileChooser = new FileChooser();
 
@@ -110,7 +104,7 @@ public class TextController implements Initializable {
         //初始化文档
         TextSearchDto.document = TextUtil.splitChapter(
                 FileDto.getCurrentFile());
-        text.setText(TextSearchDto.document.getChapter(1));
+        text.setText(TextSearchDto.getPresentChapterStr());
         text.setFont(Font.font(16));
         Platform.runLater(() ->
         {
@@ -124,29 +118,6 @@ public class TextController implements Initializable {
                 root.setBackground(background);
             }
         });
-        //进度显示
-        DoubleProperty percentScrolled = new SimpleDoubleProperty();
-        percentScrolled.bind(Bindings.createDoubleBinding(() -> {
-
-            Node text1 = text.lookup(".content");
-            Node scrollPane = text.lookup(".scroll-pane");
-
-            if (text1 == null || scrollPane == null) {
-                return 0.0 ;
-            }
-
-            double textHeight = text1.getLayoutBounds().getHeight();
-            double textAreaHeight = ((ScrollPane) scrollPane).getViewportBounds().getHeight();
-
-            if (textHeight <= textAreaHeight) {
-                return 100.0 ;
-            }
-
-            return 100.0 * text.getScrollTop() / (textHeight - textAreaHeight) ;
-
-
-        }, text.scrollTopProperty()));
-        pageNum.textProperty().bind(percentScrolled.asString("%.2f"));
         //背景图片选择
         fileChooser.setInitialDirectory(Setting.bgImgDir);
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
