@@ -42,7 +42,6 @@ public class SceneManager {
     public static Stage getStage(){
         if(Setting.isFullScreen) {
             stage.setFullScreen(true);
-            //stage.setResizable(false);
         }
         return stage;
     }

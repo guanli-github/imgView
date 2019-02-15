@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 public class TextSearchDto {
     public static ChapteredText document;
     private static int presentChapter = 0; //当前章节
-    public static double presentScroll; //当前章节中的阅读进度
+    public static double presentScroll=0.0; //当前章节中的阅读进度
     public static Image bgImg =null;//背景图片
     public static String searchWord;
 

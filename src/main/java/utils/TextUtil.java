@@ -2,6 +2,7 @@ package utils;
 
 import data.ChapteredText;
 import data.Setting;
+import data.dto.TextSearchDto;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -108,11 +109,14 @@ public class TextUtil {
 
     public static void main(String[] args) {
         File f = new File("E://sample.txt");
-        ChapteredText ctt = splitChapter(f);
-        int len = ctt.chptPositions.length;
-        for(int i=0;i<len;i++){
-            System.out.println("index:"+ctt.chptPositions[i]);
-            System.out.println("title:"+ctt.titles[i]);
-        }
+        TextSearchDto.document = splitChapter(f);
+//        int len = ctt.chptPositions.length;
+//        for(int i=0;i<len;i++){
+//            System.out.println("index:"+ctt.chptPositions[i]);
+//            System.out.println("title:"+ctt.titles[i]);
+//        }
+        int i = TextSearchDto.getChapterStr(2295).indexOf("设计");
+        System.out.println(i);
     }
+
 }

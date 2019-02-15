@@ -6,7 +6,6 @@ import data.dto.TextSearchDto;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -73,17 +72,9 @@ public class TextController implements Initializable {
 
     @FXML
     private void scrollTo(double location) {
-        Node text1 = text.lookup(".content");
-        Node scrollPane = text.lookup(".scroll-pane");
+        ScrollPane scrollPane = (ScrollPane)text.lookup(".scroll-pane");
 
-        if (text1 == null || scrollPane == null) {
-            return;
-        }
-
-        double textHeight = text1.getLayoutBounds().getHeight();
-        double textAreaHeight = ((ScrollPane) scrollPane).getViewportBounds().getHeight();
-
-        text.setScrollTop(location * (textHeight - textAreaHeight) * 10);
+        scrollPane.setVvalue(location);
     }
 
     private void setFullScreen() {
@@ -106,8 +97,11 @@ public class TextController implements Initializable {
             });
         }
         //初始化文档
-        TextSearchDto.document = TextUtil.splitChapter(
-                FileDto.getCurrentFile());
+        if(null == TextSearchDto.document){
+            TextSearchDto.document = TextUtil.splitChapter(
+                    FileDto.getCurrentFile());
+        }
+
         text.setText(TextSearchDto.getPresentChapterStr());
         text.setFont(Font.font(16));
         Platform.runLater(() ->
@@ -116,6 +110,10 @@ public class TextController implements Initializable {
                 setFullScreen();
             }
             scrollTo(TextSearchDto.presentScroll);
+            //搜索词高亮
+            if(null != TextSearchDto.searchWord && !"".equals(TextSearchDto.searchWord)){
+
+            }
             //背景图片
             if (null != TextSearchDto.bgImg) {
                 BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);

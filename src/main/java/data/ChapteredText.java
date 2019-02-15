@@ -9,7 +9,12 @@ public class ChapteredText {
     }
 
     public double getScrollInChapter(int chapterIndex, int positionInChapter) {
-        int length = chptPositions[chapterIndex + 1] - chptPositions[chapterIndex];
+        int length = 1;
+        if(chapterIndex >= titles.length-1){
+            length = content.length() - chptPositions[chapterIndex];
+        }else{
+            length = chptPositions[chapterIndex + 1] - chptPositions[chapterIndex];
+        }
         return positionInChapter / (double) length;
     }
 
