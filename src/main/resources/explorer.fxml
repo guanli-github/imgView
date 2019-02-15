@@ -4,7 +4,7 @@
             xmlns:fx="http://javafx.com/fxml" alignment="CENTER">
     <children>
         <HBox spacing="8" GridPane.rowIndex="0">
-            <Button onMouseClicked="#resize">重置</Button>
+            <Button onMouseClicked="#setFullScreen">重置</Button>
             <Button onMouseClicked="#returnParDir">上级目录</Button>
             <Button onMouseClicked="#deleteDialog" >删除文件</Button>
             <Button onMouseClicked="#exit" >退出</Button>

@@ -52,18 +52,20 @@ public class TextController implements Initializable {
         SceneManager.toSearch();
         return;
     }
+
     @FXML
     private void nextChapter() {
         String chapter = TextSearchDto.nextChapter();
-        if(!"".equals(chapter)){
+        if (!"".equals(chapter)) {
             text.setText(chapter);
         }
         return;
     }
+
     @FXML
     private void preChapter() {
         String chapter = TextSearchDto.preChapter();
-        if(!"".equals(chapter)){
+        if (!"".equals(chapter)) {
             text.setText(chapter);
         }
         return;
@@ -81,10 +83,10 @@ public class TextController implements Initializable {
         double textHeight = text1.getLayoutBounds().getHeight();
         double textAreaHeight = ((ScrollPane) scrollPane).getViewportBounds().getHeight();
 
-        text.setScrollTop(location * (textHeight-textAreaHeight)  * 10);
+        text.setScrollTop(location * (textHeight - textAreaHeight) * 10);
     }
 
-    private void resize() {
+    private void setFullScreen() {
 
         double width = SceneManager.getStage().getWidth();
         double height = SceneManager.getStage().getHeight();
@@ -95,12 +97,14 @@ public class TextController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
-            Platform.runLater(() -> {
-                        resize();
-                    }
-            );
-        });
+        if (Setting.isFullScreen) {
+            SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
+                Platform.runLater(() -> {
+                            setFullScreen();
+                        }
+                );
+            });
+        }
         //初始化文档
         TextSearchDto.document = TextUtil.splitChapter(
                 FileDto.getCurrentFile());
@@ -108,10 +112,12 @@ public class TextController implements Initializable {
         text.setFont(Font.font(16));
         Platform.runLater(() ->
         {
-            resize();
+            if (Setting.isFullScreen) {
+                setFullScreen();
+            }
             scrollTo(TextSearchDto.presentScroll);
             //背景图片
-            if (null != TextSearchDto.bgImg){
+            if (null != TextSearchDto.bgImg) {
                 BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
                 BackgroundImage backgroundImage = new BackgroundImage(TextSearchDto.bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
                 Background background = new Background(backgroundImage);
@@ -121,7 +127,7 @@ public class TextController implements Initializable {
         //背景图片选择
         fileChooser.setInitialDirectory(Setting.bgImgDir);
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
-                "image filter","*.jpg","*.jpeg","*.gif","*.png","*.bmp"
+                "image filter", "*.jpg", "*.jpeg", "*.gif", "*.png", "*.bmp"
         ));
     }
 

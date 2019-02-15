@@ -2,6 +2,7 @@ package controller;
 
 import data.Const;
 import data.SearchResult;
+import data.Setting;
 import data.dto.TextSearchDto;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -28,12 +29,25 @@ public class TextSearchController implements Initializable {
     @FXML
     private void doSearch() {
         String word = searchWord.getText().trim();
-        if (word.equals(TextSearchDto.searchWord)) {
-            return;
-        }
         TextSearchDto.searchWord = word;
         TextSearchDto.searchResultList.clear();
         TextSearchDto.searchResultList.setAll(getResults(word));
+        showResult();
+    }
+    //显示目录
+    @FXML
+    private void showChapter(){
+        TextSearchDto.searchResultList.clear();
+        List<SearchResult>list = new ArrayList<>();
+        int len = TextSearchDto.document.titles.length;
+        for(int i=0;i<len;i++){
+            SearchResult sr  =new SearchResult(
+                    TextSearchDto.document.chptPositions[i],
+                    0,
+                    TextSearchDto.document.titles[i]);
+            list.add(sr);
+        }
+        TextSearchDto.searchResultList.setAll(list);
         showResult();
     }
     @FXML
@@ -60,19 +74,7 @@ public class TextSearchController implements Initializable {
         SceneManager.toText();
         return;
     }
-    //显示目录
-    @FXML
-    private void toChapter(){
-//        results.setItems(TextSearchDto.getChapterNames());
-//        results.setCellFactory((results) -> new ChapterCell());
-    }
-    //点击章节名时调用
-    @FXML
-    private void hitChapter(MouseEvent click) {
-        if (click.getClickCount() != 2) return;
 
-        return;
-    }
     //搜索出结果
     private List<SearchResult> getResults(String searchWord) {
         List<Integer> indexes = new ArrayList();
@@ -84,6 +86,9 @@ public class TextSearchController implements Initializable {
         }
         List<SearchResult> list = new ArrayList<>();
 
+        if(indexes.isEmpty()){
+            return list;
+        }
         //截取结果时防止越界
         int length = TextSearchDto.document.content.length();
         int count = indexes.size();
@@ -110,7 +115,7 @@ public class TextSearchController implements Initializable {
         results.setCellFactory((results) -> new ResultCell());
     }
 
-    private void resize() {
+    private void setFullScreen() {
 
         double width = SceneManager.getStage().getWidth();
         double height = SceneManager.getStage().getHeight();
@@ -120,13 +125,15 @@ public class TextSearchController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        resize();
-        SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
-            Platform.runLater(() -> {
-                        resize();
-                    }
-            );
-        });
+        if(Setting.isFullScreen){
+            setFullScreen();
+            SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
+                Platform.runLater(() -> {
+                            setFullScreen();
+                        }
+                );
+            });
+        }
         if (TextSearchDto.searchWord != null && !"".equals(TextSearchDto.searchWord)) {
             showResult();
         }

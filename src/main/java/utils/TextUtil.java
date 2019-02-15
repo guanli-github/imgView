@@ -107,7 +107,7 @@ public class TextUtil {
     }
 
     public static void main(String[] args) {
-        File f = new File("E://sample2.txt");
+        File f = new File("E://sample.txt");
         ChapteredText ctt = splitChapter(f);
         int len = ctt.chptPositions.length;
         for(int i=0;i<len;i++){

@@ -62,53 +62,58 @@ public class ViewerController implements Initializable {
         //翻页
         double x = mouseEvent.getX();
         double width = Toolkit.getDefaultToolkit().getScreenSize().width;
-        if (x >= width*0.6) {
+        if (x >= width * 0.6) {
             doRight();
-        } else if(x < width*0.4) {
+        } else if (x < width * 0.4) {
             doLeft();
-        }else{
+        } else {
             showSlider();//点击中间方显示进度条
         }
         mouseEvent.consume();
     }
+
     //显示进度条
-    private void showSlider(){
-        if(slider.visibleProperty().getValue()){//进度条已显示就隐藏
-            ModalUtil.hide(slider,imgView);
+    private void showSlider() {
+        if (slider.visibleProperty().getValue()) {//进度条已显示就隐藏
+            ModalUtil.hide(slider, imgView);
             return;
         }
-        if(Setting.orient == Const.R2L){
+        if (Setting.orient == Const.R2L) {
             slider.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         }
         slider.setMax(FileParser.totalPage);
         //固定在下方
         double y = Toolkit.getDefaultToolkit().getScreenSize().height;
-        slider.setTranslateY(y*0.45);//在1/3和1/2之间
-        ModalUtil.show(slider,imgView);
+        slider.setTranslateY(y * 0.45);//在1/3和1/2之间
+        ModalUtil.show(slider, imgView);
     }
+
     @FXML
-    private void onSliderChanging(){
+    private void onSliderChanging() {
         //滚动时页码变化
-        pageNum.setText((int)slider.getValue() + "/" + FileParser.totalPage);
+        pageNum.setText((int) slider.getValue() + "/" + FileParser.totalPage);
     }
+
     @FXML
-    private void onSliderChanged(){
-        int page = (int)slider.getValue();
+    private void onSliderChanged() {
+        int page = (int) slider.getValue();
         jumpToPage(page);
-        ModalUtil.hide(slider,imgView);
+        ModalUtil.hide(slider, imgView);
     }
+
     @FXML
     private void keyPressed(KeyEvent keyEvent) {
-        if(keyEvent.getCode().equals(KeyCode.LEFT)){
+        if (keyEvent.getCode().equals(KeyCode.LEFT)) {
             doLeft();
-        }else if(keyEvent.getCode().equals(KeyCode.RIGHT)){
+        } else if (keyEvent.getCode().equals(KeyCode.RIGHT)) {
             doRight();
-        }else if(keyEvent.getCode().equals(KeyCode.SHIFT)){
+        } else if (keyEvent.getCode().equals(KeyCode.SHIFT)) {
             //Shift键显示进度条
             showSlider();
         }
         keyEvent.consume();
     }
+
     //更改翻页方式
     @FXML
     private void changeOrient(MouseEvent mouseEvent) {
@@ -130,11 +135,11 @@ public class ViewerController implements Initializable {
     }
 
     private void nextPage() {
-        jumpToPage(FileParser.currentPage+1);
+        jumpToPage(FileParser.currentPage + 1);
     }
 
     private void prePage() {
-        jumpToPage(FileParser.currentPage-1);
+        jumpToPage(FileParser.currentPage - 1);
     }
 
     private void jumpToPage(int page) {
@@ -157,7 +162,7 @@ public class ViewerController implements Initializable {
         pageNum.setText(FileParser.currentPage + "/" + FileParser.totalPage);
     }
 
-    private void resize() {
+    private void setFullScreen() {
         double width = SceneManager.getStage().getWidth();
         double height = SceneManager.getStage().getHeight();
 
@@ -172,15 +177,17 @@ public class ViewerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
-                    resize();
-                });
-        SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
+        if (Setting.isFullScreen) {
             Platform.runLater(() -> {
-                        resize();
-                    }
-            );
-        });
+                setFullScreen();
+            });
+            SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
+                Platform.runLater(() -> {
+                            setFullScreen();
+                        }
+                );
+            });
+        }
         openFile(FileDto.getCurrentFile());
 
     }

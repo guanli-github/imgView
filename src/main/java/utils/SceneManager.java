@@ -1,6 +1,7 @@
 package utils;
 
 import com.sun.javafx.robot.impl.FXRobotHelper;
+import data.Setting;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -39,8 +40,10 @@ public class SceneManager {
     }
 
     public static Stage getStage(){
-        stage.setFullScreen(true);
-        //stage.setResizable(false);
+        if(Setting.isFullScreen) {
+            stage.setFullScreen(true);
+            //stage.setResizable(false);
+        }
         return stage;
     }
 }

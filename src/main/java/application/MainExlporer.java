@@ -1,5 +1,6 @@
 package application;
 
+import data.Setting;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +12,9 @@ public class MainExlporer extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/explorer.fxml"));
-        stage.setFullScreen(true);
+        if(Setting.isFullScreen){
+            stage.setFullScreen(true);
+        }
         stage.setResizable(false);
         stage.setFullScreenExitHint("");
         Scene scene = new Scene(root);

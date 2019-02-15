@@ -8,15 +8,11 @@ import javafx.scene.image.Image;
 
 public class TextSearchDto {
     public static ChapteredText document;
-    private static int presentChapter = 1; //当前章节
-    private static String presentChapterStr; //当前章节文本
+    private static int presentChapter = 0; //当前章节
     public static double presentScroll; //当前章节中的阅读进度
     public static Image bgImg =null;//背景图片
     public static String searchWord;
 
-    public static ObservableList<String> getChapterNames(){
-        return FXCollections.observableArrayList(document.titles);
-    }
     public static String nextChapter(){
         if(presentChapter==document.titles.length)
             return "";
@@ -42,18 +38,18 @@ public class TextSearchDto {
     /**
      * 获取指定章节的文本
      *
-     * @param index 章节的编号，从1开始
+     * @param index 章节的编号，从0开始
      * @return
      */
     public static String getChapterStr(int index) {
         if (1 >= document.titles.length) {
             return document.content;
         }
-        if (index > document.titles.length) {
+        if ((index+1) >= document.titles.length) {
             return "";
         }
         String chapter = document.content.substring(
-                document.chptPositions[index - 1], document.chptPositions[index]);
+                document.chptPositions[index], document.chptPositions[index+1]);
         return chapter;
     }
 
@@ -65,8 +61,8 @@ public class TextSearchDto {
      */
     public static int inChapter(int index) {
         int len = document.chptPositions.length;
-        for (int i = 0; i < len; i++) {
-            if (document.chptPositions[i] < index && document.chptPositions[i + 1] > index) {
+        for (int i = 0; i < len-1; i++) {
+            if (document.chptPositions[i] <= index && document.chptPositions[i + 1] > index) {
                 return i;
             }
         }

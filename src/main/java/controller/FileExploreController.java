@@ -115,7 +115,7 @@ public class FileExploreController implements Initializable {
         }
     }
     @FXML
-    private void resize(){
+    private void setFullScreen(){
         double width = Toolkit.getDefaultToolkit().getScreenSize().width;
         double height = Toolkit.getDefaultToolkit().getScreenSize().height;
 
@@ -125,7 +125,9 @@ public class FileExploreController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        resize();
+        if(Setting.isFullScreen) {
+            setFullScreen();
+        }
         if(null != FileDto.currentDir){
             openDir(FileDto.currentDir);
         }else{
