@@ -27,6 +27,8 @@ public class TextController implements Initializable {
     @FXML
     private TextArea text = new TextArea();
 
+    private static String filename = "";
+
     private final static FileChooser fileChooser = new FileChooser();
 
     @FXML
@@ -99,9 +101,12 @@ public class TextController implements Initializable {
             });
         }
         //初始化文档
-        if(null == TextSearchDto.document){
+        // OR后面是文件改变的情况
+        if(null == TextSearchDto.document
+        || !filename.equals(FileDto.getCurrentFile().getName())){
             TextSearchDto.document = TextUtil.splitChapter(
                     FileDto.getCurrentFile());
+            filename = FileDto.getCurrentFile().getName();
         }
 
         //换行
