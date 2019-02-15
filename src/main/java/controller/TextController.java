@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -18,6 +19,7 @@ import utils.TextUtil;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
 public class TextController implements Initializable {
     @FXML
@@ -102,6 +104,12 @@ public class TextController implements Initializable {
                     FileDto.getCurrentFile());
         }
 
+        //换行
+        UnaryOperator<TextFormatter.Change> filter = c -> {
+            c.setText(c.getText().replaceAll("\r", "\n"));
+            return c ;
+        };
+        text.setTextFormatter(new TextFormatter<>(filter));
         text.setText(TextSearchDto.getPresentChapterStr());
         text.setFont(Font.font(16));
         Platform.runLater(() ->

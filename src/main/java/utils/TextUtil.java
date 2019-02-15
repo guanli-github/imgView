@@ -76,6 +76,7 @@ public class TextUtil {
             String txtCharSet = resolveTxtCharSet(file);
             isr = new InputStreamReader(new FileInputStream(file), txtCharSet);
             br = new BufferedReader(isr);
+
             while((line = br.readLine()) != null) {
                 sb.append(line);
                 Matcher matcher = p.matcher(line);
@@ -88,6 +89,11 @@ public class TextUtil {
                     }
                     titles.add(title);
                 }
+            }
+            //文章开头算一张
+            if(chpIndexes.get(0) != 0){
+                chpIndexes.add(0,0);
+                titles.add(sb.substring(0,20));
             }
         }catch(Exception e){
             e.printStackTrace();
