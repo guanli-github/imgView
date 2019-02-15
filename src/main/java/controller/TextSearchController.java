@@ -42,7 +42,7 @@ public class TextSearchController implements Initializable {
         int len = TextSearchDto.document.titles.length;
         for(int i=0;i<len;i++){
             SearchResult sr  =new SearchResult(
-                    TextSearchDto.document.chptPositions[i],
+                    TextSearchDto.inChapter(TextSearchDto.document.chptPositions[i]),
                     0,
                     TextSearchDto.document.titles[i]);
             list.add(sr);
