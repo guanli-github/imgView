@@ -110,10 +110,6 @@ public class TextController implements Initializable {
                 setFullScreen();
             }
             scrollTo(TextSearchDto.presentScroll);
-            //搜索词高亮
-            if(null != TextSearchDto.searchWord && !"".equals(TextSearchDto.searchWord)){
-
-            }
             //背景图片
             if (null != TextSearchDto.bgImg) {
                 BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);

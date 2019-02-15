@@ -2,8 +2,7 @@ package utils;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 
 public class ConfigUtils {
     private static String confdir = "D:\\config\\";//配置文件主目录
@@ -74,4 +73,25 @@ public class ConfigUtils {
         }
         return true;
     }
+    //获取指定properties文件的所有key值
+    public static List<String> listKeys(String propertyName){
+        Properties props = new Properties();
+        try {
+            props.load(new FileInputStream(confdir + propertyName + ".properties"));
+            List<String> list =   (List<String>)(List)Collections.list(props.keys());
+            return list;
+        } catch (IOException e) {
+            try {
+                new File(confdir + propertyName + ".properties").createNewFile();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                return null;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
 }
