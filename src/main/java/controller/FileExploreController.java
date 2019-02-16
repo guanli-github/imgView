@@ -5,10 +5,8 @@ import data.Setting;
 import data.dto.FileDto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -64,13 +62,13 @@ public class FileExploreController implements Initializable {
     //显示删除确认框
     @FXML
     private void deleteDialog() {
-        File choosed = files.getSelectionModel()
-                .getSelectedItem();
-        if(null == choosed){
+        File[] choosed = getSelectedFiles();
+        if(0 == choosed.length){
             return;
         }
-        String filename = choosed.getName();
-        dialogInfo.setText("确认删除"+filename+"?");
+        String info = choosed[0].getName()+"等"+choosed.length+"个文件";
+
+        dialogInfo.setText("确认删除"+info+"吗?");
         //设置对话框位置到正中
         double width = Toolkit.getDefaultToolkit().getScreenSize().width;
         double dialogWidth = dialog.getWidth();
@@ -84,14 +82,14 @@ public class FileExploreController implements Initializable {
     //把文件移到回收站
     @FXML
     private void moveFileToTrash() {
-        File choosed = files.getSelectionModel()
-                .getSelectedItem();
-        String filename = choosed.getName();
-        boolean result = FileUtil.moveFileToTrash(
-                    new File[]{choosed}
-            );
+        File[] choosed = getSelectedFiles();
+        if(0 == choosed.length){
+            return;
+        }
+        String info = choosed[0].getName()+"等"+choosed.length+"个文件";
+        boolean result = FileUtil.moveFileToTrash(choosed);
         String resultStr = result?"已移至回收站":"删除失败";
-        Alert alert = new Alert(Alert.AlertType.INFORMATION,filename+resultStr);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,info+resultStr);
         alert.setTitle("");
         alert.setHeaderText("");
         alert.initOwner(SceneManager.getStage());
@@ -99,6 +97,10 @@ public class FileExploreController implements Initializable {
         hideDialog();
         openDir(FileDto.currentDir);
         return;
+    }
+    private File[] getSelectedFiles(){
+        return files.getSelectionModel()
+                .getSelectedItems().toArray(new File[0]) ;
     }
     @FXML
     private void hideDialog(){

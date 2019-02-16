@@ -1,6 +1,10 @@
 #root {
     -fx-background-color:black;
 }
+.button {
+    -fx-background-color: darkturquoise;
+    -fx-background-radius: 3;
+}
 .slider{
     -fx-background-color:null;  /* Hide the track */
     -fx-background-insets: 1 0 -1 0, 0, 1;
@@ -9,5 +13,4 @@
 }
 .slider .thumb {
     -fx-pref-height: 20px;
-
 }

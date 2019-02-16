@@ -135,7 +135,8 @@ public class TextSearchController implements Initializable {
             });
         }
         if (TextSearchDto.searchWord != null && !"".equals(TextSearchDto.searchWord)) {
-            showResult();
+            searchWord.setText(TextSearchDto.searchWord);
+            doSearch();
         }
     }
 

@@ -5,45 +5,43 @@ import data.Const;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FileUtil {
 
     //按文件名排序（同一目录下）
     public static int sortByName(String name1,String name2){
-        //将所有非数字替换成空格，便于后续处理
-        long[] tmp1=clearDelimitor(name1);
-        long[] tmp2=clearDelimitor(name2);
-        int len = Math.min(tmp1.length,tmp2.length);
-        for(int i=0;i<len;i++){
-            if(tmp1[i] == tmp2[i]){//这一段相同则继续
-                continue;
-            }
-            return tmp1[i] > tmp2[i]?
-                    1
-                    :
-                    -1;
-        }
-        //使用String的比较方法作为最后手段
+        //首先将String中的数字映射为char
+        name1 = mapNumToChar(name1);
+        name2 = mapNumToChar(name2);
+
+        //然后使用String的比较方法
         return name1.compareTo(name2);
     }
-    //清除分隔符号，（待定）将字母转换成可比较的数字，便于进一步比较
-    private static long[] clearDelimitor(String str) {
-        String[] tmpArr =  str.replaceAll("[^0-9]", " ")
-                .split(" ");
-        List<String> tmp = new ArrayList<>();
-        for(int i=0;i<tmpArr.length;i++){
-            if(!"".equals(tmpArr[i])){
-                tmp.add(tmpArr[i]);
+    //将String中的数字补零，避免比较时出现10<2的情况
+    private static String mapNumToChar(String name) {
+        String[] numStrArray = name.replaceAll("[^0-9]", ",").split(",");
+        //文件名没有数字的情况
+        if(numStrArray.length == 0)
+            return name;
+        //一般需要比较的文件总数不会超过9999
+        int fillLen = 4;
+
+        String numStr = "0";
+        for(int i = 0; i< numStrArray.length; i++){
+            if(!numStrArray[i].isEmpty() && numStrArray[i].length()<fillLen){
+                //需要填充的位数
+                int fillNo = fillLen - numStrArray[i].length() % fillLen;
+                for(int j =0;j<fillNo;j++){
+                    numStr+="0";
+                }
             }
+            numStr+=numStrArray[i];
         }
-        int n = tmp.size();
-        long[] result=new long[n];
-        for(int i=0;i<n;i++){
-            result[i] = Long.parseLong(tmp.get(i));
-        }
-        return result;
+        //替换所有数字，再加上补零后的数字
+        name = name.replaceAll("[0-9]", "")
+                .concat(numStr);
+        System.out.println(name);
+        return name;
     }
     //移动文件至回收站
     public static boolean moveFileToTrash(File[] filesToDel) {
@@ -66,5 +64,13 @@ public class FileUtil {
             }
         }
         return false;
+    }
+    //期望：-1；-1；-1；-1；
+    public static void main(String[] args) {
+        System.out.println(sortByName("1.jpg","2.jpg"));
+        System.out.println(sortByName("2.jpg","10.jpg"));
+
+        System.out.println(sortByName("a0002.jpg","b0001"));
+        System.out.println(sortByName("0002.jpg","CCF0001"));
     }
 }

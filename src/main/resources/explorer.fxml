@@ -17,8 +17,8 @@
         </ScrollPane>
         <VBox fx:id="dialog" visible="false" managed="false" GridPane.rowIndex="1"
               alignment="CENTER" spacing="20"
-              maxWidth="150" maxHeight="100">
-            <Label fx:id="dialogInfo">
+              maxWidth="200" maxHeight="100">
+            <Label fx:id="dialogInfo" wrapText="true">
             </Label>
             <HBox alignment="BOTTOM_CENTER" spacing="20">
                 <Button onMouseClicked="#moveFileToTrash">确定</Button>

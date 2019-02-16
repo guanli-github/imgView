@@ -5,4 +5,7 @@
     -fx-background-color:grey;
     -fx-background-radius: 3;
 }
-
+.button {
+    -fx-background-color: darkturquoise;
+    -fx-background-radius: 3;
+}

@@ -94,13 +94,12 @@ public class TextUtil {
         }catch(Exception e){
             e.printStackTrace();
         }
-        //String content = sb.toString();
         //没有匹配到结果的情况
         if(chpIndexes.isEmpty()){
             chpIndexes.add(1);
             titles.add(sb.substring(0,20));
         }
-        //文章开头算一张
+        //文章开头算一章
         if(chpIndexes.get(0) != 0){
             chpIndexes.add(0,0);
             titles.add(sb.substring(0,20));
