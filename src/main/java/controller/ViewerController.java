@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import utils.ModalUtil;
 import utils.SceneManager;
 
@@ -32,6 +33,8 @@ public class ViewerController implements Initializable {
     private Label pageNum = new Label();
     @FXML
     private Slider slider = new Slider();
+    @FXML
+    private VBox menu = new VBox();
 
 
     private void openFile(final File file) {
@@ -67,10 +70,26 @@ public class ViewerController implements Initializable {
             doRight();
         } else if (x < width * 0.4) {
             doLeft();
-        } else {
-            showSlider();//点击中间方显示进度条
+        } else {//点击中间显示菜单和进度条
+            showMenu();
+            showSlider();
         }
         mouseEvent.consume();
+    }
+    //显示菜单
+    private void showMenu() {
+        if(menu.isVisible()){
+            ModalUtil.hide(menu,imgView);
+        }else{
+            pageNum.setText(FileParser.currentPage.getValue()+"/"+FileParser.totalPage);
+            ModalUtil.show(menu,imgView);
+        }
+    }
+    @FXML
+    private void hideMenu(MouseEvent click) {
+        if(click.getClickCount() != 2)
+            return;
+        ModalUtil.hide(menu,imgView);
     }
 
     //显示进度条
@@ -83,6 +102,8 @@ public class ViewerController implements Initializable {
             slider.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
         }
         slider.setMax(FileParser.totalPage);
+        slider.setValue(FileParser.currentPage.getValue());
+
         //固定在下方
         double y = Toolkit.getDefaultToolkit().getScreenSize().height;
         slider.setTranslateY(y * 0.45);//在1/3和1/2之间
@@ -190,12 +211,6 @@ public class ViewerController implements Initializable {
         }
 
         openFile(FileDto.getCurrentFile());
-        slider.setMax(FileParser.totalPage);
-        FileParser.currentPage.addListener((val)->{
-            pageNum.setText(FileParser.currentPage.getValue()+"/"+FileParser.totalPage);
-            slider.setValue(FileParser.currentPage.getValue());
-        });
-
     }
 
 }
