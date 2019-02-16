@@ -66,6 +66,11 @@ public class TextController implements Initializable {
         SceneManager.toSearch();
         return;
     }
+    @FXML
+    private void toChapter() {
+        SceneManager.toChapter();
+        return;
+    }
 
     @FXML
     private void nextChapter() {

@@ -4,12 +4,11 @@
 <GridPane id="root" fx:id="root" fx:controller="controller.TextSearchController" alignment="CENTER"
           xmlns:fx="http://javafx.com/fxml">
     <children>
-        <HBox GridPane.rowIndex="0"
+        <HBox fx:id="searchField" GridPane.rowIndex="0"
               spacing="8">
             <TextField fx:id="searchWord" onKeyPressed="#enterSearch"></TextField>
             <Button fx:id="doSearch" onMouseClicked="#doSearch">搜索</Button>
             <Button fx:id="toText" onMouseClicked="#toText">返回</Button>
-            <Button fx:id="showChapter" onMouseClicked="#showChapter">查看目录</Button>
         </HBox>
         <ListView fx:id="results" fixedCellSize="60"
                   GridPane.fillWidth="true" GridPane.rowIndex="1"

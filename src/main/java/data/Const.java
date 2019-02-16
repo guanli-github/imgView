@@ -17,4 +17,6 @@ public class Const {
     public static String[] doc_types = {".zip",".pdf"};
     public static String[] txt_types = {".txt",".html",".log",".java",".py",".sql"};
 
+    public static final int SEARCH = 0; //搜索页面
+    public static final int CHAPTER = 1; //目录页面
 }

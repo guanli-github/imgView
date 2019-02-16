@@ -15,15 +15,17 @@
                 onMouseClicked="#showMenu"/>
         <VBox fx:id="menu" spacing="10" visible="false" managed="false" alignment="CENTER"
         onMouseClicked="#hideMenu">
-            <Button fx:id="bgImg" onMouseClicked="#setBgImg">背景图片
+            <Button onMouseClicked="#setBgImg">背景图片
             </Button>
-            <Button fx:id="toSearch" onMouseClicked="#toSearch">搜索
+            <Button  onMouseClicked="#toSearch">搜索
             </Button>
-            <Button fx:id="nextChapter" onMouseClicked="#nextChapter">下一章
+            <Button onMouseClicked="#toChapter">章节目录
             </Button>
-            <Button fx:id="preChapter" onMouseClicked="#preChapter">上一章
+            <Button onMouseClicked="#nextChapter">下一章
             </Button>
-            <Button fx:id="returnDir" onMouseClicked="#returnDir">返回目录
+            <Button  onMouseClicked="#preChapter">上一章
+            </Button>
+            <Button onMouseClicked="#returnDir">返回文件夹
             </Button>
         </VBox>
     </children>

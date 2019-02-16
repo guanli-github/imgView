@@ -14,7 +14,7 @@
     <children>
         <HBox spacing="10">
             <Button fx:id="returnDir" opacity="0.3" minWidth="20"
-                    onMouseClicked="#returnDir">返回目录
+                    onMouseClicked="#returnDir">返回文件夹
             </Button>
             <Button fx:id="changeOrient" opacity="0.3" minWidth="20"
                     onMouseClicked="#changeOrient">右->左

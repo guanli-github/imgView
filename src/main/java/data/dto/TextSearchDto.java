@@ -1,6 +1,7 @@
 package data.dto;
 
 import data.ChapteredText;
+import data.Const;
 import data.SearchResult;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,8 @@ public class TextSearchDto {
     public static double presentScroll=0.0; //当前章节中的阅读进度
     public static Image bgImg =null;//背景图片
     public static String searchWord;
+    public static int TPYE = Const.SEARCH;
+
 
     public static String nextChapter(){
         if(presentChapter==document.titles.length)

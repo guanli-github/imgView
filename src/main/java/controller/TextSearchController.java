@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import utils.SceneManager;
 
 import java.net.URL;
@@ -23,6 +24,8 @@ import java.util.ResourceBundle;
 public class TextSearchController implements Initializable {
     @FXML
     private ListView results = new ListView();
+    @FXML
+    private HBox searchField = new HBox();
     @FXML
     private TextField searchWord = new TextField();
 
@@ -133,6 +136,13 @@ public class TextSearchController implements Initializable {
                         }
                 );
             });
+        }
+        //显示章节
+        if(TextSearchDto.TPYE == Const.CHAPTER){
+            searchField.setVisible(false);
+            searchField.setManaged(false);
+            showChapter();
+            return;
         }
         if (TextSearchDto.searchWord != null && !"".equals(TextSearchDto.searchWord)) {
             searchWord.setText(TextSearchDto.searchWord);

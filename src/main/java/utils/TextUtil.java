@@ -68,7 +68,7 @@ public class TextUtil {
         List<String> titles = new ArrayList<>();
         //匹配章节名，划分章节
         //https://www.bbsmax.com/A/Vx5M0YmaJN/
-        Pattern p = Pattern.compile("(^.*第)(.{1,9})[章节卷集部篇回](\\s*)(.*)");
+        Pattern p = Pattern.compile("(^.*第)([0123456789一二三四五六七八九十零〇百千两]{1,9})[章节卷集部篇回](\\s*)(.*)");
         StringBuffer sb = new StringBuffer();
         BufferedReader br = null;
         InputStreamReader isr = null;
@@ -82,7 +82,7 @@ public class TextUtil {
                 sb.append(line+ Const.LINE_BREAK);
                 Matcher matcher = p.matcher(line);
                 if (matcher.find()) {
-                    chpIndexes.add(sb.length() - line.length());
+                    chpIndexes.add(sb.length() - line.length() - 1);
                     //整个表达式是第一个group
                     String title = matcher.group(0);
                     if(title.length()> Setting.maxTitleLength){
@@ -97,12 +97,16 @@ public class TextUtil {
         //没有匹配到结果的情况
         if(chpIndexes.isEmpty()){
             chpIndexes.add(1);
-            titles.add(sb.substring(0,20));
+            if(sb.length() >= Setting.maxTitleLength){
+                titles.add(sb.substring(0,Setting.maxTitleLength-1));
+            }else{
+                titles.add(sb.toString());
+            }
         }
         //文章开头算一章
         if(chpIndexes.get(0) != 0){
             chpIndexes.add(0,0);
-            titles.add(sb.substring(0,20));
+            titles.add(0,sb.substring(0,19));
         }
         return new ChapteredText(
                 sb.toString(),
