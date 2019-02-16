@@ -62,34 +62,29 @@ public class ViewerController implements Initializable {
     }
 
     @FXML
-    private void doClick(MouseEvent mouseEvent) {
-        //翻页
-        double x = mouseEvent.getX();
-        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
-        if (x >= width * 0.6) {
-            doRight();
-        } else if (x < width * 0.4) {
-            doLeft();
-        } else {//点击中间显示菜单和进度条
+    private void doClick(MouseEvent click) {
+        if(click.getClickCount() == 2){//双击显示菜单和进度条
             showMenu();
             showSlider();
         }
-        mouseEvent.consume();
+        //翻页
+        double x = click.getX();
+        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
+        if (x >= width * 0.5) {
+            doRight();
+        } else{
+            doLeft();
+        }
+        click.consume();
     }
     //显示菜单
     private void showMenu() {
         if(menu.isVisible()){
-            ModalUtil.hide(menu,imgView);
+            hideModel();
         }else{
             pageNum.setText(FileParser.currentPage.getValue()+"/"+FileParser.totalPage);
             ModalUtil.show(menu,imgView);
         }
-    }
-    @FXML
-    private void hideMenu(MouseEvent click) {
-        if(click.getClickCount() != 2)
-            return;
-        ModalUtil.hide(menu,imgView);
     }
 
     //显示进度条
@@ -114,12 +109,13 @@ public class ViewerController implements Initializable {
     @FXML
     private void slide() {
         int page = (int) slider.getValue();
+        pageNum.setText(page+"/"+FileParser.totalPage);
         jumpToPage(page);
-
     }
     @FXML
-    private void hideSlider() {
-            ModalUtil.hide(slider, imgView);
+    private void hideModel() {
+        ModalUtil.hide(menu,imgView);
+        ModalUtil.hide(slider, imgView);
     }
     @FXML
     private void keyPressed(KeyEvent keyEvent) {
