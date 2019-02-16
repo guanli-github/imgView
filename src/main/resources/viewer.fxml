@@ -8,7 +8,7 @@
 <GridPane id="root" fx:id="root" fx:controller="controller.ViewerController"
           alignment="CENTER"
           onSwipeLeft="#doLeft" onSwipeRight="#doRight"
-          onMouseClicked="#doPageClick"
+          onMouseClicked="#doClick"
           onKeyPressed="#keyPressed"
           xmlns:fx="http://javafx.com/fxml">
     <children>
@@ -24,7 +24,7 @@
         <ImageView fx:id="imgView" GridPane.rowIndex="1"
                    preserveRatio="true"></ImageView>
         <Slider fx:id="slider" visible="false"
-                onMouseDragged="#onSliderChanged"
+                onMouseDragged="#slide" onMouseReleased="#hideSlider"
                 blockIncrement="1.0" majorTickUnit="1" max="1" min="1"
                 minorTickCount="1"
                 showTickLabels="true"

@@ -40,7 +40,6 @@ public class FileUtil {
         //替换所有数字，再加上补零后的数字
         name = name.replaceAll("[0-9]", "")
                 .concat(numStr);
-        System.out.println(name);
         return name;
     }
     //移动文件至回收站

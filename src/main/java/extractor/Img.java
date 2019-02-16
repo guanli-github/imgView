@@ -32,7 +32,7 @@ public class Img {
             return FileUtil.sortByName(o1Name, o2Name);
         });
         FileParser.totalPage = imgFiles.size();
-        FileParser.currentPage = imgFiles.indexOf(file) + 1;
+        FileParser.currentPage.setValue(imgFiles.indexOf(file) + 1);
     }
 
     public static Image getImage(int page) {

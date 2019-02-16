@@ -41,10 +41,9 @@ public class ThumbnailUtil {
 //            String path = "file:" + file.getAbsolutePath();
 //            return Img.getThumnbnail(file);
 //        }
-//        String fileName=file.getName();
-//        String type = fileName.substring(fileName.lastIndexOf("."));
+//        String type = FileTypeHandler.getFileType(file);
 //        if(type.equals(Const.TYPE_PDF)) {
-//            return Pdf.getThumnbnail(file);
+//            return getThumbnail(Pdf.getThumnbnail(file),Const.iconSize,Const.iconSize);
 //        }
 //        if(type.equals(Const.TYPE_ZIP)){
 //           return Zip.getThumnbnail(file);

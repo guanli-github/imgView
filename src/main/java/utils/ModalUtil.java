@@ -7,7 +7,7 @@ import javafx.scene.Node;
  */
 public class ModalUtil {
     public static void show(Node modal, Node main){
-        main.setOpacity(0.1);
+        main.setOpacity(0.2);
         main.toBack();
         modal.setManaged(true);
         modal.setVisible(true);

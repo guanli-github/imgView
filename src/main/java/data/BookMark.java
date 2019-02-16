@@ -42,7 +42,7 @@ public class BookMark {
             save(FileDto.currentDir,FileDto.currentFileIndex);
             return true;
         }
-        save(FileDto.getCurrentFile(), FileParser.currentPage);
+        save(FileDto.getCurrentFile(), FileParser.currentPage.getValue());
         return true;
     }
 

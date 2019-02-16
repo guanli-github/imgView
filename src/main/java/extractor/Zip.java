@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Zip {
-    private static ZipFile zipFile = null;
+    static ZipFile zipFile = null;
     private static ArrayList<ZipEntry> zes = null;
 
     static void reInit(File file){

@@ -33,10 +33,11 @@ public class ViewerController implements Initializable {
     @FXML
     private Slider slider = new Slider();
 
+
     private void openFile(final File file) {
         FileDto.onClickFile(file);
         FileParser.refreash(file);
-        jumpToPage(FileParser.currentPage);
+        jumpToPage(FileParser.currentPage.getValue());
     }
 
     @FXML
@@ -58,7 +59,7 @@ public class ViewerController implements Initializable {
     }
 
     @FXML
-    private void doPageClick(MouseEvent mouseEvent) {
+    private void doClick(MouseEvent mouseEvent) {
         //翻页
         double x = mouseEvent.getX();
         double width = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -86,21 +87,19 @@ public class ViewerController implements Initializable {
         double y = Toolkit.getDefaultToolkit().getScreenSize().height;
         slider.setTranslateY(y * 0.45);//在1/3和1/2之间
         ModalUtil.show(slider, imgView);
+
     }
 
     @FXML
-    private void onSliderChanging() {
-        //滚动时页码变化
-        pageNum.setText((int) slider.getValue() + "/" + FileParser.totalPage);
-    }
-
-    @FXML
-    private void onSliderChanged() {
+    private void slide() {
         int page = (int) slider.getValue();
         jumpToPage(page);
-        ModalUtil.hide(slider, imgView);
-    }
 
+    }
+    @FXML
+    private void hideSlider() {
+            ModalUtil.hide(slider, imgView);
+    }
     @FXML
     private void keyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.LEFT)) {
@@ -131,15 +130,17 @@ public class ViewerController implements Initializable {
     @FXML
     private void returnDir() {
         BookMark.saveCurrent();
+        //关闭资源
+        FileParser.closeFile();
         SceneManager.toExplorer();
     }
 
     private void nextPage() {
-        jumpToPage(FileParser.currentPage + 1);
+        jumpToPage(FileParser.currentPage.getValue() + 1);
     }
 
     private void prePage() {
-        jumpToPage(FileParser.currentPage - 1);
+        jumpToPage(FileParser.currentPage.getValue() - 1);
     }
 
     private void jumpToPage(int page) {
@@ -158,8 +159,7 @@ public class ViewerController implements Initializable {
         imgView.setImage(
                 FileParser.getImage(page)
         );
-        FileParser.currentPage = page;
-        pageNum.setText(FileParser.currentPage + "/" + FileParser.totalPage);
+        FileParser.currentPage.setValue(page);
     }
 
     private void setFullScreen() {
@@ -188,7 +188,13 @@ public class ViewerController implements Initializable {
                 );
             });
         }
+
         openFile(FileDto.getCurrentFile());
+        slider.setMax(FileParser.totalPage);
+        FileParser.currentPage.addListener((val)->{
+            pageNum.setText(FileParser.currentPage.getValue()+"/"+FileParser.totalPage);
+            slider.setValue(FileParser.currentPage.getValue());
+        });
 
     }
 

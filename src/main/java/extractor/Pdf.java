@@ -13,10 +13,10 @@ import java.io.IOException;
 
 public class Pdf {
     private static PDFRenderer renderer;
+    static PDDocument doc = null;
 
     static void reInit(File file){
         FileParser.fileType = Const.TYPE_PDF;
-        PDDocument doc = null;
         try {
             doc = PDDocument.load(file);
             renderer = new PDFRenderer(doc);
@@ -37,18 +37,23 @@ public class Pdf {
             return SwingFXUtils.toFXImage(image,null);
         }
     }
-    public static Image getThumnbnail(File file){
-//        BufferedImage image = null;
-//        try {
-//            image = renderer.renderImageWithDPI(0, 90);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }finally {
-//            return SwingFXUtils.toFXImage(image,null);
-//        }
-        return null;
+    public static BufferedImage getThumnbnail(File file){
+        BufferedImage image = null;
+        try {
+            doc =PDDocument.load(file);
+            image = new PDFRenderer(doc).renderImageWithDPI(0, Const.iconSize);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                doc.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return image;
+        }
     }
 
 }
