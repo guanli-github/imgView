@@ -1,6 +1,7 @@
 package utils;
 
 import data.ChapteredText;
+import data.Const;
 import data.Setting;
 
 import java.io.*;
@@ -78,7 +79,7 @@ public class TextUtil {
             br = new BufferedReader(isr);
 
             while((line = br.readLine()) != null) {
-                sb.append(line);
+                sb.append(line+ Const.LINE_BREAK);
                 Matcher matcher = p.matcher(line);
                 if (matcher.find()) {
                     chpIndexes.add(sb.length() - line.length());
@@ -90,23 +91,22 @@ public class TextUtil {
                     titles.add(title);
                 }
             }
-            //文章开头算一张
-            if(chpIndexes.get(0) != 0){
-                chpIndexes.add(0,0);
-                titles.add(sb.substring(0,20));
-            }
         }catch(Exception e){
             e.printStackTrace();
         }
-        String content = sb.toString();
+        //String content = sb.toString();
         //没有匹配到结果的情况
         if(chpIndexes.isEmpty()){
             chpIndexes.add(1);
-            titles.add(content.substring(0,20));
+            titles.add(sb.substring(0,20));
         }
-
+        //文章开头算一张
+        if(chpIndexes.get(0) != 0){
+            chpIndexes.add(0,0);
+            titles.add(sb.substring(0,20));
+        }
         return new ChapteredText(
-                content,
+                sb.toString(),
                 titles.toArray(new String[0]),
                 chpIndexes.toArray(new Integer[0])
         );

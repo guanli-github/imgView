@@ -8,29 +8,43 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import utils.ModalUtil;
 import utils.SceneManager;
 import utils.TextUtil;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
 
 public class TextController implements Initializable {
     @FXML
     private GridPane root = new GridPane();
     @FXML
     private TextArea text = new TextArea();
+    @FXML
+    private VBox menu = new VBox();
 
     private static String filename = "";
 
     private final static FileChooser fileChooser = new FileChooser();
 
+    @FXML
+    private void showMenu(MouseEvent click) {
+        if(click.getClickCount() != 2)
+            return;
+        ModalUtil.show(menu,text);
+    }
+    @FXML
+    private void hideMenu(MouseEvent click) {
+        if(click.getClickCount() != 2)
+            return;
+        ModalUtil.hide(menu,text);
+    }
     @FXML
     private void returnDir() {
         SceneManager.toExplorer();
@@ -45,13 +59,10 @@ public class TextController implements Initializable {
         BackgroundImage backgroundImage = new BackgroundImage(TextSearchDto.bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
         root.setBackground(background);
-
-        //text.setPrefHeight(backgroundSize.getHeight());
     }
 
     @FXML
     private void toSearch() {
-        //TextSearchDto.readIndex = text.getScrollTop();//保存阅读进度
         SceneManager.toSearch();
         return;
     }
@@ -109,12 +120,6 @@ public class TextController implements Initializable {
             filename = FileDto.getCurrentFile().getName();
         }
 
-        //换行
-        UnaryOperator<TextFormatter.Change> filter = c -> {
-            c.setText(c.getText().replaceAll("\r", "\n"));
-            return c ;
-        };
-        text.setTextFormatter(new TextFormatter<>(filter));
         text.setText(TextSearchDto.getPresentChapterStr());
         text.setFont(Font.font(16));
         Platform.runLater(() ->
