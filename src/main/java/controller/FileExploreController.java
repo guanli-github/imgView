@@ -5,9 +5,13 @@ import data.Setting;
 import data.dto.FileDto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import utils.*;
@@ -24,6 +28,22 @@ public class FileExploreController implements Initializable {
     private VBox dialog = new VBox();
     @FXML
     private Label dialogInfo = new Label();
+    @FXML
+    private void keyPress(KeyEvent keyEvent) {
+        if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+            returnParDir();
+        } else if(keyEvent.getCode().equals(KeyCode.ENTER)){
+            File choosed = files.getSelectionModel()
+                    .getSelectedItem();
+            if(null == choosed) return;
+            if(choosed.isDirectory()){
+                openDir(choosed);
+            }else{
+                openFile(choosed);
+            }
+        }
+        //keyEvent.consume();
+    }
     //返回上一级目录
     @FXML
     private void returnParDir(){
@@ -82,6 +102,7 @@ public class FileExploreController implements Initializable {
     //把文件移到回收站
     @FXML
     private void moveFileToTrash() {
+        System.out.println(11);
         File[] choosed = getSelectedFiles();
         if(0 == choosed.length){
             return;

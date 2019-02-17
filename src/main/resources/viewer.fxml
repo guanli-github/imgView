@@ -11,7 +11,7 @@
           xmlns:fx="http://javafx.com/fxml">
     <children>
         <VBox fx:id="menu" spacing="10" visible="false" managed="false" alignment="CENTER"
-              onTouchPressed="#hideModal">
+              onTouchReleased="#hideModal">
             <Label fx:id="pageNum" text="1/1" textFill="coral"></Label>
             <Button fx:id="changeOrient"
                     onMouseClicked="#changeOrient">右->左

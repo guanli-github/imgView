@@ -13,7 +13,7 @@
         <ListView fx:id="files" fixedCellSize="60"
                   GridPane.fillWidth="true"
                   onMouseClicked="#clickFile"
-                  onSwipeLeft="#returnParDir"></ListView>
+                  onKeyPressed="#keyPress"></ListView>
         </ScrollPane>
         <VBox fx:id="dialog" visible="false" managed="false" GridPane.rowIndex="1"
               alignment="CENTER" spacing="20"
