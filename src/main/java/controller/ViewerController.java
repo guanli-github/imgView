@@ -56,18 +56,6 @@ public class ViewerController implements Initializable {
         }
         keyEvent.consume();
     }
-    @FXML
-    private void click(MouseEvent click) {
-        //翻页
-        double x = click.getX();
-        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
-        if (x >= width * 0.5) {
-            doRight();
-        } else{
-            doLeft();
-        }
-        click.consume();
-    }
 
     @FXML
     private void touchPress(TouchEvent touchEvent) {
@@ -173,8 +161,9 @@ public class ViewerController implements Initializable {
     }
 
     @FXML
-    private void hideModel(TouchEvent touchEvent) {
+    private void hideModal(TouchEvent touchEvent) {
         ModalUtil.hide(imgView, menu, slider);
+        touchEvent.consume();
     }
 
     private void setFullScreen() {

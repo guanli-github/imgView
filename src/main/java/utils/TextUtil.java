@@ -106,7 +106,11 @@ public class TextUtil {
         //文章开头算一章
         if(chpIndexes.get(0) != 0){
             chpIndexes.add(0,0);
-            titles.add(0,sb.substring(0,19));
+            if(sb.length() >= Setting.maxTitleLength){
+                titles.add(0,sb.substring(0,Setting.maxTitleLength-1));
+            }else{
+                titles.add(0,sb.toString());
+            }
         }
         return new ChapteredText(
                 sb.toString(),

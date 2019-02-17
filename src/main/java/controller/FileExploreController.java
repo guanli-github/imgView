@@ -77,7 +77,7 @@ public class FileExploreController implements Initializable {
 //        double height = Toolkit.getDefaultToolkit().getScreenSize().height;
 //        double dialogHeight = dialog.getHeight();
 //        dialog.setTranslateY(0.5 * (height-dialogHeight) );
-        ModalUtil.show(dialog,files);
+        ModalUtil.show(files,dialog);
     }
     //把文件移到回收站
     @FXML
@@ -104,7 +104,7 @@ public class FileExploreController implements Initializable {
     }
     @FXML
     private void hideDialog(){
-        ModalUtil.hide(dialog,files);
+        ModalUtil.hide(files,dialog);
     }
     private void openFile(File f){
         FileDto.onClickFile(f);

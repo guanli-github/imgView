@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-
 <?import javafx.scene.layout.VBox?>
-<GridPane id="root" fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TextController">
+<GridPane id="root" fx:id="root" fx:controller="controller.TextController"
+          xmlns:fx="http://javafx.com/fxml">
     <children>
             <TextArea fx:id="text" editable="false"
                       wrapText="true" GridPane.rowIndex="0"
