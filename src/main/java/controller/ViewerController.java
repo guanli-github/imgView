@@ -52,7 +52,13 @@ public class ViewerController implements Initializable {
             doRight();
         } else if (keyEvent.getCode().equals(KeyCode.SHIFT)) {
             //Shift键显示隐藏操作层
-            showModal();
+            if(menu.isVisible() || slider.isVisible()){
+                ModalUtil.hide(imgView, menu, slider);
+            }else{
+                showModal();
+            }
+        } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+            returnDir();
         }
         keyEvent.consume();
     }

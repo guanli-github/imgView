@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -33,6 +35,20 @@ public class TextController implements Initializable {
 
     private final static FileChooser fileChooser = new FileChooser();
 
+    @FXML
+    private void keyPress(KeyEvent keyEvent) {
+       if (keyEvent.getCode().equals(KeyCode.SHIFT)) {
+            //Shift键显示隐藏操作层
+            if(menu.isVisible()){
+                ModalUtil.hide(text,menu);
+            }else{
+                ModalUtil.show(text,menu);
+            }
+        } else if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+            returnDir();
+        }
+        keyEvent.consume();
+    }
     @FXML
     private void showMenu(MouseEvent click) {
         if(click.getClickCount() != 2)
