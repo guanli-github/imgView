@@ -29,11 +29,4 @@
             </Button>
         </VBox>
     </children>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
 </GridPane>
