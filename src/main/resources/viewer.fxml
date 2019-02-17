@@ -14,10 +14,12 @@
               onTouchReleased="#hideModal">
             <Label fx:id="pageNum" text="1/1" textFill="coral"></Label>
             <Button fx:id="changeOrient"
-                    onMouseClicked="#changeOrient">右->左
+                    onMouseClicked="#changeOrient"
+                    onTouchReleased="#changeOrient">右->左
             </Button>
             <Button fx:id="returnDir"
-                    onMouseClicked="#returnDir">返回文件夹
+                    onMouseClicked="#returnDir"
+                    onTouchReleased="#returnDir">返回文件夹
             </Button>
         </VBox>
         <ImageView fx:id="imgView"
