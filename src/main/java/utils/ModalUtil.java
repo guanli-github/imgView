@@ -6,15 +6,21 @@ import javafx.scene.Node;
  * 隐藏层的显示和隐藏
  */
 public class ModalUtil {
-    public static void show(Node modal, Node main){
+    public static void show(Node main,Node... modals){
         main.setOpacity(0.2);
         main.toBack();
-        modal.setManaged(true);
-        modal.setVisible(true);
+        for(Node modal:modals){
+            modal.setManaged(true);
+            modal.setVisible(true);
+        }
+
     }
-    public static void hide(Node modal, Node main){
-        modal.setVisible(false);
-        modal.setManaged(false);
+    public static void hide(Node main,Node... modals){
+        for(Node modal:modals){
+            modal.setVisible(false);
+            modal.setManaged(false);
+        }
+
         main.setOpacity(1.0);
         main.toFront();
     }

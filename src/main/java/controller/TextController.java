@@ -37,13 +37,13 @@ public class TextController implements Initializable {
     private void showMenu(MouseEvent click) {
         if(click.getClickCount() != 2)
             return;
-        ModalUtil.show(menu,text);
+        ModalUtil.show(text,menu);
     }
     @FXML
     private void hideMenu(MouseEvent click) {
         if(click.getClickCount() != 2)
             return;
-        ModalUtil.hide(menu,text);
+        ModalUtil.hide(text,menu);
     }
     @FXML
     private void returnDir() {
@@ -59,6 +59,7 @@ public class TextController implements Initializable {
         BackgroundImage backgroundImage = new BackgroundImage(TextSearchDto.bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
         Background background = new Background(backgroundImage);
         root.setBackground(background);
+        ModalUtil.hide(text,menu);
     }
 
     @FXML

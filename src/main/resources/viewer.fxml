@@ -6,13 +6,12 @@
 <?import javafx.scene.layout.VBox?>
 <GridPane id="root" fx:id="root" fx:controller="controller.ViewerController"
           alignment="CENTER"
-          onSwipeLeft="#doLeft" onSwipeRight="#doRight"
-          onMouseClicked="#doClick"
-          onKeyPressed="#keyPressed"
+          onTouchPressed="#touchPress"
+          onTouchReleased="#touchRelease"
           xmlns:fx="http://javafx.com/fxml">
     <children>
         <VBox fx:id="menu" spacing="10" visible="false" managed="false" alignment="CENTER"
-              onMouseClicked="#hideModel">
+              onTouchPressed="#hideModel">
             <Label fx:id="pageNum" text="1/1" textFill="coral"></Label>
             <Button fx:id="changeOrient"
                     onMouseClicked="#changeOrient">右->左
@@ -22,6 +21,7 @@
             </Button>
         </VBox>
         <ImageView fx:id="imgView"
+                   focusTraversable="true"  onKeyPressed="#keyPress"
                    preserveRatio="true"></ImageView>
         <Slider fx:id="slider" visible="false"
                 onMouseDragged="#slide" onMouseReleased="#hideModel"

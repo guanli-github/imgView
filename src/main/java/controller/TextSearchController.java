@@ -139,8 +139,8 @@ public class TextSearchController implements Initializable {
         }
         //显示章节
         if(TextSearchDto.TPYE == Const.CHAPTER){
-            searchField.setVisible(false);
-            searchField.setManaged(false);
+//            searchField.setVisible(false);
+//            searchField.setManaged(false);
             showChapter();
             return;
         }

@@ -12,9 +12,7 @@ import javafx.geometry.NodeOrientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import utils.ModalUtil;
 import utils.SceneManager;
@@ -36,37 +34,30 @@ public class ViewerController implements Initializable {
     @FXML
     private VBox menu = new VBox();
 
-
-    private void openFile(final File file) {
-        FileDto.onClickFile(file);
-        FileParser.refreash(file);
-        jumpToPage(FileParser.currentPage.getValue());
+    private long touchPressTime;
+    private int touchId;
+//手势事件
+    @FXML
+    private void slide() {
+        int page = (int) slider.getValue();
+        pageNum.setText(page+"/"+FileParser.totalPage);
+        jumpToPage(page);
     }
 
     @FXML
-    private void doLeft() {
-        if (Setting.orient == Const.R2L) {
-            nextPage();
-        } else {
-            prePage();
+    private void keyPress(KeyEvent keyEvent) {
+        if (keyEvent.getCode().equals(KeyCode.LEFT)) {
+            doLeft();
+        } else if (keyEvent.getCode().equals(KeyCode.RIGHT)) {
+            doRight();
+        } else if (keyEvent.getCode().equals(KeyCode.SHIFT)) {
+            //Shift键显示隐藏操作层
+            showModal();
         }
+        keyEvent.consume();
     }
-
     @FXML
-    private void doRight() {
-        if (Setting.orient == Const.L2R) {
-            nextPage();
-        } else {
-            prePage();
-        }
-    }
-
-    @FXML
-    private void doClick(MouseEvent click) {
-        if(click.getClickCount() == 2){//双击显示菜单和进度条
-            showMenu();
-            showSlider();
-        }
+    private void click(MouseEvent click) {
         //翻页
         double x = click.getX();
         double width = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -77,58 +68,38 @@ public class ViewerController implements Initializable {
         }
         click.consume();
     }
-    //显示菜单
-    private void showMenu() {
-        if(menu.isVisible()){
-            hideModel();
-        }else{
-            pageNum.setText(FileParser.currentPage.getValue()+"/"+FileParser.totalPage);
-            ModalUtil.show(menu,imgView);
-        }
+
+    @FXML
+    private void touchPress(TouchEvent touchEvent) {
+        touchId =touchEvent.getTouchPoint().getId();
+        touchPressTime =System.currentTimeMillis();
+        //touchEvent.consume();
     }
 
-    //显示进度条
-    private void showSlider() {
-        if (slider.visibleProperty().getValue()) {//进度条已显示就隐藏
-            ModalUtil.hide(slider, imgView);
+    @FXML
+    private void touchRelease(TouchEvent touchEvent) {
+        if(touchId != touchEvent.getTouchPoint().getId()){
+            touchEvent.consume();
             return;
         }
-        if (Setting.orient == Const.R2L) {
-            slider.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        //长按唤出操作层
+        if (System.currentTimeMillis() - touchPressTime >=Setting.longTouchInterval){
+            showModal();
+            touchEvent.consume();
+            return;
         }
-        slider.setMax(FileParser.totalPage);
-        slider.setValue(FileParser.currentPage.getValue());
-
-        //固定在下方
-        double y = Toolkit.getDefaultToolkit().getScreenSize().height;
-        slider.setTranslateY(y * 0.45);//在1/3和1/2之间
-        ModalUtil.show(slider, imgView);
-
-    }
-
-    @FXML
-    private void slide() {
-        int page = (int) slider.getValue();
-        pageNum.setText(page+"/"+FileParser.totalPage);
-        jumpToPage(page);
-    }
-    @FXML
-    private void hideModel() {
-        ModalUtil.hide(menu,imgView);
-        ModalUtil.hide(slider, imgView);
-    }
-    @FXML
-    private void keyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getCode().equals(KeyCode.LEFT)) {
-            doLeft();
-        } else if (keyEvent.getCode().equals(KeyCode.RIGHT)) {
+        //翻页
+        double x = touchEvent.getTouchPoint().getX();
+        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
+        if (x >= width * 0.5) {
             doRight();
-        } else if (keyEvent.getCode().equals(KeyCode.SHIFT)) {
-            //Shift键显示进度条
-            showSlider();
+        } else{
+            doLeft();
         }
-        keyEvent.consume();
+        touchEvent.consume();
     }
+
+//菜单按钮事件
 
     //更改翻页方式
     @FXML
@@ -179,6 +150,33 @@ public class ViewerController implements Initializable {
         FileParser.currentPage.setValue(page);
     }
 
+
+    private void openFile(final File file) {
+        FileDto.onClickFile(file);
+        FileParser.refreash(file);
+        jumpToPage(FileParser.currentPage.getValue());
+    }
+
+    //显示菜单和进度条
+    private void showModal() {
+        pageNum.setText(FileParser.currentPage.getValue()+"/"+FileParser.totalPage);
+        if (Setting.orient == Const.R2L) {
+            slider.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+        }
+        slider.setMax(FileParser.totalPage);
+        slider.setValue(FileParser.currentPage.getValue());
+
+        //进度条固定在下方
+        double y = Toolkit.getDefaultToolkit().getScreenSize().height;
+        slider.setTranslateY(y * 0.45);//在1/3和1/2之间
+        ModalUtil.show(imgView,menu,slider);
+    }
+
+    @FXML
+    private void hideModel(TouchEvent touchEvent) {
+        ModalUtil.hide(imgView, menu, slider);
+    }
+
     private void setFullScreen() {
         double width = SceneManager.getStage().getWidth();
         double height = SceneManager.getStage().getHeight();
@@ -189,6 +187,20 @@ public class ViewerController implements Initializable {
         } else {
             imgView.setFitWidth(width);
             imgView.setFitHeight(0);
+        }
+    }
+    private void doLeft() {
+        if (Setting.orient == Const.R2L) {
+            nextPage();
+        } else {
+            prePage();
+        }
+    }
+    private void doRight() {
+        if (Setting.orient == Const.L2R) {
+            nextPage();
+        } else {
+            prePage();
         }
     }
 
@@ -208,6 +220,7 @@ public class ViewerController implements Initializable {
 
         openFile(FileDto.getCurrentFile());
     }
+
 
 }
 
