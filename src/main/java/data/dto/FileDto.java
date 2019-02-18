@@ -65,13 +65,13 @@ public class FileDto {
         if(currentFileIndex < currentFileList.size()-1){
             return currentFileList.get(currentFileIndex+1);
         }
-        return getCurrentFile();
+        return null;
     }
     //打开文件夹中上一文件
     public static File preFile(){
         if(currentFileIndex > 1){
             return currentFileList.get(currentFileIndex-1);
         }
-        return getCurrentFile();
+        return null;
     }
 }

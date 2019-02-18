@@ -6,14 +6,19 @@ import data.Setting;
 import data.dto.FileDto;
 import extractor.FileParser;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.VBox;
+import utils.FileTypeHandler;
 import utils.ModalUtil;
 import utils.SceneManager;
 
@@ -33,7 +38,12 @@ public class ViewerController implements Initializable {
     private Slider slider = new Slider();
     @FXML
     private VBox menu = new VBox();
-
+    private static Alert alert = new Alert(Alert.AlertType.INFORMATION,"");
+    static {
+        alert.setTitle("");
+        alert.setHeaderText("");
+        alert.initOwner(SceneManager.getStage());
+    }
     private long touchPressTime;
     private int touchId;
 //手势事件
@@ -97,7 +107,7 @@ public class ViewerController implements Initializable {
 
     //更改翻页方式
     @FXML
-    private void changeOrient(MouseEvent mouseEvent) {
+    private void changeOrient(Event event) {
         if (Setting.orient == Const.L2R) {
             Setting.orient = Const.R2L;
             changeOrient.setText("右->左");
@@ -105,9 +115,34 @@ public class ViewerController implements Initializable {
             Setting.orient = Const.L2R;
             changeOrient.setText("左->右");
         }
-        mouseEvent.consume();
+        event.consume();
     }
-
+    //打开下一个文件
+    @FXML
+    private void preFile(Event event) {
+        ModalUtil.hide(imgView, menu, slider);
+        File preFile = FileDto.preFile();
+        if(null != preFile){
+            openFile(preFile);
+        }else{
+            alert.setContentText("已经是第一本了");
+            alert.show();
+        }
+        event.consume();
+    }
+    //打开下一个文件
+    @FXML
+    private void nextFile(Event event) {
+        ModalUtil.hide(imgView, menu, slider);
+        File nextFile = FileDto.nextFile();
+        if(null != nextFile){
+            openFile(nextFile);
+        }else{
+            alert.setContentText("已经是最后一本了");
+            alert.show();
+        }
+        event.consume();
+    }
     //返回目录
     @FXML
     private void returnDir() {
@@ -127,25 +162,26 @@ public class ViewerController implements Initializable {
 
     private void jumpToPage(int page) {
         if (0 >= FileParser.totalPage) return;
-        if (page > FileParser.totalPage) return;
-        if (page < 0) return;
+        if (page < 1 ||
+                page > FileParser.totalPage) {
+            showModal();
+            return;
+        }
 
-        //1 前后的文件可能是文本类型的
-        // 2 文件列表没按默认方式排序
-//        if (page > FileParser.totalPage) { //打开文件夹中下一文件
-//            openFile(FileDto.nextFile());
-//        }
-//        if (page < 1) {//打开文件夹中上一文件
-//            openFile(FileDto.preFile());
-//        }
-        imgView.setImage(
-                FileParser.getImage(page)
-        );
+//        imgView.setImage(
+//                FileParser.getImage(page)
+//        );
         FileParser.currentPage.setValue(page);
     }
 
 
     private void openFile(final File file) {
+        //非相关类型，不做处理
+        if(!FileTypeHandler.docFilter.accept(file)){
+            alert.setContentText("不支持的文件类型");
+            alert.show();
+            return;
+        }
         FileDto.onClickFile(file);
         FileParser.refreash(file);
         jumpToPage(FileParser.currentPage.getValue());
@@ -167,9 +203,9 @@ public class ViewerController implements Initializable {
     }
 
     @FXML
-    private void hideModal(TouchEvent touchEvent) {
+    private void hideModal(Event event) {
         ModalUtil.hide(imgView, menu, slider);
-        touchEvent.consume();
+        event.consume();
     }
 
     private void setFullScreen() {
@@ -215,7 +251,6 @@ public class ViewerController implements Initializable {
 
         openFile(FileDto.getCurrentFile());
     }
-
 
 }
 
