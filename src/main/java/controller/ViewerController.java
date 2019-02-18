@@ -168,9 +168,9 @@ public class ViewerController implements Initializable {
             return;
         }
 
-//        imgView.setImage(
-//                FileParser.getImage(page)
-//        );
+        imgView.setImage(
+                FileParser.getImage(page)
+        );
         FileParser.currentPage.setValue(page);
     }
 
