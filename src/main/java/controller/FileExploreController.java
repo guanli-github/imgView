@@ -6,16 +6,17 @@ import data.dto.FileDto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import utils.*;
+import utils.FileTypeHandler;
+import utils.FileUtil;
+import utils.SceneManager;
+import utils.ThumbnailUtil;
 
 import java.awt.*;
 import java.io.File;
@@ -25,10 +26,9 @@ import java.util.ResourceBundle;
 public class FileExploreController implements Initializable {
     @FXML
     private ListView<File> files = new ListView();
-    @FXML
-    private VBox dialog = new VBox();
-    @FXML
-    private Label dialogInfo = new Label();
+
+    private static final FileChooser delFileChooser = new FileChooser();
+
     @FXML
     private void keyPress(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
@@ -80,26 +80,6 @@ public class FileExploreController implements Initializable {
             }
         }
     }
-    //显示删除确认框
-    @FXML
-    private void deleteDialog() {
-        File[] choosed = getSelectedFiles();
-        if(0 == choosed.length){
-            return;
-        }
-        String info = choosed[0].getName()+"等"+choosed.length+"个文件";
-
-        dialogInfo.setText("确认删除"+info+"吗?");
-        //设置对话框位置到正中
-        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
-        double dialogWidth = dialog.getWidth();
-        dialog.setTranslateX(0.5 * (width-dialogWidth) );
-
-//        double height = Toolkit.getDefaultToolkit().getScreenSize().height;
-//        double dialogHeight = dialog.getHeight();
-//        dialog.setTranslateY(0.5 * (height-dialogHeight) );
-        ModalUtil.show(files,dialog);
-    }
     //把文件移到回收站
     @FXML
     private void moveFileToTrash() {
@@ -115,25 +95,21 @@ public class FileExploreController implements Initializable {
         alert.setHeaderText("");
         alert.initOwner(SceneManager.getStage());
         alert.show();
-        hideDialog();
         openDir(FileDto.currentDir);
         return;
     }
 
     private File[] getSelectedFiles() {
-//        return files.getSelectionModel()
-//                .getSelectedItems().toArray(new File[0]) ;
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(FileDto.getCurrentFile());
-        fileChooser.showOpenMultipleDialog(SceneManager.getStage());
-        File[] choosed = fileChooser.showOpenMultipleDialog(null)
+        delFileChooser.setInitialDirectory(FileDto.currentDir);
+        delFileChooser.setTitle("选择要删除的文件");
+        File[] choosed = delFileChooser.showOpenMultipleDialog(null)
                 .toArray(new File[0]);
         return choosed;
     }
-    @FXML
-    private void hideDialog(){
-        ModalUtil.hide(files,dialog);
-    }
+//    @FXML
+//    private void hideDialog(){
+//        ModalUtil.hide(files,dialog);
+//    }
     private void openFile(File f){
         FileDto.onClickFile(f);
         if(FileTypeHandler.docFilter.accept(f)){

@@ -88,8 +88,8 @@ public class ViewerController implements Initializable {
         }
         //长按唤出操作层
         if (System.currentTimeMillis() - touchPressTime >=Setting.longTouchInterval){
-            showModal();
             touchEvent.consume();
+            showModal();
             return;
         }
         //翻页
@@ -120,6 +120,8 @@ public class ViewerController implements Initializable {
     //打开下一个文件
     @FXML
     private void preFile(Event event) {
+        BookMark.saveCurrent();
+
         ModalUtil.hide(imgView, menu, slider);
         File preFile = FileDto.preFile();
         if(null != preFile){
@@ -133,6 +135,8 @@ public class ViewerController implements Initializable {
     //打开下一个文件
     @FXML
     private void nextFile(Event event) {
+        BookMark.saveCurrent();
+
         ModalUtil.hide(imgView, menu, slider);
         File nextFile = FileDto.nextFile();
         if(null != nextFile){

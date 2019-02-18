@@ -6,7 +6,7 @@
         <HBox spacing="8" GridPane.rowIndex="0">
             <Button onMouseClicked="#setFullScreen">重置</Button>
             <Button onMouseClicked="#returnParDir">上级目录</Button>
-            <Button onMouseClicked="#deleteDialog" >删除文件</Button>
+            <Button onMouseClicked="#moveFileToTrash" >删除文件</Button>
             <Button onMouseClicked="#exit" >退出</Button>
         </HBox>
         <ScrollPane vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" GridPane.rowIndex="1">
@@ -15,15 +15,5 @@
                   onMouseClicked="#clickFile"
                   onKeyPressed="#keyPress"></ListView>
         </ScrollPane>
-        <VBox fx:id="dialog" visible="false" managed="false" GridPane.rowIndex="1"
-              alignment="CENTER" spacing="20"
-              maxWidth="200" maxHeight="100">
-            <Label fx:id="dialogInfo" wrapText="true">
-            </Label>
-            <HBox alignment="BOTTOM_CENTER" spacing="20">
-                <Button onMouseClicked="#moveFileToTrash">确定</Button>
-                <Button onMouseClicked="#hideDialog">取消</Button>
-            </HBox>
-        </VBox>
     </children>
 </GridPane>
