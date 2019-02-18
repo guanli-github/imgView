@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import utils.*;
 
 import java.awt.*;
@@ -102,7 +103,6 @@ public class FileExploreController implements Initializable {
     //把文件移到回收站
     @FXML
     private void moveFileToTrash() {
-        System.out.println(11);
         File[] choosed = getSelectedFiles();
         if(0 == choosed.length){
             return;
@@ -119,9 +119,16 @@ public class FileExploreController implements Initializable {
         openDir(FileDto.currentDir);
         return;
     }
-    private File[] getSelectedFiles(){
-        return files.getSelectionModel()
-                .getSelectedItems().toArray(new File[0]) ;
+
+    private File[] getSelectedFiles() {
+//        return files.getSelectionModel()
+//                .getSelectedItems().toArray(new File[0]) ;
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(FileDto.getCurrentFile());
+        fileChooser.showOpenMultipleDialog(SceneManager.getStage());
+        File[] choosed = fileChooser.showOpenMultipleDialog(null)
+                .toArray(new File[0]);
+        return choosed;
     }
     @FXML
     private void hideDialog(){

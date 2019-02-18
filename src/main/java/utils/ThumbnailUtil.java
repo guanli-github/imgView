@@ -39,7 +39,7 @@ public class ThumbnailUtil {
         }
 //        if(FileTypeHandler.imgFilter.accept(file)) {
 //            String path = "file:" + file.getAbsolutePath();
-//            return Img.getThumnbnail(file);
+//            return getThumbnail(Img.getThumnbnail(file), Const.iconSize,Const.iconSize);
 //        }
 //        String type = FileTypeHandler.getFileType(file);
 //        if(type.equals(Const.TYPE_PDF)) {

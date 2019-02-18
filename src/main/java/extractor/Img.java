@@ -1,9 +1,9 @@
 package extractor;
 
 import data.Const;
-import utils.FileTypeHandler;
 import data.dto.FileDto;
 import javafx.scene.image.Image;
+import utils.FileTypeHandler;
 import utils.FileUtil;
 
 import java.io.File;
@@ -40,8 +40,8 @@ public class Img {
         return new Image(path);
     }
 
-    public static Image getThumnbnail(File file) {
-        String path = "file:" + file.getAbsolutePath();
-        return new Image(path);
-    }
+//    public static BufferedImage getThumnbnail(File file) {
+//        String path = "file:" + file.getAbsolutePath();
+//        return new BufferedImage(path);
+//    }
 }

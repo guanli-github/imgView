@@ -11,7 +11,26 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TextUtil {
-    private static void write(File file, StringBuffer buffer) {
+    public static String read(File file){
+        StringBuffer sb = new StringBuffer();
+        BufferedReader br = null;
+        InputStreamReader isr = null;
+        String line = "";
+        try{
+            String txtCharSet = resolveTxtCharSet(file);
+            isr = new InputStreamReader(new FileInputStream(file), txtCharSet);
+            br = new BufferedReader(isr);
+
+            while((line = br.readLine()) != null) {
+                sb.append(line+ Const.LINE_BREAK);
+            }
+            return sb.toString();
+        }catch(Exception e){
+            e.printStackTrace();
+            return "";
+        }
+    }
+    public static void write(File file, StringBuffer buffer) {
         PrintWriter p = null;
         try {
                 p = new PrintWriter(new FileOutputStream(file));

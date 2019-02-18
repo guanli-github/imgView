@@ -1,12 +1,15 @@
 package controller;
 
 import data.Const;
+import data.SearchRecord;
 import data.SearchResult;
 import data.Setting;
 import data.dto.TextSearchDto;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -28,11 +31,13 @@ public class TextSearchController implements Initializable {
     private HBox searchField = new HBox();
     @FXML
     private TextField searchWord = new TextField();
-
+    @FXML
+    private ComboBox<String> recordCombo = new ComboBox<>();
     @FXML
     private void doSearch() {
         String word = searchWord.getText().trim();
         TextSearchDto.searchWord = word;
+        SearchRecord.add(word);
         TextSearchDto.searchResultList.clear();
         TextSearchDto.searchResultList.setAll(getResults(word));
         showResult();
@@ -126,6 +131,12 @@ public class TextSearchController implements Initializable {
         results.setPrefHeight(height);
         results.setPrefWidth(width);
     }
+    @FXML
+    private void changeWord(MouseEvent mouseEvent) {
+        String word = recordCombo.getSelectionModel().getSelectedItem();
+        searchWord.setText(word);
+        doSearch();
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(Setting.isFullScreen){
@@ -136,6 +147,11 @@ public class TextSearchController implements Initializable {
                         }
                 );
             });
+        }
+        //获取过去的记录
+        List<String> records = SearchRecord.getRecords();
+        if(!records.isEmpty()){
+            recordCombo.setItems(FXCollections.observableArrayList(records));
         }
         //显示章节
         if(TextSearchDto.TPYE == Const.CHAPTER){
