@@ -11,7 +11,8 @@
                 <Button fx:id="exit" onMouseClicked="#exit" >退出</Button>
             </HBox>
             <ListView fx:id="files" fixedCellSize="60" GridPane.fillWidth="true"
-                      onMouseClicked="#clickFile"></ListView>
+                      onMouseClicked="#clickFile"
+                      onKeyPressed="#keyPress"></ListView>
         </ScrollPane>
     </children>
 </GridPane>
