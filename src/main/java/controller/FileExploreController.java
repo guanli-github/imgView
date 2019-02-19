@@ -3,9 +3,9 @@ package controller;
 import data.Const;
 import data.Setting;
 import data.dto.FileDto;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
@@ -14,7 +14,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import utils.FileTypeHandler;
-import utils.FileUtil;
 import utils.SceneManager;
 import utils.ThumbnailUtil;
 
@@ -27,7 +26,7 @@ public class FileExploreController implements Initializable {
     @FXML
     private ListView<File> files = new ListView();
 
-    private static final FileChooser delFileChooser = new FileChooser();
+    private static final FileChooser fileWindow = new FileChooser();
 
     @FXML
     private void keyPress(KeyEvent keyEvent) {
@@ -80,32 +79,38 @@ public class FileExploreController implements Initializable {
             }
         }
     }
-    //把文件移到回收站
     @FXML
-    private void moveFileToTrash() {
-        File[] choosed = getSelectedFiles();
-        if(0 == choosed.length){
-            return;
-        }
-        String info = choosed[0].getName()+"等"+choosed.length+"个文件";
-        boolean result = FileUtil.moveFileToTrash(choosed);
-        String resultStr = result?"已移至回收站":"删除失败";
-        Alert alert = new Alert(Alert.AlertType.INFORMATION,info+resultStr);
-        alert.setTitle("");
-        alert.setHeaderText("");
-        alert.initOwner(SceneManager.getStage());
-        alert.show();
-        openDir(FileDto.currentDir);
-        return;
+    private void operate(Event event){
+        fileWindow.setInitialDirectory(FileDto.currentDir);
+        fileWindow.showOpenMultipleDialog(null);
+        event.consume();
     }
-
-    private File[] getSelectedFiles() {
-        delFileChooser.setInitialDirectory(FileDto.currentDir);
-        delFileChooser.setTitle("选择要删除的文件");
-        File[] choosed = delFileChooser.showOpenMultipleDialog(null)
-                .toArray(new File[0]);
-        return choosed;
-    }
+//    //把文件移到回收站
+//    @FXML
+//    private void moveFileToTrash() {
+//        File[] choosed = getSelectedFiles();
+//        if(0 == choosed.length){
+//            return;
+//        }
+//        String info = choosed[0].getName()+"等"+choosed.length+"个文件";
+//        boolean result = FileUtil.moveFileToTrash(choosed);
+//        String resultStr = result?"已移至回收站":"删除失败";
+//        Alert alert = new Alert(Alert.AlertType.INFORMATION,info+resultStr);
+//        alert.setTitle("");
+//        alert.setHeaderText("");
+//        alert.initOwner(SceneManager.getStage());
+//        alert.show();
+//        openDir(FileDto.currentDir);
+//        return;
+//    }
+//
+//    private File[] getSelectedFiles() {
+//        delFileChooser.setInitialDirectory(FileDto.currentDir);
+//        delFileChooser.setTitle("选择要删除的文件");
+//        File[] choosed = delFileChooser.showOpenMultipleDialog(null)
+//                .toArray(new File[0]);
+//        return choosed;
+//    }
 //    @FXML
 //    private void hideDialog(){
 //        ModalUtil.hide(files,dialog);
