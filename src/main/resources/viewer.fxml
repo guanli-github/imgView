@@ -32,7 +32,7 @@
                    focusTraversable="true"  onKeyPressed="#keyPress"
                    preserveRatio="true"></ImageView>
         <Slider fx:id="slider" visible="false"
-                onDragDetected="#slide" onDragDone="#hideModal"
+                onMouseDragged="#slide" onMouseReleased="#hideModal"
                 blockIncrement="1.0" majorTickUnit="1" max="1" min="1"
                 minorTickCount="1"
                 showTickLabels="true"

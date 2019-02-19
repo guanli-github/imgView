@@ -131,12 +131,7 @@ public class TextSearchController implements Initializable {
         results.setPrefHeight(height);
         results.setPrefWidth(width);
     }
-    @FXML
-    private void changeWord(MouseEvent mouseEvent) {
-        String word = recordCombo.getSelectionModel().getSelectedItem();
-        searchWord.setText(word);
-        doSearch();
-    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(Setting.isFullScreen){
@@ -152,6 +147,11 @@ public class TextSearchController implements Initializable {
         List<String> records = SearchRecord.getRecords();
         if(!records.isEmpty()){
             recordCombo.setItems(FXCollections.observableArrayList(records));
+            recordCombo.valueProperty().addListener((val)->{
+                String word = recordCombo.getSelectionModel().getSelectedItem();
+                searchWord.setText(word);
+                doSearch();
+            });
         }
         //显示章节
         if(TextSearchDto.TPYE == Const.CHAPTER){
