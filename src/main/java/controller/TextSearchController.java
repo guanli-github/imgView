@@ -35,12 +35,14 @@ public class TextSearchController implements Initializable {
     private ComboBox<String> recordCombo = new ComboBox<>();
     @FXML
     private void doSearch() {
-        String word = searchWord.getText().trim();
-        TextSearchDto.searchWord = word;
-        SearchRecord.add(word);
-        TextSearchDto.searchResultList.clear();
-        TextSearchDto.searchResultList.setAll(getResults(word));
-        showResult();
+        String word = searchWord.getText();
+        if(null != word){
+            TextSearchDto.searchWord = word;
+            SearchRecord.add(word);
+            TextSearchDto.searchResultList.clear();
+            TextSearchDto.searchResultList.setAll(getResults(word));
+            showResult();
+        }
     }
     //显示目录
     @FXML
@@ -131,12 +133,7 @@ public class TextSearchController implements Initializable {
         results.setPrefHeight(height);
         results.setPrefWidth(width);
     }
-    @FXML
-    private void changeWord(MouseEvent mouseEvent) {
-        String word = recordCombo.getSelectionModel().getSelectedItem();
-        searchWord.setText(word);
-        doSearch();
-    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(Setting.isFullScreen){
@@ -153,6 +150,10 @@ public class TextSearchController implements Initializable {
         if(!records.isEmpty()){
             recordCombo.setItems(FXCollections.observableArrayList(records));
         }
+        recordCombo.getSelectionModel().selectedItemProperty().addListener((e)->{
+            searchWord.setText(recordCombo.getSelectionModel().getSelectedItem());
+            doSearch();
+        });
         //显示章节
         if(TextSearchDto.TPYE == Const.CHAPTER){
 //            searchField.setVisible(false);

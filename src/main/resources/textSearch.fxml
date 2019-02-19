@@ -7,7 +7,7 @@
         <HBox fx:id="searchField" GridPane.rowIndex="0"
               spacing="8">
             <TextField fx:id="searchWord" onKeyPressed="#enterSearch"></TextField>
-            <ComboBox fx:id="recordCombo" onMouseClicked="#changeWord"></ComboBox>
+            <ComboBox fx:id="recordCombo"></ComboBox>
             <Button fx:id="doSearch" onMouseClicked="#doSearch">搜索</Button>
             <Button fx:id="toText" onMouseClicked="#toText">返回</Button>
         </HBox>
