@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import utils.SceneManager;
 import utils.ThumbnailUtil;
@@ -24,7 +26,17 @@ public class RootExploreController implements Initializable {
     private void exit() {
         System.exit(0);
     }
+    @FXML
+    private void keyPress(KeyEvent keyEvent) {
+        if(keyEvent.getCode().equals(KeyCode.ENTER)){
+            File choosed = files.getSelectionModel()
+                    .getSelectedItem();
+            if(null == choosed) return;
 
+            openFile(choosed);
+        }
+        //keyEvent.consume();
+    }
     //双击打开文件
     @FXML
     private void clickFile(MouseEvent click) {
