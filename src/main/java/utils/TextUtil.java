@@ -5,6 +5,9 @@ import data.Const;
 import data.Setting;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -44,6 +47,13 @@ public class TextUtil {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+    public static void writeLog(String file, String str) {
+        try {
+            Files.write(Paths.get(file), str.getBytes(), StandardOpenOption.APPEND);
+        }catch (IOException e) {
+            //exception handling left as an exercise for the reader
         }
     }
     //解析txt文件的编码格式

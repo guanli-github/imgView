@@ -44,14 +44,26 @@ public class FileUtil {
     }
     //移动文件至回收站
     public static boolean moveFileToTrash(File[] filesToDel) {
-        FileUtils fileUtils = FileUtils.getInstance();
-        if (!fileUtils.hasTrash()) {
-            return false;
+        String s = "filesToDel:";
+        for(int i=0;i<filesToDel.length;i++){
+            s+=filesToDel[i].getName();
         }
-        try {
-            fileUtils.moveToTrash(filesToDel);
-            return true;
-        } catch (IOException e) {
+        TextUtil.writeLog("D://log.txt",s);
+        try{
+            FileUtils fileUtils = FileUtils.getInstance();
+            TextUtil.writeLog("D://log.txt","fileUtils:"+fileUtils.toString());
+            if (!fileUtils.hasTrash()) {
+                TextUtil.writeLog("D://log.txt","fileUtils.hasTrash():"+fileUtils.hasTrash());
+                return false;
+            }
+            try {
+                fileUtils.moveToTrash(filesToDel);
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+        }catch (Exception e){
+            TextUtil.writeLog("D:log.txt",e.toString());
             return false;
         }
     }

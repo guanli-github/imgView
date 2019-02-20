@@ -13,14 +13,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import utils.FileTypeHandler;
-import utils.FileUtil;
-import utils.SceneManager;
-import utils.ThumbnailUtil;
+import utils.*;
 
 import java.awt.*;
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class FileExploreController implements Initializable {
@@ -28,7 +26,6 @@ public class FileExploreController implements Initializable {
     private ListView<File> files = new ListView();
 
     private static final FileChooser delFileChooser = new FileChooser();
-
     @FXML
     private void keyPress(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
@@ -84,11 +81,14 @@ public class FileExploreController implements Initializable {
     @FXML
     private void moveFileToTrash() {
         File[] choosed = getSelectedFiles();
+        String str = "";
         if(0 == choosed.length){
             return;
         }
         String info = choosed[0].getName()+"等"+choosed.length+"个文件";
+
         boolean result = FileUtil.moveFileToTrash(choosed);
+
         String resultStr = result?"已移至回收站":"删除失败";
         Alert alert = new Alert(Alert.AlertType.INFORMATION,info+resultStr);
         alert.setTitle("");
@@ -102,7 +102,8 @@ public class FileExploreController implements Initializable {
     private File[] getSelectedFiles() {
         delFileChooser.setInitialDirectory(FileDto.currentDir);
         delFileChooser.setTitle("选择要删除的文件");
-        File[] choosed = delFileChooser.showOpenMultipleDialog(null)
+        List<File> list = delFileChooser.showOpenMultipleDialog(null);
+        File[] choosed = list
                 .toArray(new File[0]);
         return choosed;
     }
