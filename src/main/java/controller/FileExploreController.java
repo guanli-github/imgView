@@ -20,9 +20,7 @@ import utils.ThumbnailUtil;
 
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -99,15 +97,7 @@ public class FileExploreController implements Initializable {
         String info = choosed[0].getName()+"等"+choosed.length+"个文件";
 
         boolean result = FileUtil.moveFileToTrash(choosed);
-        for(int i=0;i<choosed.length;i++){
-            try {
-                Files.delete(choosed[i].toPath());
-            } catch (IOException e) {
-                e.printStackTrace();
-                result = false;
-            }
-        }
-        String resultStr = result?"已删除":"删除失败";
+        String resultStr = result?"已移至回收站":"删除失败";
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION,info+resultStr);
         alert.setTitle("");

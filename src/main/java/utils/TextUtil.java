@@ -48,24 +48,6 @@ public class TextUtil {
         }
     }
 
-    public static void writeLog(String file, String str) {
-        PrintWriter p = null;
-        try {
-            str = read(new File(file)) + str;
-            p = new PrintWriter(new FileOutputStream(file));
-            p.write(str);
-            p.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                p.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     //解析txt文件的编码格式
     public static String resolveTxtCharSet(File file) throws Exception {
         BufferedInputStream bin = new BufferedInputStream(new FileInputStream(file));
