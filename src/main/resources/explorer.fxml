@@ -12,6 +12,6 @@
         <ListView fx:id="files" fixedCellSize="60" GridPane.rowIndex="1"
                   GridPane.fillWidth="true"
                   onMouseClicked="#clickFile"
-                  onKeyPressed="#keyPress"></ListView>
+                  focusTraversable="true" onKeyPressed="#keyPress"></ListView>
     </children>
 </GridPane>

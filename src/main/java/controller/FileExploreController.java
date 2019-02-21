@@ -13,11 +13,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import utils.*;
+import utils.FileTypeHandler;
+import utils.FileUtil;
+import utils.SceneManager;
+import utils.ThumbnailUtil;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -30,6 +35,12 @@ public class FileExploreController implements Initializable {
     private void keyPress(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
             returnParDir();
+        } else if(keyEvent.getCode().equals(KeyCode.UP)){
+            files.getSelectionModel().selectPrevious();
+            files.scrollTo(files.getSelectionModel().getSelectedIndex());
+        } else if(keyEvent.getCode().equals(KeyCode.DOWN)){
+            files.getSelectionModel().selectNext();
+            files.scrollTo(files.getSelectionModel().getSelectedIndex());
         } else if(keyEvent.getCode().equals(KeyCode.ENTER)){
             File choosed = files.getSelectionModel()
                     .getSelectedItem();
@@ -40,7 +51,7 @@ public class FileExploreController implements Initializable {
                 openFile(choosed);
             }
         }
-        //keyEvent.consume();
+        keyEvent.consume();
     }
     //返回上一级目录
     @FXML
@@ -88,8 +99,16 @@ public class FileExploreController implements Initializable {
         String info = choosed[0].getName()+"等"+choosed.length+"个文件";
 
         boolean result = FileUtil.moveFileToTrash(choosed);
+        for(int i=0;i<choosed.length;i++){
+            try {
+                Files.delete(choosed[i].toPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+                result = false;
+            }
+        }
+        String resultStr = result?"已删除":"删除失败";
 
-        String resultStr = result?"已移至回收站":"删除失败";
         Alert alert = new Alert(Alert.AlertType.INFORMATION,info+resultStr);
         alert.setTitle("");
         alert.setHeaderText("");
@@ -139,6 +158,11 @@ public class FileExploreController implements Initializable {
             openDir(FileDto.currentDir);
         }else{
             openDir(Setting.deafultDir);
+        }
+        //从其他面板返回时，保留焦点
+        if (null != FileDto.getCurrentFile()){
+            files.getSelectionModel().select(FileDto.getCurrentFile());
+            files.scrollTo(files.getSelectionModel().getSelectedIndex());
         }
     }
 
