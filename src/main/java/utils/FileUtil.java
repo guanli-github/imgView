@@ -2,9 +2,8 @@ package utils;
 
 import com.sun.jna.platform.FileUtils;
 import data.Const;
-import data.dto.FileDto;
 
-import java.io.*;
+import java.io.File;
 
 public class FileUtil {
 
@@ -51,16 +50,11 @@ public class FileUtil {
             return false;
         }
         try {
-            FileDto.currentFileList.removeAll(filesToDel);
             System.gc();
             fileUtils.moveToTrash(filesToDel);
             return true;
-        } catch (IOException e) {
-            try {
-                e.printStackTrace(new PrintWriter(new FileOutputStream(new File("D:log.txt"))));
-            } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
