@@ -58,6 +58,9 @@ public class FileDto {
         currentFileList.setAll(roots);
     }
     public static File getCurrentFile(){
+        if(currentFileIndex > currentFileList.size()-1 || currentFileIndex < 1) {
+            return null;
+        }
         return currentFileList.get(currentFileIndex);
     }
     //打开文件夹中下一文件

@@ -49,6 +49,7 @@ public class FileUtil {
             return false;
         }
         try {
+            System.gc();
             fileUtils.moveToTrash(filesToDel);
             return true;
         } catch (IOException e) {
