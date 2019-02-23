@@ -102,10 +102,9 @@ public class FileExploreController implements Initializable {
             sta = 1;
             return;
         }
-        showFileView();
-        sta = 0;
         File[] choosed = getSelectedFiles();
-        String str = "";
+        sta = 0;
+        showFileView();//此处会清除map
         if (0 == choosed.length) {
             return;
         }
