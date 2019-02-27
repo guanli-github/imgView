@@ -17,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -100,13 +101,14 @@ public class FileExploreController implements Initializable {
     //把文件移到回收站
     @FXML
     private void moveFileToTrash() {
-        toggleChoose();//恢复到普通的文件页面
 
         File[] choosed = getSelectedFiles();
-        String str = "";
+
         if (0 == choosed.length) {
+            toggleChoose();//恢复到普通的文件页面
             return;
         }
+        toggleChoose();//恢复到普通的文件页面
         String info = choosed[0].getName() + "等" + choosed.length + "个文件";
 
         boolean result = FileUtil.moveFileToTrash(choosed);
@@ -178,11 +180,12 @@ public class FileExploreController implements Initializable {
             iconView.setFitWidth(Const.iconSize);
             iconView.setFitHeight(Const.iconSize);
 
+            HBox hBox =new HBox(checkBox,iconView);
             Text title = new Text(f.getName());
             title.setFill(Paint.valueOf("orange"));
             title.setWrappingWidth(Const.iconSize);
 
-            VBox vb = new VBox(checkBox,iconView, title);
+            VBox vb = new VBox(hBox, title);
             vb.setPrefWidth(Const.iconSize);
             vb.setPadding(insets);
             vbs.add(vb);
