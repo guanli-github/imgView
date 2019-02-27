@@ -29,6 +29,7 @@ public class TextSearchDto {
         return getChapterStr(presentChapter);
     }
     public static ObservableList<SearchResult> searchResultList = FXCollections.observableArrayList();
+    public static int searchIndex = 0;
 
     public static void setPresentChapter(int chapterNo) {
         presentChapter = chapterNo;

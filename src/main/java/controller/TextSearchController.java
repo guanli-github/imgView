@@ -78,6 +78,8 @@ public class TextSearchController implements Initializable {
         SearchResult hitted = (SearchResult) results.getSelectionModel()
                 .getSelectedItem();
         if (null == hitted) return;
+        //记录点击的哪一条
+        TextSearchDto.searchIndex = TextSearchDto.searchResultList.indexOf(hitted);
         TextSearchDto.setPresentChapter(hitted.chapterNo);
         //索引值除以章节长度
         TextSearchDto.presentScroll = TextSearchDto.document.getScrollInChapter(hitted.chapterNo,hitted.positionInChapter);
@@ -169,6 +171,10 @@ public class TextSearchController implements Initializable {
         if (TextSearchDto.searchWord != null && !"".equals(TextSearchDto.searchWord)) {
             searchWord.setText(TextSearchDto.searchWord);
             doSearch();
+        }
+        //回到之前点击的地方
+        if(TextSearchDto.searchIndex>0 && TextSearchDto.searchIndex < TextSearchDto.searchResultList.size()){
+            results.scrollTo(TextSearchDto.searchIndex);
         }
     }
 
