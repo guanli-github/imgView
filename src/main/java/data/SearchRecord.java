@@ -23,5 +23,6 @@ public class SearchRecord {
         }
         sb.append(word);
         TextUtil.writeCrypt(new File(recordLocation),sb);
+        records = Arrays.asList(TextUtil.readCrypt(new File(recordLocation)).split(";"));
     }
 }
