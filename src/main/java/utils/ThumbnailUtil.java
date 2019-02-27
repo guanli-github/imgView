@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * 生成缩略图
+ * 生成缩略图,并存储到本地
  */
 public class ThumbnailUtil {
     public static Image getThumbnail(BufferedImage image,int width,int height){

@@ -1,11 +1,13 @@
 package utils;
 
+import data.Const;
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ConfigUtils {
-    private static String confdir = "D:\\config\\";//配置文件主目录
+    private static String confdir = Const.Conf_Dir;//配置文件主目录
 
     /**
      * 获取属性值
@@ -21,6 +23,9 @@ public class ConfigUtils {
             return props.getProperty(key);
         } catch (IOException e) {
             try {
+                if(!new File(confdir).exists()){
+                    new File(confdir).mkdir();
+                }
                 new File(confdir + propertyName + ".properties").createNewFile();
             } catch (IOException e1) {
                 e1.printStackTrace();

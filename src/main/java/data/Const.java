@@ -1,7 +1,5 @@
 package data;
 
-import utils.ConfigUtils;
-
 public class Const {
     public static final int L2R = 0; //左到右
     public static final int R2L = 1; //右到左
@@ -21,5 +19,13 @@ public class Const {
 
     public static final int SEARCH = 0; //搜索页面
     public static final int CHAPTER = 1; //目录页面
+
+    //config相关properties名
+    public static final String Conf_Dir = "D:\\config\\";
+    public static final String BOOK_MARK = "bookmark";
+    public static final String READED = "readed";
+    public static final String SETTING = "setting";
+
+    public static final String recordLocation = "D://config/records.txt";
 
 }

@@ -4,6 +4,6 @@
 #menu .button {
     -fx-background-color: darkturquoise;
     -fx-background-radius: 3;
-    -fx-font-size: 5pt;
+    -fx-font-size: 10pt;
     -fx-pref-width: 100;
 }

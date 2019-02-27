@@ -159,7 +159,7 @@ public class TextController implements Initializable {
             }
         });
         //背景图片选择
-        fileChooser.setInitialDirectory(Setting.bgImgDir);
+        fileChooser.setInitialDirectory(new File(Setting.bgImgDir));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
                 "image filter", "*.jpg", "*.jpeg", "*.gif", "*.png", "*.bmp"
         ));

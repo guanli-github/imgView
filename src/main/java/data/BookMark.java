@@ -18,19 +18,19 @@ public class BookMark {
      */
     public static boolean save(File file, int index){
         if (index <=1){
-            ConfigUtils.removeConfig("bookmark",file.getAbsolutePath());
+            ConfigUtils.removeConfig(Const.BOOK_MARK,file.getAbsolutePath());
             return true;
         }
-        ConfigUtils.setConfig("bookmark",file.getAbsolutePath(),index+"");
+        ConfigUtils.setConfig(Const.BOOK_MARK,file.getAbsolutePath(),index+"");
         if(index == FileParser.totalPage){ //已经读完
-            ConfigUtils.setConfig("readed",file.getAbsolutePath(),DateUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
+            ConfigUtils.setConfig(Const.READED,file.getAbsolutePath(),DateUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
         }
 
         return true;
     }
     //是否读完
     public static boolean isReaded(File file){
-        String record = ConfigUtils.getConfig("readed",file.getAbsolutePath());
+        String record = ConfigUtils.getConfig(Const.READED,file.getAbsolutePath());
         return null != record?true:false;
     }
         /**
@@ -54,7 +54,7 @@ public class BookMark {
     public static int read(File file){
         Integer index = null;
         try{
-            String indexStr = ConfigUtils.getConfig("bookmark",file.getAbsolutePath());
+            String indexStr = ConfigUtils.getConfig(Const.BOOK_MARK,file.getAbsolutePath());
             if (null == indexStr || "".equals(indexStr)){
                 index = 1;
             }else{

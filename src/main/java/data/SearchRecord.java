@@ -8,7 +8,7 @@ import java.util.List;
 
 //过去的搜索记录
 public class SearchRecord {
-    private static final String recordLocation = "D://config/records.txt";
+    private static final String recordLocation = Const.recordLocation;
     private static List<String> records = Arrays.asList(TextUtil.readCrypt(new File(recordLocation)).split(";"));
     public static List<String> getRecords(){
         return records;

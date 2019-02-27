@@ -242,7 +242,7 @@ public class FileExploreController implements Initializable {
         if (null != FileDto.currentDir) {
             openDir(FileDto.currentDir);
         } else {
-            openDir(Setting.deafultDir);
+            openDir(new File(Setting.deafultDir));
         }
     }
 
