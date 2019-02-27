@@ -4,7 +4,6 @@ import com.sun.jna.platform.FileUtils;
 import data.Const;
 
 import java.io.File;
-import java.io.IOException;
 
 public class FileUtil {
 
@@ -54,7 +53,8 @@ public class FileUtil {
             System.gc();
             fileUtils.moveToTrash(filesToDel);
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

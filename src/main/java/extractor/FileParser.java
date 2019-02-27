@@ -62,6 +62,7 @@ public class FileParser {
         try {
             if (Pdf.doc != null) {
                 Pdf.doc.close();
+
             }
             if (Zip.zipFile != null) {
                 Zip.zipFile.close();

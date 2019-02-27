@@ -187,6 +187,7 @@ public class ViewerController implements Initializable {
             return;
         }
         FileDto.onClickFile(file);
+        FileParser.closeFile();
         FileParser.refreash(file);
         jumpToPage(FileParser.currentPage.getValue());
     }
