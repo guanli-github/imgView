@@ -3,6 +3,7 @@ package controller;
 import data.Const;
 import data.Setting;
 import data.dto.FileDto;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -195,7 +196,9 @@ public class FileExploreController implements Initializable {
         Insets insets = new Insets(10, 10, 10, 10);
         for (File f : FileDto.currentFileList) {
             ImageView iconView = new ImageView();
-            iconView.setImage(ThumbnailUtil.getFileThumbnail(f));
+            Platform.runLater(()->{//加载文件缩略图
+                iconView.setImage(ThumbnailUtil.getFileThumbnail(f));
+            });
             iconView.setFitWidth(Const.iconSize);
             iconView.setFitHeight(Const.iconSize);
 
