@@ -13,17 +13,22 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 /**
  * 缩略图相关
  */
 public class ThumbnailUtil {
+    static{
+        if(!new File(Const.thumbnailPath).exists()){
+            new File(Const.thumbnailPath).mkdir();
+        }
+    }
     public static Image newThumbnail(InputStream imgIs){
         BufferedImage thumbnail;
         try {
             thumbnail =  Thumbnails.of(imgIs)
                     .size(Const.iconSize, Const.iconSize)
-                    .keepAspectRatio(true)
                     .asBufferedImage();
             return SwingFXUtils.toFXImage(thumbnail,null);
         } catch (IOException e) {
@@ -34,13 +39,10 @@ public class ThumbnailUtil {
     private static void saveThumbnail(String filePath,Image thumbnail){
         BufferedImage bImage = SwingFXUtils.fromFXImage(thumbnail, null);
 
-        String thumbnailName = Const.thumbnailPath;
+        String thumbnailName = Const.thumbnailPath+ UUID.randomUUID()+".png";
         try {
             ImageIO.write(bImage, "png", new File(thumbnailName));
         } catch (IOException e) {
-            if(!new File(Const.thumbnailPath).exists()){
-                new File(Const.thumbnailPath).mkdir();
-            }
             e.printStackTrace();
         }
         ConfigUtils.setConfig(Const.THUMBNAIL,filePath, thumbnailName);
@@ -48,7 +50,7 @@ public class ThumbnailUtil {
     public static Image getThumbnail(File file){
         String thumnbNailPath = ConfigUtils.getConfig(Const.THUMBNAIL,file.getAbsolutePath());
         if(null != thumnbNailPath){
-            String path = "file:" + Const.thumbnailPath+thumnbNailPath+".png";
+            String path = "file:" + thumnbNailPath;
             return new Image(path);
         }
         //如果记录中没有，就创建新的缩略图

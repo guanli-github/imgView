@@ -11,12 +11,12 @@ public class MainExlporer extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/explorer.fxml"));
         if(Setting.isFullScreen){
             stage.setFullScreen(true);
         }
         stage.setResizable(false);
         stage.setFullScreenExitHint("");
+        Parent root = FXMLLoader.load(getClass().getResource("/explorer.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         scene.getStylesheets().add

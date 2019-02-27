@@ -9,15 +9,14 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
@@ -35,7 +34,11 @@ import java.util.*;
 
 public class FileExploreController implements Initializable {
     @FXML
+    private GridPane root = new GridPane();
+    @FXML
     private FlowPane files = new FlowPane();
+    @FXML
+    private VBox menu = new VBox();
     private Map<File, ObservableValue<Boolean>> chooseFileMap = new HashMap<>();
     private static int chooseStatus = 0;//0 is in choose mode;1 not
     @FXML
@@ -69,21 +72,6 @@ public class FileExploreController implements Initializable {
     private void openDir(File dir) {
         FileDto.onChangeDir(dir);
         showFileView();
-    }
-
-    //双击打开文件
-    @FXML
-    private void clickFile(MouseEvent click) {
-        if (click.getClickCount() == 2) {
-//            File choosed = files.getSelectionModel()
-//                    .getSelectedItem();
-//            if (null == choosed) return;
-//            if (choosed.isDirectory()) {
-//                openDir(choosed);
-//            } else {
-//                openFile(choosed);
-//            }
-        }
     }
 
     @FXML
@@ -154,8 +142,9 @@ public class FileExploreController implements Initializable {
         double width = Toolkit.getDefaultToolkit().getScreenSize().width;
         double height = Toolkit.getDefaultToolkit().getScreenSize().height;
 
-        files.setPrefWidth(width);
-        files.setPrefHeight(height);
+        root.setPrefWidth(width);
+        files.setPrefWrapLength(width-menu.getMinWidth()-20);
+        root.setPrefHeight(height);
     }
 
     //显示选择文件视图
@@ -165,7 +154,6 @@ public class FileExploreController implements Initializable {
             chooseFileMap.put(f, new SimpleBooleanProperty(false));
         }
         List<VBox> vbs = new ArrayList<>();
-        Insets insets = new Insets(10, 10, 10, 10);
         for (File f : FileDto.currentFileList) {
             CheckBox checkBox = new CheckBox();
             checkBox.setOnMouseClicked((e)->{
@@ -180,15 +168,22 @@ public class FileExploreController implements Initializable {
             iconView.setImage(ThumbnailUtil.getFileThumbnail(f));
             iconView.setFitWidth(Const.iconSize);
             iconView.setFitHeight(Const.iconSize);
+            iconView.setPreserveRatio(true);
 
             HBox hBox =new HBox(checkBox,iconView);
             Text title = new Text(f.getName());
-            title.setFill(Paint.valueOf("orange"));
+            title.setFill(Paint.valueOf("white"));
+            if(BookMark.read(f) != 1){
+                if(BookMark.isReaded(f)){ //已读
+                    title.setFill(Paint.valueOf("blue"));
+                }else{//正在读
+                    title.setFill(Paint.valueOf("orange"));
+                }
+            }
             title.setWrappingWidth(Const.iconSize);
 
             VBox vb = new VBox(hBox, title);
             vb.setPrefWidth(Const.iconSize);
-            vb.setPadding(insets);
             vbs.add(vb);
         }
         files.getChildren().setAll(vbs);
@@ -197,7 +192,6 @@ public class FileExploreController implements Initializable {
     private void showFileView() {
         chooseFileMap.clear();
         List<VBox> vbs = new ArrayList<>();
-        Insets insets = new Insets(10, 10, 10, 10);
         for (File f : FileDto.currentFileList) {
             ImageView iconView = new ImageView();
             Platform.runLater(()->{//加载文件缩略图
@@ -205,6 +199,7 @@ public class FileExploreController implements Initializable {
             });
             iconView.setFitWidth(Const.iconSize);
             iconView.setFitHeight(Const.iconSize);
+            iconView.setPreserveRatio(true);
 
             Text title = new Text(f.getName());
             title.setFill(Paint.valueOf("white"));
@@ -219,7 +214,6 @@ public class FileExploreController implements Initializable {
 
             VBox vb = new VBox(iconView, title);
             vb.setPrefWidth(Const.iconSize);
-            vb.setPadding(insets);
             vb.setOnMouseClicked((e) -> {
                 if (e.getClickCount() != 2) {
                     e.consume();
@@ -236,17 +230,18 @@ public class FileExploreController implements Initializable {
             vbs.add(vb);
         }
         files.getChildren().setAll(vbs);
-//        Platform.runLater(()->{//设置文件图片
-//            for(VBox vb:vbs){
-//                vb.
-//            }
-//        });
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (Setting.isFullScreen) {
             setFullScreen();
+//            SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
+//                Platform.runLater(() -> {
+//                            setFullScreen();
+//                        }
+//                );
+//            });
         }
         if (null != FileDto.currentDir) {
             openDir(FileDto.currentDir);

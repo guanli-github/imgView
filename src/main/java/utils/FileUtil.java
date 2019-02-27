@@ -2,6 +2,7 @@ package utils;
 
 import com.sun.jna.platform.FileUtils;
 import data.Const;
+import extractor.FileParser;
 
 import java.io.File;
 
@@ -50,6 +51,7 @@ public class FileUtil {
             return false;
         }
         try {
+            FileParser.closeFile();
             System.gc();
             fileUtils.moveToTrash(filesToDel);
             return true;

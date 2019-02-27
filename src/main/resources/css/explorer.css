@@ -1,6 +1,15 @@
 #root {
     -fx-background-color:black;
 }
+#menu {
+    -fx-padding:10;
+}
+#menu .button {
+    -fx-background-color: darkturquoise;
+    -fx-background-radius: 3;
+    -fx-font-size: 10pt;
+    -fx-pref-width: 100;
+}
 .scroll-pane {
     -fx-background-color: transparent;
 }
@@ -11,9 +20,4 @@
 .scroll-pane .content{
     -fx-background-color: transparent;
 }
-#menu .button {
-    -fx-background-color: darkturquoise;
-    -fx-background-radius: 3;
-    -fx-font-size: 10pt;
-    -fx-pref-width: 100;
-}
+
