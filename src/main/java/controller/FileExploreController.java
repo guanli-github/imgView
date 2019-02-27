@@ -1,5 +1,6 @@
 package controller;
 
+import data.BookMark;
 import data.Const;
 import data.Setting;
 import data.dto.FileDto;
@@ -206,7 +207,14 @@ public class FileExploreController implements Initializable {
             iconView.setFitHeight(Const.iconSize);
 
             Text title = new Text(f.getName());
-            title.setFill(Paint.valueOf("orange"));
+            title.setFill(Paint.valueOf("white"));
+            if(BookMark.read(f) != 1){
+                if(BookMark.isReaded(f)){ //已读
+                    title.setFill(Paint.valueOf("blue"));
+                }else{//正在读
+                    title.setFill(Paint.valueOf("orange"));
+                }
+            }
             title.setWrappingWidth(Const.iconSize);
 
             VBox vb = new VBox(iconView, title);
@@ -224,6 +232,7 @@ public class FileExploreController implements Initializable {
                 }
                 e.consume();
             });
+
             vbs.add(vb);
         }
         files.getChildren().setAll(vbs);

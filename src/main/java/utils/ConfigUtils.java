@@ -54,6 +54,9 @@ public class ConfigUtils {
             fos.close();
         } catch (IOException e) {
             try {
+                if(!new File(confdir).exists()){
+                    new File(confdir).mkdir();
+                }
                 new File(confdir + propertyName + ".properties").createNewFile();
             } catch (IOException e1) {
                 e1.printStackTrace();

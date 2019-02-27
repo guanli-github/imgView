@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
 import utils.FileUtil;
+import utils.ThumbnailUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,10 +61,14 @@ public class Zip {
             e.printStackTrace();
         }
         zes =  Collections.list(zipFile.getEntries());
+        zes.removeIf((ze) -> ((ZipEntry) ze).isDirectory());//去除目录
+        zes.removeIf((ze) -> (!FileUtil.isSupportImg(//去除非图片文件
+                ze.getName().substring(
+                        ze.getName().lastIndexOf(".")))));
         ZipEntry ze = zes.get(0);
         try {
             InputStream imgIs = zipFile.getInputStream(ze);
-            return  new Image(imgIs);
+            return ThumbnailUtil.newThumbnail(imgIs);
         } catch (IOException e) {
             e.printStackTrace();
         }

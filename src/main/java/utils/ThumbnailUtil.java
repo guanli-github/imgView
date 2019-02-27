@@ -1,56 +1,77 @@
 package utils;
 
-import data.BookMark;
+import data.Const;
+import extractor.Img;
+import extractor.Pdf;
+import extractor.Zip;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import net.coobird.thumbnailator.Thumbnails;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
- * 生成缩略图,并存储到本地
+ * 缩略图相关
  */
 public class ThumbnailUtil {
-    public static Image getThumbnail(BufferedImage image,int width,int height){
+    public static Image newThumbnail(InputStream imgIs){
+        BufferedImage thumbnail;
         try {
-            BufferedImage thumbnail =  Thumbnails.of(image)
-                    .size(width, height).asBufferedImage();
+            thumbnail =  Thumbnails.of(imgIs)
+                    .size(Const.iconSize, Const.iconSize)
+                    .keepAspectRatio(true)
+                    .asBufferedImage();
             return SwingFXUtils.toFXImage(thumbnail,null);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
+    private static void saveThumbnail(String filePath,Image thumbnail){
+        BufferedImage bImage = SwingFXUtils.fromFXImage(thumbnail, null);
 
-    public static Image getFileThumbnail(File file){
-
-        if(BookMark.read(file) != 1){ //正在读
-            if(BookMark.isReaded(file)){ //已读
-                return new Image("/icons/readed.jpg");
+        String thumbnailName = Const.thumbnailPath;
+        try {
+            ImageIO.write(bImage, "png", new File(thumbnailName));
+        } catch (IOException e) {
+            if(!new File(Const.thumbnailPath).exists()){
+                new File(Const.thumbnailPath).mkdir();
             }
-            return new Image("/icons/reading.jpg");
+            e.printStackTrace();
         }
+        ConfigUtils.setConfig(Const.THUMBNAIL,filePath, thumbnailName);
+    }
+    public static Image getThumbnail(File file){
+        String thumnbNailPath = ConfigUtils.getConfig(Const.THUMBNAIL,file.getAbsolutePath());
+        if(null != thumnbNailPath){
+            String path = "file:" + Const.thumbnailPath+thumnbNailPath+".png";
+            return new Image(path);
+        }
+        //如果记录中没有，就创建新的缩略图
+        Image thumnbNail = null;
+
+        String type = FileTypeHandler.getFileType(file);
+        if(FileTypeHandler.imgFilter.accept(file)) {
+            thumnbNail = Img.getThumnbnail(file);
+        }else if(type.equals(Const.TYPE_PDF)) {
+            thumnbNail = Pdf.getThumnbnail(file);
+        }else if(type.equals(Const.TYPE_ZIP)){
+            thumnbNail = Zip.getThumnbnail(file);
+        }
+        if(null != thumnbNail){
+            saveThumbnail(file.getAbsolutePath(),thumnbNail);
+            return thumnbNail;
+        }
+        return new Image("/icons/file.jpg");
+    }
+    public static Image getFileThumbnail(File file){
         if(file.isDirectory()){
             return new Image("/icons/dir.jpg");
         }
-        if(!FileTypeHandler.docFilter.accept(file)){
-            return new Image("/icons/file.jpg");
-        }
-//        if(FileTypeHandler.imgFilter.accept(file)) {
-//            String path = "file:" + file.getAbsolutePath();
-//            return getThumbnail(Img.getThumnbnail(file), Const.iconSize,Const.iconSize);
-//        }
-//        String type = FileTypeHandler.getFileType(file);
-//        if(type.equals(Const.TYPE_PDF)) {
-//            return getThumbnail(Pdf.getThumnbnail(file),Const.iconSize,Const.iconSize);
-//        }
-//        if(type.equals(Const.TYPE_ZIP)){
-//           return Zip.getThumnbnail(file);
-//        }
-
-
-        return new Image("/icons/file.jpg");
+        return getThumbnail(file);
     }
 }

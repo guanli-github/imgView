@@ -4,7 +4,7 @@ public class Const {
     public static final int L2R = 0; //左到右
     public static final int R2L = 1; //右到左
 
-    public static final int iconSize = 100; //icon尺寸
+    public static final int iconSize = 20; //icon尺寸
 
     public static final int textBias = 30; //中心字与搜索top的差值
 
@@ -25,7 +25,9 @@ public class Const {
     public static final String BOOK_MARK = "bookmark";
     public static final String READED = "readed";
     public static final String SETTING = "setting";
+    public static final String THUMBNAIL = "thumbnail";
 
-    public static final String recordLocation = "D://config/records.txt";
+    public static final String recordLocation = "D:\\config\\records.txt";
+    public static final String thumbnailPath = "D:\\thumbnail\\";
 
 }

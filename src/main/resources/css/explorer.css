@@ -1,6 +1,16 @@
 #root {
     -fx-background-color:black;
 }
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .content{
+    -fx-background-color: transparent;
+}
 #menu .button {
     -fx-background-color: darkturquoise;
     -fx-background-radius: 3;

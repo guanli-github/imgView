@@ -5,8 +5,11 @@ import data.dto.FileDto;
 import javafx.scene.image.Image;
 import utils.FileTypeHandler;
 import utils.FileUtil;
+import utils.ThumbnailUtil;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +43,13 @@ public class Img {
         return new Image(path);
     }
 
-//    public static BufferedImage getThumnbnail(File file) {
-//        String path = "file:" + file.getAbsolutePath();
-//        return new BufferedImage(path);
-//    }
+    public static Image getThumnbnail(File file) {
+        String path = "file:" + file.getAbsolutePath();
+        try {
+            return ThumbnailUtil.newThumbnail(new FileInputStream(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

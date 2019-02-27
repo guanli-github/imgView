@@ -3,14 +3,16 @@
 <GridPane id="root" fx:controller="controller.FileExploreController"
           xmlns:fx="http://javafx.com/fxml" alignment="TOP_CENTER">
     <children>
-        <VBox id="menu" spacing="8" alignment="TOP_LEFT">
+        <VBox id="menu" spacing="8" alignment="TOP_LEFT" minWidth="100">
             <Button onMouseClicked="#setFullScreen">重置</Button>
             <Button onMouseClicked="#returnParDir">上级目录</Button>
             <Button onMouseClicked="#toggleChoose" >选择文件</Button>
             <Button fx:id="delFileBtn" onMouseClicked="#moveFileToTrash" disable="true">删除文件</Button>
             <Button onMouseClicked="#exit" >退出</Button>
         </VBox>
-        <FlowPane id="files" fx:id="files" GridPane.columnIndex="1"
+        <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="NEVER" GridPane.columnIndex="1">
+        <FlowPane id="files" fx:id="files"
                   focusTraversable="true" onKeyPressed="#keyPress"></FlowPane>
+        </ScrollPane>
     </children>
 </GridPane>

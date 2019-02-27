@@ -37,11 +37,12 @@ public class Pdf {
             return SwingFXUtils.toFXImage(image,null);
         }
     }
-    public static BufferedImage getThumnbnail(File file){
-        BufferedImage image = null;
+
+    public static Image getThumnbnail(File file){
+        BufferedImage thumbnail = null;
         try {
             doc =PDDocument.load(file);
-            image = new PDFRenderer(doc).renderImageWithDPI(0, Const.iconSize);
+            thumbnail = new PDFRenderer(doc).renderImageWithDPI(0, Const.iconSize);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class Pdf {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return image;
+            return SwingFXUtils.toFXImage(thumbnail,null);
         }
     }
 
