@@ -1,11 +1,9 @@
 #root {
     -fx-background-color:black;
 }
-#dialog {
-    -fx-background-color:grey;
-    -fx-background-radius: 3;
-}
-.button {
+#menu .button {
     -fx-background-color: darkturquoise;
     -fx-background-radius: 3;
+    -fx-font-size: 5pt;
+    -fx-pref-width: 100;
 }

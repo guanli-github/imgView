@@ -1,5 +1,7 @@
 package data;
 
+import utils.ConfigUtils;
+
 import java.io.File;
 
 public class Setting {
@@ -11,6 +13,8 @@ public class Setting {
     public static int longTouchInterval = 500;//长按的事件间隔
     public static File deafultDir =  new File("E:\\");
     public static File bgImgDir =  new File("E:\\新規フォルダー\\nn\\pic");
+    //密码
+    public static String aespass = ConfigUtils.getConfig("setting","pwd");
 
 //    public static void refresh(){
 //        orient = Const.R2L;

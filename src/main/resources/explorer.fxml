@@ -1,18 +1,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <GridPane id="root" fx:controller="controller.FileExploreController"
-            xmlns:fx="http://javafx.com/fxml" alignment="CENTER">
+          xmlns:fx="http://javafx.com/fxml" alignment="TOP_CENTER">
     <children>
-        <HBox spacing="8" GridPane.rowIndex="0">
+        <VBox id="menu" spacing="8" alignment="TOP_LEFT">
             <Button onMouseClicked="#setFullScreen">重置</Button>
             <Button onMouseClicked="#returnParDir">上级目录</Button>
             <Button onMouseClicked="#toggleChoose" >选择文件</Button>
             <Button fx:id="delFileBtn" onMouseClicked="#moveFileToTrash" disable="true">删除文件</Button>
             <Button onMouseClicked="#exit" >退出</Button>
-        </HBox>
-        <ListView fx:id="files" fixedCellSize="60" GridPane.rowIndex="1"
-                  GridPane.fillWidth="true"
-                  onMouseClicked="#clickFile"
-                  focusTraversable="true" onKeyPressed="#keyPress"></ListView>
+        </VBox>
+        <FlowPane id="files" fx:id="files" GridPane.columnIndex="1"
+                  focusTraversable="true" onKeyPressed="#keyPress"></FlowPane>
     </children>
 </GridPane>

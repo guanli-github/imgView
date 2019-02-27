@@ -1,6 +1,6 @@
 package utils;
 
-import data.Const;
+import data.Setting;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
@@ -154,10 +154,10 @@ public final class AESUtil {
     }
 
     public static String encrypt(String content){
-        return encryptHex(content, Const.aespass);
+        return encryptHex(content, Setting.aespass);
     }
 
     public static String decrypt(String content){
-        return decryptHex(content, Const.aespass);
+        return decryptHex(content, Setting.aespass);
     }
 }

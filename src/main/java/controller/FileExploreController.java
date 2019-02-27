@@ -7,16 +7,18 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.control.CheckBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 import utils.FileTypeHandler;
 import utils.FileUtil;
 import utils.SceneManager;
@@ -30,25 +32,16 @@ import java.util.*;
 
 public class FileExploreController implements Initializable {
     @FXML
-    private ListView<File> files = new ListView();
+    private FlowPane files = new FlowPane();
     private Map<File, ObservableValue<Boolean>> chooseFileMap = new HashMap<>();
     private static int chooseStatus = 0;//0 is in choose mode;1 not
     @FXML
     private Button delFileBtn = new Button();
+
     @FXML
     private void keyPress(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
             returnParDir();
-            keyEvent.consume();
-        }else if (keyEvent.getCode().equals(KeyCode.ENTER)) {
-            File choosed = files.getSelectionModel()
-                    .getSelectedItem();
-            if (null == choosed) return;
-            if (choosed.isDirectory()) {
-                openDir(choosed);
-            } else {
-                openFile(choosed);
-            }
             keyEvent.consume();
         }
     }
@@ -79,18 +72,19 @@ public class FileExploreController implements Initializable {
     @FXML
     private void clickFile(MouseEvent click) {
         if (click.getClickCount() == 2) {
-            File choosed = files.getSelectionModel()
-                    .getSelectedItem();
-            if (null == choosed) return;
-            if (choosed.isDirectory()) {
-                openDir(choosed);
-            } else {
-                openFile(choosed);
-            }
+//            File choosed = files.getSelectionModel()
+//                    .getSelectedItem();
+//            if (null == choosed) return;
+//            if (choosed.isDirectory()) {
+//                openDir(choosed);
+//            } else {
+//                openFile(choosed);
+//            }
         }
     }
+
     @FXML
-    private void toggleChoose(){
+    private void toggleChoose() {
         if (chooseStatus == 0) {
             showChooseFileView();
             chooseStatus = 1;
@@ -105,6 +99,8 @@ public class FileExploreController implements Initializable {
     //把文件移到回收站
     @FXML
     private void moveFileToTrash() {
+        toggleChoose();//恢复到普通的文件页面
+
         File[] choosed = getSelectedFiles();
         String str = "";
         if (0 == choosed.length) {
@@ -160,22 +156,76 @@ public class FileExploreController implements Initializable {
 
     //显示选择文件视图
     private void showChooseFileView() {
-        Callback<File, ObservableValue<Boolean>> itemToBoolean = (File item) -> chooseFileMap.get(item);
-        files.setItems(null);
-        files.refresh();
-        files.setItems(FileDto.currentFileList);
-        files.setCellFactory(lv -> new ChooseFileCell(itemToBoolean));
-
+        //选择文件列表，初始默认都不选中
         for (File f : FileDto.currentFileList) {
             chooseFileMap.put(f, new SimpleBooleanProperty(false));
         }
+        List<VBox> vbs = new ArrayList<>();
+        Insets insets = new Insets(10, 10, 10, 10);
+        for (File f : FileDto.currentFileList) {
+            CheckBox checkBox = new CheckBox();
+            checkBox.setOnMouseClicked((e)->{
+                if(e.getClickCount() != 1){//只允许单击
+                    e.consume();
+                    return;
+                }
+                //根据checkBox有否选中更新选择文件列表的值
+                chooseFileMap.put(f, new SimpleBooleanProperty(checkBox.isSelected()));
+            });
+            ImageView iconView = new ImageView();
+            iconView.setImage(ThumbnailUtil.getFileThumbnail(f));
+            iconView.setFitWidth(Const.iconSize);
+            iconView.setFitHeight(Const.iconSize);
+
+            Text title = new Text(f.getName());
+            title.setFill(Paint.valueOf("orange"));
+            title.setWrappingWidth(Const.iconSize);
+
+            VBox vb = new VBox(checkBox,iconView, title);
+            vb.setPrefWidth(Const.iconSize);
+            vb.setPadding(insets);
+            vbs.add(vb);
+        }
+        files.getChildren().setAll(vbs);
     }
 
     private void showFileView() {
         chooseFileMap.clear();
-        files.setItems(null);
-        files.setItems(FileDto.currentFileList);
-        files.setCellFactory((files) -> new FileCell());
+        List<VBox> vbs = new ArrayList<>();
+        Insets insets = new Insets(10, 10, 10, 10);
+        for (File f : FileDto.currentFileList) {
+            ImageView iconView = new ImageView();
+            iconView.setImage(ThumbnailUtil.getFileThumbnail(f));
+            iconView.setFitWidth(Const.iconSize);
+            iconView.setFitHeight(Const.iconSize);
+
+            Text title = new Text(f.getName());
+            title.setFill(Paint.valueOf("orange"));
+            title.setWrappingWidth(Const.iconSize);
+
+            VBox vb = new VBox(iconView, title);
+            vb.setPrefWidth(Const.iconSize);
+            vb.setPadding(insets);
+            vb.setOnMouseClicked((e) -> {
+                if (e.getClickCount() != 2) {
+                    e.consume();
+                    return;
+                }
+                if (f.isDirectory()) {
+                    openDir(f);
+                } else {
+                    openFile(f);
+                }
+                e.consume();
+            });
+            vbs.add(vb);
+        }
+        files.getChildren().setAll(vbs);
+//        Platform.runLater(()->{//设置文件图片
+//            for(VBox vb:vbs){
+//                vb.
+//            }
+//        });
     }
 
     @Override
@@ -188,55 +238,7 @@ public class FileExploreController implements Initializable {
         } else {
             openDir(Setting.deafultDir);
         }
-        //从其他面板返回时，保留焦点
-        if (null != FileDto.getCurrentFile()) {
-            files.getSelectionModel().select(FileDto.getCurrentFile());
-            files.scrollTo(files.getSelectionModel().getSelectedIndex());
-        }
     }
 
-    static class FileCell extends ListCell<File> {
-        @Override
-        public void updateItem(File item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty) {
-                this.setText(null);
-                this.setGraphic(null);
-            } else {
-                ImageView iconView = new ImageView();
-                iconView.setImage(ThumbnailUtil.getFileThumbnail(item));
-                iconView.setFitWidth(Const.iconSize);
-                iconView.setFitHeight(Const.iconSize);
-                this.setGraphic(iconView);
-                this.setText(item.getName());
-            }
-        }
-    }
-
-    public class ChooseFileCell extends CheckBoxListCell<File> {
-        public ChooseFileCell(Callback<File, ObservableValue<Boolean>> getSelectedProperty) {
-            super(getSelectedProperty);
-        }
-
-        @Override
-        public void updateItem(File item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty) {
-                this.setText(null);
-                this.setGraphic(null);
-            } else {
-//                ImageView iconView = new ImageView();
-//                iconView.setImage(ThumbnailUtil.getFileThumbnail(item));
-//                iconView.setFitWidth(Const.iconSize);
-//                iconView.setFitHeight(Const.iconSize);
-//                CheckBox checkBox = (CheckBox) this.getGraphic();
-//
-//                HBox hBox = new HBox();
-//                hBox.getChildren().addAll(checkBox,iconView);
-//                this.setGraphic(hBox);
-                this.setText(item.getName());
-            }
-        }
-    }
 }
 

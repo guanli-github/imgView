@@ -17,7 +17,7 @@ public class ThumbnailUtil {
         try {
             BufferedImage thumbnail =  Thumbnails.of(image)
                     .size(width, height).asBufferedImage();
-            SwingFXUtils.toFXImage(thumbnail,null);
+            return SwingFXUtils.toFXImage(thumbnail,null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -25,10 +25,11 @@ public class ThumbnailUtil {
     }
 
     public static Image getFileThumbnail(File file){
-        if(BookMark.isReaded(file)){ //已读
-            return new Image("/icons/readed.jpg");
-        }
+
         if(BookMark.read(file) != 1){ //正在读
+            if(BookMark.isReaded(file)){ //已读
+                return new Image("/icons/readed.jpg");
+            }
             return new Image("/icons/reading.jpg");
         }
         if(file.isDirectory()){

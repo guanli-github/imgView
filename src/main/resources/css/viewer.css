@@ -14,7 +14,7 @@
     -fx-background-color:null;  /* Hide the track */
     -fx-background-insets: 1 0 -1 0, 0, 1;
     -fx-background-radius: 2.5, 2.5, 1.5;
-    -fx-padding:50;
+    -fx-padding:10;
 }
 .slider .thumb {
     -fx-pref-height: 50;

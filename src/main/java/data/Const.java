@@ -6,7 +6,7 @@ public class Const {
     public static final int L2R = 0; //左到右
     public static final int R2L = 1; //右到左
 
-    public static final int iconSize = 20; //icon尺寸
+    public static final int iconSize = 100; //icon尺寸
 
     public static final int textBias = 30; //中心字与搜索top的差值
 
@@ -22,6 +22,4 @@ public class Const {
     public static final int SEARCH = 0; //搜索页面
     public static final int CHAPTER = 1; //目录页面
 
-    //密码
-    public static String aespass = ConfigUtils.getConfig("data","pwd");
 }
