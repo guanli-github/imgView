@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.CheckBoxListCell;
@@ -31,18 +32,15 @@ public class FileExploreController implements Initializable {
     @FXML
     private ListView<File> files = new ListView();
     private Map<File, ObservableValue<Boolean>> chooseFileMap = new HashMap<>();
-
+    private static int chooseStatus = 0;//0 is in choose mode;1 not
+    @FXML
+    private Button delFileBtn = new Button();
     @FXML
     private void keyPress(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
             returnParDir();
-        } else if (keyEvent.getCode().equals(KeyCode.UP)) {
-            files.getSelectionModel().selectPrevious();
-            files.scrollTo(files.getSelectionModel().getSelectedIndex());
-        } else if (keyEvent.getCode().equals(KeyCode.DOWN)) {
-            files.getSelectionModel().selectNext();
-            files.scrollTo(files.getSelectionModel().getSelectedIndex());
-        } else if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+            keyEvent.consume();
+        }else if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             File choosed = files.getSelectionModel()
                     .getSelectedItem();
             if (null == choosed) return;
@@ -51,8 +49,8 @@ public class FileExploreController implements Initializable {
             } else {
                 openFile(choosed);
             }
+            keyEvent.consume();
         }
-        keyEvent.consume();
     }
 
     //返回上一级目录
@@ -91,19 +89,22 @@ public class FileExploreController implements Initializable {
             }
         }
     }
-
-    int sta = 0;
+    @FXML
+    private void toggleChoose(){
+        if (chooseStatus == 0) {
+            showChooseFileView();
+            chooseStatus = 1;
+            delFileBtn.setDisable(false);
+            return;
+        }
+        showFileView();
+        chooseStatus = 0;
+        delFileBtn.setDisable(true);
+    }
 
     //把文件移到回收站
     @FXML
     private void moveFileToTrash() {
-        if (sta == 0) {
-            showChooseFileView();
-            sta = 1;
-            return;
-        }
-        showFileView();
-        sta = 0;
         File[] choosed = getSelectedFiles();
         String str = "";
         if (0 == choosed.length) {

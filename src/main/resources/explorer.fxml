@@ -6,7 +6,8 @@
         <HBox spacing="8" GridPane.rowIndex="0">
             <Button onMouseClicked="#setFullScreen">重置</Button>
             <Button onMouseClicked="#returnParDir">上级目录</Button>
-            <Button onMouseClicked="#moveFileToTrash" >删除文件</Button>
+            <Button onMouseClicked="#toggleChoose" >选择文件</Button>
+            <Button fx:id="delFileBtn" onMouseClicked="#moveFileToTrash" disable="true">删除文件</Button>
             <Button onMouseClicked="#exit" >退出</Button>
         </HBox>
         <ListView fx:id="files" fixedCellSize="60" GridPane.rowIndex="1"
