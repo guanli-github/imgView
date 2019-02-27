@@ -48,6 +48,36 @@ public class TextUtil {
         }
     }
 
+    public static String readCrypt(File file) {
+        byte buffer[] = new byte[(int) file.length()];
+        FileInputStream fileinput;
+        try {
+            fileinput = new FileInputStream(file);
+            fileinput.read(buffer);//读取文件中的内容到buffer中
+            String str = new String(buffer,"UTF-8");
+            return AESUtil.decrypt(str);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    public static void writeCrypt(File file, StringBuffer buffer) {
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter writer = new FileWriter(file);
+            char[] arry = AESUtil.encrypt(buffer.toString()).toCharArray();
+            writer.write(arry);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     //解析txt文件的编码格式
     public static String resolveTxtCharSet(File file) throws Exception {
         BufferedInputStream bin = new BufferedInputStream(new FileInputStream(file));

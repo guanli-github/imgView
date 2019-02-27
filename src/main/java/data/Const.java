@@ -1,5 +1,7 @@
 package data;
 
+import utils.ConfigUtils;
+
 public class Const {
     public static final int L2R = 0; //左到右
     public static final int R2L = 1; //右到左
@@ -19,4 +21,7 @@ public class Const {
 
     public static final int SEARCH = 0; //搜索页面
     public static final int CHAPTER = 1; //目录页面
+
+    //密码
+    public static String aespass = ConfigUtils.getConfig("data","pwd");
 }
