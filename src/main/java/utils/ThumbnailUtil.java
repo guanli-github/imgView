@@ -55,11 +55,14 @@ public class ThumbnailUtil {
         List<String> filePaths = ConfigUtils.listKeys(Const.THUMBNAIL);
         for(String path: filePaths){
             String thumnbNailPath = ConfigUtils.getConfig(Const.THUMBNAIL,path);
-            if(null != thumnbNailPath){
+            if(!new File(path).exists()){
                 new File(thumnbNailPath).delete();//清理缩略图文件
-                ConfigUtils.removeConfig(Const.THUMBNAIL,path);//清理记录
+                ConfigUtils.removeConfig(Const.THUMBNAIL,path);//删除记录
+            }else if(!new File(thumnbNailPath).exists()){
+                ConfigUtils.removeConfig(Const.THUMBNAIL,path);//清理无效记录
             }
         }
+
     }
     public static Image getThumbnail(File file){
         String thumnbNailPath = ConfigUtils.getConfig(Const.THUMBNAIL,file.getAbsolutePath());

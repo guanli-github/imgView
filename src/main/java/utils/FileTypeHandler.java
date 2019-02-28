@@ -86,6 +86,7 @@ public class FileTypeHandler {
         try{
             type = fileName.substring(fileName.lastIndexOf("."));
         }catch(StringIndexOutOfBoundsException e){
+            System.out.println(file.getName());
             return "";
         }
         return type;

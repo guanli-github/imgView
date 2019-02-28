@@ -25,10 +25,8 @@ import utils.FileUtil;
 import utils.SceneManager;
 import utils.ThumbnailUtil;
 
-import java.awt.*;
 import java.io.File;
 import java.net.URL;
-import java.util.List;
 import java.util.*;
 
 public class FileExploreController implements Initializable {
@@ -124,6 +122,7 @@ public class FileExploreController implements Initializable {
                 .toArray(new File[0]);
         return choosed;
     }
+
     //清理缩略图
     @FXML
     private void cleanThumbnails() {
@@ -136,6 +135,7 @@ public class FileExploreController implements Initializable {
         alert.show();
         return;
     }
+
     private void openFile(File f) {
         FileDto.onClickFile(f);
         if (FileTypeHandler.docFilter.accept(f)) {
@@ -149,12 +149,12 @@ public class FileExploreController implements Initializable {
 
     @FXML
     private void setFullScreen() {
-        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
-        double height = Toolkit.getDefaultToolkit().getScreenSize().height;
+        double width = SceneManager.getStage().getWidth();
+        double height = SceneManager.getStage().getHeight();
 
         root.setPrefWidth(width);
 
-        files.setPrefWrapLength(width-menu.getMinWidth());
+        files.setPrefWrapLength(width - menu.getMinWidth());
         root.setPrefHeight(height);
     }
 
@@ -167,8 +167,8 @@ public class FileExploreController implements Initializable {
         List<VBox> vbs = new ArrayList<>();
         for (File f : FileDto.currentFileList) {
             CheckBox checkBox = new CheckBox();
-            checkBox.setOnMouseClicked((e)->{
-                if(e.getClickCount() != 1){//只允许单击
+            checkBox.setOnMouseClicked((e) -> {
+                if (e.getClickCount() != 1) {//只允许单击
                     e.consume();
                     return;
                 }
@@ -181,13 +181,13 @@ public class FileExploreController implements Initializable {
             iconView.setFitHeight(Setting.iconSize);
             iconView.setPreserveRatio(true);
 
-            HBox hBox =new HBox(checkBox,iconView);
+            HBox hBox = new HBox(checkBox, iconView);
             Text title = new Text(f.getName());
             title.setFill(Paint.valueOf("white"));
-            if(BookMark.read(f) != 1){
-                if(BookMark.isReaded(f)){ //已读
+            if (BookMark.read(f) != 1) {
+                if (BookMark.isReaded(f)) { //已读
                     title.setFill(Paint.valueOf("blue"));
-                }else{//正在读
+                } else {//正在读
                     title.setFill(Paint.valueOf("orange"));
                 }
             }
@@ -205,7 +205,7 @@ public class FileExploreController implements Initializable {
         List<VBox> vbs = new ArrayList<>();
         for (File f : FileDto.currentFileList) {
             ImageView iconView = new ImageView();
-            Platform.runLater(()->{//加载文件缩略图
+            Platform.runLater(() -> {//加载文件缩略图
                 iconView.setImage(ThumbnailUtil.getFileThumbnail(f));
             });
             iconView.setFitWidth(Setting.iconSize);
@@ -214,10 +214,10 @@ public class FileExploreController implements Initializable {
 
             Text title = new Text(f.getName());
             title.setFill(Paint.valueOf("white"));
-            if(BookMark.read(f) != 1){
-                if(BookMark.isReaded(f)){ //已读
+            if (BookMark.read(f) != 1) {
+                if (BookMark.isReaded(f)) { //已读
                     title.setFill(Paint.valueOf("blue"));
-                }else{//正在读
+                } else {//正在读
                     title.setFill(Paint.valueOf("orange"));
                 }
             }
@@ -246,13 +246,14 @@ public class FileExploreController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (Setting.isFullScreen) {
-            setFullScreen();
-//            SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
-//                Platform.runLater(() -> {
-//                            setFullScreen();
-//                        }
-//                );
-//            });
+            Platform.runLater(() -> {
+                setFullScreen();
+                SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
+                            setFullScreen();
+                        });
+                    }
+            );
+
         }
         if (null != FileDto.currentDir) {
             openDir(FileDto.currentDir);
