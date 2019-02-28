@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -46,6 +47,18 @@ public class ThumbnailUtil {
             e.printStackTrace();
         }
         ConfigUtils.setConfig(Const.THUMBNAIL,filePath, thumbnailName);
+    }
+
+    //清除失效文件的缩略图
+    public static void cleanThumbnails(){
+        List<String> filePaths = ConfigUtils.listKeys(Const.THUMBNAIL);
+        for(String path: filePaths){
+            String thumnbNailPath = ConfigUtils.getConfig(Const.THUMBNAIL,path);
+            if(null != thumnbNailPath){
+                new File(thumnbNailPath).delete();//清理缩略图文件
+                ConfigUtils.removeConfig(Const.THUMBNAIL,path);//清理记录
+            }
+        }
     }
     public static Image getThumbnail(File file){
         String thumnbNailPath = ConfigUtils.getConfig(Const.THUMBNAIL,file.getAbsolutePath());

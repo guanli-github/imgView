@@ -125,7 +125,18 @@ public class FileExploreController implements Initializable {
                 .toArray(new File[0]);
         return choosed;
     }
+    //清理缩略图
+    @FXML
+    private void cleanThumbnails() {
+        ThumbnailUtil.cleanThumbnails();
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "清理完成");
+        alert.setTitle("");
+        alert.setHeaderText("");
+        alert.initOwner(SceneManager.getStage());
+        alert.show();
+        return;
+    }
     private void openFile(File f) {
         FileDto.onClickFile(f);
         if (FileTypeHandler.docFilter.accept(f)) {
