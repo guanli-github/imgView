@@ -1,6 +1,7 @@
 package utils;
 
 import data.Const;
+import data.Setting;
 import extractor.Img;
 import extractor.Pdf;
 import extractor.Zip;
@@ -29,7 +30,7 @@ public class ThumbnailUtil {
         BufferedImage thumbnail;
         try {
             thumbnail =  Thumbnails.of(imgIs)
-                    .size(Const.iconSize, Const.iconSize)
+                    .size(Setting.iconSize, Setting.iconSize)
                     .asBufferedImage();
             return SwingFXUtils.toFXImage(thumbnail,null);
         } catch (IOException e) {
@@ -81,11 +82,11 @@ public class ThumbnailUtil {
             saveThumbnail(file.getAbsolutePath(),thumnbNail);
             return thumnbNail;
         }
-        return new Image("/icons/file.jpg");
+        return new Image("/icons/file.png");
     }
     public static Image getFileThumbnail(File file){
         if(file.isDirectory()){
-            return new Image("/icons/dir.jpg");
+            return new Image("/icons/dir.png");
         }
         return getThumbnail(file);
     }

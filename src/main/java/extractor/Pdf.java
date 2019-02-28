@@ -42,7 +42,7 @@ public class Pdf {
         BufferedImage thumbnail = null;
         try {
             doc =PDDocument.load(file);
-            thumbnail = new PDFRenderer(doc).renderImageWithDPI(0, Const.iconSize);
+            thumbnail = new PDFRenderer(doc).renderImageWithDPI(0, Setting.iconSize);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

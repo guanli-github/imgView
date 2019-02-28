@@ -1,7 +1,6 @@
 package controller;
 
 import data.BookMark;
-import data.Const;
 import data.Setting;
 import data.dto.FileDto;
 import javafx.application.Platform;
@@ -177,8 +176,8 @@ public class FileExploreController implements Initializable {
             });
             ImageView iconView = new ImageView();
             iconView.setImage(ThumbnailUtil.getFileThumbnail(f));
-            iconView.setFitWidth(Const.iconSize);
-            iconView.setFitHeight(Const.iconSize);
+            iconView.setFitWidth(Setting.iconSize);
+            iconView.setFitHeight(Setting.iconSize);
             iconView.setPreserveRatio(true);
 
             HBox hBox =new HBox(checkBox,iconView);
@@ -191,10 +190,10 @@ public class FileExploreController implements Initializable {
                     title.setFill(Paint.valueOf("orange"));
                 }
             }
-            title.setWrappingWidth(Const.iconSize);
+            title.setWrappingWidth(Setting.iconSize);
 
             VBox vb = new VBox(hBox, title);
-            vb.setPrefWidth(Const.iconSize);
+            vb.setPrefWidth(Setting.iconSize);
             vbs.add(vb);
         }
         files.getChildren().setAll(vbs);
@@ -208,8 +207,8 @@ public class FileExploreController implements Initializable {
             Platform.runLater(()->{//加载文件缩略图
                 iconView.setImage(ThumbnailUtil.getFileThumbnail(f));
             });
-            iconView.setFitWidth(Const.iconSize);
-            iconView.setFitHeight(Const.iconSize);
+            iconView.setFitWidth(Setting.iconSize);
+            iconView.setFitHeight(Setting.iconSize);
             iconView.setPreserveRatio(true);
 
             Text title = new Text(f.getName());
@@ -221,10 +220,10 @@ public class FileExploreController implements Initializable {
                     title.setFill(Paint.valueOf("orange"));
                 }
             }
-            title.setWrappingWidth(Const.iconSize);
+            title.setWrappingWidth(Setting.iconSize);
 
             VBox vb = new VBox(iconView, title);
-            vb.setPrefWidth(Const.iconSize);
+            vb.setPrefWidth(Setting.iconSize);
             vb.setOnMouseClicked((e) -> {
                 if (e.getClickCount() != 2) {
                     e.consume();

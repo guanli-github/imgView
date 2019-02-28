@@ -7,7 +7,7 @@
             <Button onMouseClicked="#setFullScreen">重置</Button>
             <Button onMouseClicked="#returnParDir">上级目录</Button>
             <Button onMouseClicked="#toggleChoose" >选择文件</Button>
-            <Button onMouseClicked="#cleanThumbnails">清理缩略图</Button>
+            <Button onMouseClicked="#cleanThumbnails">清理图片</Button>
             <Button fx:id="delFileBtn" onMouseClicked="#moveFileToTrash" disable="true">删除文件</Button>
             <Button onMouseClicked="#exit" >退出</Button>
         </VBox>
