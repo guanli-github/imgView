@@ -153,7 +153,8 @@ public class FileExploreController implements Initializable {
         double height = Toolkit.getDefaultToolkit().getScreenSize().height;
 
         root.setPrefWidth(width);
-        files.setPrefWrapLength(width-menu.getMinWidth()-20);
+
+        files.setPrefWrapLength(width-menu.getMinWidth());
         root.setPrefHeight(height);
     }
 

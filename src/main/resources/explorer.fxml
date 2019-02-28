@@ -11,8 +11,9 @@
             <Button fx:id="delFileBtn" onMouseClicked="#moveFileToTrash" disable="true">删除文件</Button>
             <Button onMouseClicked="#exit" >退出</Button>
         </VBox>
-        <ScrollPane hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" GridPane.columnIndex="1">
-        <FlowPane id="files" fx:id="files" hgap="10" vgap="10"
+        <ScrollPane GridPane.columnIndex="1"
+                    hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" fitToWidth="true">
+        <FlowPane id="files" fx:id="files" hgap="10" vgap="10"  GridPane.columnIndex="1"
                   focusTraversable="true" onKeyPressed="#keyPress"></FlowPane>
         </ScrollPane>
     </children>
