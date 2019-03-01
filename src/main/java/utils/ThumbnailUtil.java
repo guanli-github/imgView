@@ -64,7 +64,8 @@ public class ThumbnailUtil {
         }
 
     }
-    public static Image getThumbnail(File file){
+
+    public static Image getFileThumbnail(File file){
         String thumnbNailPath = ConfigUtils.getConfig(Const.THUMBNAIL,file.getAbsolutePath());
         if(null != thumnbNailPath){
             String path = "file:" + thumnbNailPath;
@@ -86,11 +87,5 @@ public class ThumbnailUtil {
             return thumnbNail;
         }
         return new Image("/icons/file.png");
-    }
-    public static Image getFileThumbnail(File file){
-        if(file.isDirectory()){
-            return new Image("/icons/dir.png");
-        }
-        return getThumbnail(file);
     }
 }

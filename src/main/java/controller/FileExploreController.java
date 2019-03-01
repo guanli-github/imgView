@@ -12,13 +12,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import utils.FileTypeHandler;
@@ -165,12 +163,14 @@ public class FileExploreController implements Initializable {
                 chooseFileMap.put(f, new SimpleBooleanProperty(checkBox.isSelected()));
             });
             ImageView iconView = new ImageView();
-            iconView.setImage(ThumbnailUtil.getFileThumbnail(f));
-            iconView.setFitWidth(Setting.iconSize);
-            iconView.setFitHeight(Setting.iconSize);
-            iconView.setPreserveRatio(true);
+            generateIcon(iconView,f);
 
-            HBox hBox = new HBox(checkBox, iconView);
+            AnchorPane anchorPane = new AnchorPane(checkBox, iconView);
+            AnchorPane.setTopAnchor(checkBox,0.0);
+            AnchorPane.setLeftAnchor(checkBox,0.0);
+
+            AnchorPane.setTopAnchor(iconView,0.0);
+            AnchorPane.setLeftAnchor(iconView,0.0);
             Text title = new Text(f.getName());
             title.setFill(Paint.valueOf("white"));
             if (BookMark.read(f) != 1) {
@@ -181,8 +181,7 @@ public class FileExploreController implements Initializable {
                 }
             }
             title.setWrappingWidth(Setting.iconSize);
-
-            VBox vb = new VBox(hBox, title);
+            VBox vb = new VBox(anchorPane, title);
             vb.setPrefWidth(Setting.iconSize);
             vbs.add(vb);
         }
@@ -196,13 +195,7 @@ public class FileExploreController implements Initializable {
         List<VBox> vbs = new ArrayList<>();
         for (File f : FileDto.currentFileList) {
             ImageView iconView = new ImageView();
-            Platform.runLater(() -> {//加载文件缩略图
-                iconView.setImage(ThumbnailUtil.getFileThumbnail(f));
-            });
-            iconView.setFitWidth(Setting.iconSize);
-            iconView.setFitHeight(Setting.iconSize);
-            iconView.setPreserveRatio(true);
-
+            generateIcon(iconView,f);
             Text title = new Text(f.getName());
             title.setFill(Paint.valueOf("white"));
             if (BookMark.read(f) != 1) {
@@ -235,7 +228,19 @@ public class FileExploreController implements Initializable {
         files.getChildren().setAll(vbs);
         filePane.setVvalue(location);//恢复之前的滚动位置
     }
-
+    //根据文件显示相应图标
+    public void generateIcon(ImageView iconView,File f){
+        if(f.isDirectory()){
+            iconView.setImage(new Image("/icons/dir.png"));
+        }else{
+            Platform.runLater(() -> {//加载文件缩略图
+                iconView.setImage(ThumbnailUtil.getFileThumbnail(f));
+            });
+        }
+        iconView.setFitWidth(Setting.iconSize);
+        iconView.setFitHeight(Setting.iconSize);
+        iconView.setPreserveRatio(true);
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (Setting.isFullScreen) {

@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import utils.ThumbnailUtil;
 
 public class MainExlporer extends Application {
@@ -16,6 +17,7 @@ public class MainExlporer extends Application {
 
         if(Setting.isFullScreen){
             stage.setFullScreen(true);
+            stage.initStyle(StageStyle.UNDECORATED);
         }
         stage.setResizable(false);
         stage.setFullScreenExitHint("");

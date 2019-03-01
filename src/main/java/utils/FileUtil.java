@@ -70,7 +70,7 @@ public class FileUtil {
         return false;
     }
 
-    //期望：-1；-1；-1；-1；
+    //期望：-；-；-；-；
     public static void main(String[] args) {
         System.out.println(sortByName("1.jpg", "2.jpg"));
         System.out.println(sortByName("2.jpg", "10.jpg"));
