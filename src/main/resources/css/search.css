@@ -1,0 +1,11 @@
+#root {
+    -fx-background-color:transparent;
+}
+#searchField {
+    -fx-padding:20;
+}
+#searchField .button {
+    -fx-background-color: darkturquoise;
+    -fx-background-radius: 3;
+    -fx-font-size: 10pt;
+}

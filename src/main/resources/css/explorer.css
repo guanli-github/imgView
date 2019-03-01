@@ -2,7 +2,7 @@
     -fx-background-color:black;
 }
 #menu {
-    -fx-padding:10;
+    -fx-padding:20;
 }
 #menu .button {
     -fx-background-color: darkturquoise;

@@ -58,7 +58,7 @@ public class FileDto {
         currentFileList.setAll(roots);
     }
     public static File getCurrentFile(){
-        if(currentFileIndex > currentFileList.size()-1 || currentFileIndex < 1) {
+        if(currentFileIndex >= currentFileList.size() || currentFileIndex < 0) {
             return null;
         }
         return currentFileList.get(currentFileIndex);

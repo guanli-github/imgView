@@ -33,7 +33,7 @@
                 <graphic>
                     <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
                         <image>
-                            <Image url="@icons/select.png"/>
+                            <Image url="@icons/search.png"/>
                         </image>
                     </ImageView>
                 </graphic>

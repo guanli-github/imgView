@@ -24,9 +24,11 @@ import utils.FileUtil;
 import utils.SceneManager;
 import utils.ThumbnailUtil;
 
+import java.awt.Toolkit;
 import java.io.File;
 import java.net.URL;
 import java.util.*;
+import java.util.List;
 
 public class FileExploreController implements Initializable {
     @FXML
@@ -136,12 +138,15 @@ public class FileExploreController implements Initializable {
     }
 
     private void setFullScreen() {
-        double width = SceneManager.getStage().getWidth();
-        double height = SceneManager.getStage().getHeight();
+//        double width = SceneManager.getStage().getWidth();
+//        double height = SceneManager.getStage().getHeight();
+
+        double width = Toolkit.getDefaultToolkit().getScreenSize().width;
+        double height = Toolkit.getDefaultToolkit().getScreenSize().height;
 
         root.setPrefWidth(width);
 
-        files.setPrefWrapLength(width - menu.getMinWidth());
+        files.setPrefWrapLength(width - 1.5*menu.getMinWidth());
         root.setPrefHeight(height);
     }
 

@@ -8,7 +8,9 @@
         <fx:define>
             <Double fx:id="BTN_SIZE" fx:value="50"/>
         </fx:define>
-        <VBox id="menu" fx:id="menu" spacing="8" GridPane.columnIndex="0" minWidth="$BTN_SIZE">
+        <VBox id="menu" fx:id="menu"
+              spacing="8" GridPane.columnIndex="0"
+              minWidth="$BTN_SIZE">
             <Button onMouseClicked="#returnParDir">
                 <graphic>
                     <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
