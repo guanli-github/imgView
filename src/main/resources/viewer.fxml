@@ -16,8 +16,7 @@
         <VBox fx:id="menu" spacing="10" visible="false" managed="false" alignment="CENTER"
               onTouchReleased="#hideModal">
             <Label fx:id="pageNum" text="1/1" textFill="coral"></Label>
-            <Button onMouseClicked="#changeOrient"
-                    onTouchReleased="#changeOrient">
+            <Button onMouseClicked="#changeOrient">
                 <graphic>
                     <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
                         <image>
@@ -29,8 +28,7 @@
                     <Tooltip text="切换方向"/>
                 </tooltip>
             </Button>
-            <Button onMouseClicked="#preFile"
-                    onTouchReleased="#preFile">
+            <Button onMouseClicked="#preFile">
                 <graphic>
                     <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
                         <image>
@@ -42,8 +40,7 @@
                     <Tooltip text="上一本"/>
                 </tooltip>
             </Button>
-            <Button onMouseClicked="#nextFile"
-                    onTouchReleased="#nextFile">
+            <Button onMouseClicked="#nextFile">
                 <graphic>
                     <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
                         <image>
@@ -55,8 +52,7 @@
                     <Tooltip text="下一本"/>
                 </tooltip>
             </Button>
-            <Button onMouseClicked="#returnDir"
-                    onTouchReleased="#returnDir">
+            <Button onMouseClicked="#returnDir">
                 <graphic>
                     <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
                         <image>
