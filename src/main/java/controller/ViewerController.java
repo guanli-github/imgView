@@ -22,14 +22,12 @@ import utils.FileTypeHandler;
 import utils.ModalUtil;
 import utils.SceneManager;
 
-import java.awt.*;
+import java.awt.Toolkit;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ViewerController implements Initializable {
-    @FXML
-    private javafx.scene.control.Button changeOrient = new javafx.scene.control.Button();
     @FXML
     private ImageView imgView = new ImageView();
     @FXML
@@ -110,10 +108,8 @@ public class ViewerController implements Initializable {
     private void changeOrient(Event event) {
         if (Setting.orient == Const.L2R) {
             Setting.orient = Const.R2L;
-            changeOrient.setText("右->左");
         } else {
             Setting.orient = Const.L2R;
-            changeOrient.setText("左->右");
         }
         event.consume();
     }

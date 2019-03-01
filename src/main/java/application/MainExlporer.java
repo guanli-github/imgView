@@ -21,9 +21,9 @@ public class MainExlporer extends Application {
         stage.setFullScreenExitHint("");
         Parent root = FXMLLoader.load(getClass().getResource("/explorer.fxml"));
         Scene scene = new Scene(root);
-        stage.setScene(scene);
         scene.getStylesheets().add
                 (getClass().getResource("/css/explorer.css").toExternalForm());
+        stage.setScene(scene);
         stage.show();
     }
     //启动式运行

@@ -1,28 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
+<?import java.lang.Double?>
 <GridPane id="root" fx:id="root" fx:controller="controller.TextController"
           onKeyPressed="#keyPress"
           xmlns:fx="http://javafx.com/fxml">
     <children>
-            <TextArea fx:id="text" editable="false"
-                      wrapText="true" GridPane.rowIndex="0"
-                onMouseClicked="#showMenu"/>
+        <TextArea fx:id="text" editable="false"
+                  wrapText="true" GridPane.rowIndex="0"
+                  onMouseClicked="#showMenu"/>
         <VBox fx:id="menu" spacing="10" visible="false" managed="false" alignment="CENTER"
-        onMouseClicked="#hideMenu">
-            <Button onMouseClicked="#setBgImg">背景图片
+              onMouseClicked="#hideMenu">
+            <fx:define>
+                <Double fx:id="BTN_SIZE" fx:value="50"/>
+            </fx:define>
+            <Button onMouseClicked="#setBgImg"><graphic>
+                <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                    <image>
+                        <Image url="@icons/background_img.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+                <tooltip>
+                    <Tooltip text="背景图片"/>
+                </tooltip>
             </Button>
-            <Button  onMouseClicked="#toSearch">搜索
+            <Button onMouseClicked="#toSearch">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/select.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="搜索"/>
+                </tooltip>
             </Button>
-            <Button onMouseClicked="#toChapter">章节目录
+            <Button onMouseClicked="#toChapter">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/chapters.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="查看章节目录"/>
+                </tooltip>
             </Button>
-            <Button onMouseClicked="#nextChapter">下一章
+            <Button onMouseClicked="#nextChapter">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/next.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="下一章"/>
+                </tooltip>
             </Button>
-            <Button  onMouseClicked="#preChapter">上一章
+            <Button onMouseClicked="#preChapter">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/pre.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="上一章"/>
+                </tooltip>
             </Button>
-            <Button onMouseClicked="#returnDir">返回文件夹
+            <Button onMouseClicked="#returnDir">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/return.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="返回上级目录"/>
+                </tooltip>
             </Button>
         </VBox>
     </children>

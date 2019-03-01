@@ -4,8 +4,7 @@
 #menu .button {
     -fx-background-color: darkturquoise;
     -fx-background-radius: 3;
-    -fx-font-size: 16pt;
-    -fx-pref-width: 150;
+    -fx-font-size: 10pt;
 }
 #menu .label {
     -fx-font-size: 16pt;

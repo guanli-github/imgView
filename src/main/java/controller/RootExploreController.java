@@ -5,12 +5,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import utils.SceneManager;
-import utils.ThumbnailUtil;
 
 import java.awt.*;
 import java.io.File;
@@ -70,7 +70,7 @@ public class RootExploreController implements Initializable {
             super.updateItem(item, empty);
             if (item != null) {
                 ImageView iconView = new ImageView();
-                iconView.setImage(ThumbnailUtil.getFileThumbnail(item));
+                iconView.setImage(new Image("/icons/dir.png"));
                 iconView.setFitWidth(20);
                 iconView.setFitHeight(20);
                 this.setGraphic(iconView);

@@ -1,15 +1,42 @@
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
+<?import java.lang.Double?>
 <GridPane id="root" fx:id="root" fx:controller="controller.TextSearchController" alignment="CENTER"
           xmlns:fx="http://javafx.com/fxml">
     <children>
         <HBox fx:id="searchField" GridPane.rowIndex="0"
               spacing="8">
+            <fx:define>
+                <Double fx:id="BTN_SIZE" fx:value="50"/>
+            </fx:define>
             <TextField fx:id="searchWord" onKeyPressed="#enterSearch"></TextField>
             <ComboBox fx:id="recordCombo"></ComboBox>
-            <Button fx:id="doSearch" onMouseClicked="#doSearch">搜索</Button>
-            <Button fx:id="toText" onMouseClicked="#toText">返回</Button>
+            <Button fx:id="doSearch" onMouseClicked="#doSearch">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/select.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="搜索"/>
+                </tooltip>
+            </Button>
+            <Button fx:id="toText" onMouseClicked="#toText">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/return.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="返回文档"/>
+                </tooltip>
+            </Button>
         </HBox>
         <ListView fx:id="results" fixedCellSize="60"
                   GridPane.fillWidth="true" GridPane.rowIndex="1"

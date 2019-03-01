@@ -1,35 +1,76 @@
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
+<?import java.lang.Double?>
 <GridPane id="root" fx:id="root" fx:controller="controller.ViewerController"
           alignment="CENTER"
           onTouchPressed="#touchPress"
           onTouchReleased="#touchRelease"
           xmlns:fx="http://javafx.com/fxml">
     <children>
+        <fx:define>
+            <Double fx:id="BTN_SIZE" fx:value="50"/>
+        </fx:define>
         <VBox fx:id="menu" spacing="10" visible="false" managed="false" alignment="CENTER"
               onTouchReleased="#hideModal">
             <Label fx:id="pageNum" text="1/1" textFill="coral"></Label>
-            <Button fx:id="changeOrient"
-                    onMouseClicked="#changeOrient"
-                    onTouchReleased="#changeOrient">右->左
+            <Button onMouseClicked="#changeOrient"
+                    onTouchReleased="#changeOrient">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/change_direction.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="切换方向"/>
+                </tooltip>
             </Button>
             <Button onMouseClicked="#preFile"
-                    onTouchReleased="#preFile">上一本
+                    onTouchReleased="#preFile">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/pre.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="上一本"/>
+                </tooltip>
             </Button>
             <Button onMouseClicked="#nextFile"
-                    onTouchReleased="#nextFile">下一本
+                    onTouchReleased="#nextFile">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/next.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="下一本"/>
+                </tooltip>
             </Button>
-            <Button fx:id="returnDir"
-                    onMouseClicked="#returnDir"
-                    onTouchReleased="#returnDir">返回文件夹
+            <Button onMouseClicked="#returnDir"
+                    onTouchReleased="#returnDir">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/return.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="返回上级目录"/>
+                </tooltip>
             </Button>
         </VBox>
         <ImageView fx:id="imgView"
-                   focusTraversable="true"  onKeyPressed="#keyPress"
+                   focusTraversable="true" onKeyPressed="#keyPress"
                    preserveRatio="true"></ImageView>
         <Slider fx:id="slider" visible="false"
                 onMouseDragged="#slide" onMouseReleased="#hideModal"

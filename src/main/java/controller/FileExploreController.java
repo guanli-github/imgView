@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -32,6 +33,8 @@ import java.util.*;
 public class FileExploreController implements Initializable {
     @FXML
     private GridPane root = new GridPane();
+    @FXML
+    private ScrollPane filePane = new ScrollPane();
     @FXML
     private FlowPane files = new FlowPane();
     @FXML
@@ -123,19 +126,6 @@ public class FileExploreController implements Initializable {
         return choosed;
     }
 
-    //清理缩略图
-    @FXML
-    private void cleanThumbnails() {
-        ThumbnailUtil.cleanThumbnails();
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "清理完成");
-        alert.setTitle("");
-        alert.setHeaderText("");
-        alert.initOwner(SceneManager.getStage());
-        alert.show();
-        return;
-    }
-
     private void openFile(File f) {
         FileDto.onClickFile(f);
         if (FileTypeHandler.docFilter.accept(f)) {
@@ -147,7 +137,6 @@ public class FileExploreController implements Initializable {
         }
     }
 
-    @FXML
     private void setFullScreen() {
         double width = SceneManager.getStage().getWidth();
         double height = SceneManager.getStage().getHeight();
@@ -197,7 +186,9 @@ public class FileExploreController implements Initializable {
             vb.setPrefWidth(Setting.iconSize);
             vbs.add(vb);
         }
+        double location = filePane.getVvalue();
         files.getChildren().setAll(vbs);
+        filePane.setVvalue(location);//恢复之前的滚动位置
     }
 
     private void showFileView() {
@@ -240,7 +231,9 @@ public class FileExploreController implements Initializable {
 
             vbs.add(vb);
         }
+        double location = filePane.getVvalue();
         files.getChildren().setAll(vbs);
+        filePane.setVvalue(location);//恢复之前的滚动位置
     }
 
     @Override
@@ -253,7 +246,6 @@ public class FileExploreController implements Initializable {
                         });
                     }
             );
-
         }
         if (null != FileDto.currentDir) {
             openDir(FileDto.currentDir);

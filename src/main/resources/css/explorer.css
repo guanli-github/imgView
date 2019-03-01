@@ -8,7 +8,6 @@
     -fx-background-color: darkturquoise;
     -fx-background-radius: 3;
     -fx-font-size: 10pt;
-    -fx-pref-width: 100;
 }
 .scroll-pane {
     -fx-background-color: transparent;

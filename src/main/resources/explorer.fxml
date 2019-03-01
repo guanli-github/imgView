@@ -1,20 +1,67 @@
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import java.lang.Double?>
 <GridPane id="root" fx:controller="controller.FileExploreController"
           xmlns:fx="http://javafx.com/fxml" alignment="TOP_CENTER">
     <children>
-        <VBox id="menu" fx:id="menu" spacing="8"  GridPane.columnIndex="0" minWidth="100">
-            <Button onMouseClicked="#setFullScreen">重置</Button>
-            <Button onMouseClicked="#returnParDir">上级目录</Button>
-            <Button onMouseClicked="#toggleChoose" >选择文件</Button>
-            <Button onMouseClicked="#cleanThumbnails">清理图片</Button>
-            <Button fx:id="delFileBtn" onMouseClicked="#moveFileToTrash" disable="true">删除文件</Button>
-            <Button onMouseClicked="#exit" >退出</Button>
+        <fx:define>
+            <Double fx:id="BTN_SIZE" fx:value="50"/>
+        </fx:define>
+        <VBox id="menu" fx:id="menu" spacing="8" GridPane.columnIndex="0" minWidth="$BTN_SIZE">
+            <Button onMouseClicked="#returnParDir">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/return.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="返回上级目录"/>
+                </tooltip>
+            </Button>
+            <Button onMouseClicked="#toggleChoose">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/select.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="选择文件"/>
+                </tooltip>
+            </Button>
+            <Button fx:id="delFileBtn" onMouseClicked="#moveFileToTrash" disable="true">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/delete.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="删除文件"/>
+                </tooltip>
+            </Button>
+            <Button onMouseClicked="#exit">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/exit.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="退出"/>
+                </tooltip>
+            </Button>
         </VBox>
-        <ScrollPane GridPane.columnIndex="1"
+        <ScrollPane fx:id="filePane" GridPane.columnIndex="1"
                     hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" fitToWidth="true">
-        <FlowPane id="files" fx:id="files" hgap="10" vgap="10"  GridPane.columnIndex="1"
-                  focusTraversable="true" onKeyPressed="#keyPress"></FlowPane>
+            <FlowPane id="files" fx:id="files" hgap="10" vgap="10" GridPane.columnIndex="1"
+                      focusTraversable="true" onKeyPressed="#keyPress"></FlowPane>
         </ScrollPane>
     </children>
 </GridPane>
