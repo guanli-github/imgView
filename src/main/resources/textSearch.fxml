@@ -16,7 +16,7 @@
             <ComboBox fx:id="recordCombo" prefHeight="$BTN_SIZE"></ComboBox>
             <Button fx:id="doSearch" onMouseClicked="#doSearch">
                 <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
                         <image>
                             <Image url="@icons/search.png"/>
                         </image>
@@ -28,7 +28,7 @@
             </Button>
             <Button fx:id="toText" onMouseClicked="#toText">
                 <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
                         <image>
                             <Image url="@icons/return.png"/>
                         </image>
@@ -39,7 +39,7 @@
                 </tooltip>
             </Button>
         </HBox>
-        <ListView fx:id="results" fixedCellSize="60"
+        <ListView fx:id="results"
                   GridPane.fillWidth="true" GridPane.rowIndex="1"
                   onMouseClicked="#hitResult"></ListView>
     </children>

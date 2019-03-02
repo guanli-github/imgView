@@ -13,7 +13,7 @@
             <HBox GridPane.rowIndex="0">
                 <Button onMouseClicked="#exit">
                     <graphic>
-                        <ImageView fitWidth="50" preserveRatio="true">
+                        <ImageView fitWidth="50">
                             <image>
                                 <Image url="@icons/exit.png"/>
                             </image>

@@ -19,7 +19,7 @@
                 <Double fx:id="BTN_SIZE" fx:value="50"/>
             </fx:define>
             <Button onMouseClicked="#setBgImg"><graphic>
-                <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
                     <image>
                         <Image url="@icons/background_img.png"/>
                     </image>
@@ -31,7 +31,7 @@
             </Button>
             <Button onMouseClicked="#toSearch">
                 <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
                         <image>
                             <Image url="@icons/search.png"/>
                         </image>
@@ -43,7 +43,7 @@
             </Button>
             <Button onMouseClicked="#toChapter">
                 <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE">
                         <image>
                             <Image url="@icons/chapters.png"/>
                         </image>
@@ -53,23 +53,11 @@
                     <Tooltip text="查看章节目录"/>
                 </tooltip>
             </Button>
-            <Button onMouseClicked="#nextChapter">
-                <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
-                        <image>
-                            <Image url="@icons/next.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-                <tooltip>
-                    <Tooltip text="下一章"/>
-                </tooltip>
-            </Button>
             <Button onMouseClicked="#preChapter">
                 <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE">
                         <image>
-                            <Image url="@icons/pre.png"/>
+                            <Image url="@icons/next.png"/>
                         </image>
                     </ImageView>
                 </graphic>
@@ -77,9 +65,21 @@
                     <Tooltip text="上一章"/>
                 </tooltip>
             </Button>
+            <Button onMouseClicked="#nextChapter">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
+                        <image>
+                            <Image url="@icons/pre.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="下一章"/>
+                </tooltip>
+            </Button>
             <Button onMouseClicked="#returnDir">
                 <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
                         <image>
                             <Image url="@icons/return.png"/>
                         </image>

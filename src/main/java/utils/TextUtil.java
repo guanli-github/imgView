@@ -122,7 +122,8 @@ public class TextUtil {
         //https://www.bbsmax.com/A/Vx5M0YmaJN/
         List<Pattern> patterns = new ArrayList<>();
         patterns.add(Pattern.compile("(^.{0,10}第)([0123456789一二三四五六七八九十零〇百千两]{1,9})[章节卷集部篇回](\\s*)(.*)"));
-        patterns.add(Pattern.compile("(^.{0,10})([0123456789一二三四五六七八九十零〇百千两]{1,9})[楼#](\\s*)(.*)"));
+        //patterns.add(Pattern.compile("(^.{0,10})([0123456789一二三四五六七八九十零〇百千两]{1,9})[楼#](\\s*)(.*)"));
+        patterns.add(Pattern.compile("(^.{0,20})([（])([0123456789一二三四五六七八九十零〇百千两]{1,9})[）](.*)"));
         //Pattern p = Pattern.compile("(^.{0,10}第)([0123456789一二三四五六七八九十零〇百千两]{1,9})[章节卷集部篇回](\\s*)(.*)");
         StringBuffer sb = new StringBuffer();
         BufferedReader br = null;
