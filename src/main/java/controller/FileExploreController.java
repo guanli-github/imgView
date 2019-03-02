@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -153,6 +154,7 @@ public class FileExploreController implements Initializable {
     //显示选择文件视图
     private void showChooseFileView() {
         //选择文件列表，初始默认都不选中
+        chooseFileMap.clear();
         for (File f : FileDto.currentFileList) {
             chooseFileMap.put(f, new SimpleBooleanProperty(false));
         }
@@ -169,13 +171,11 @@ public class FileExploreController implements Initializable {
             });
             ImageView iconView = new ImageView();
             generateIcon(iconView,f);
+            AnchorPane anchorPane = new AnchorPane(iconView,checkBox);
 
-            AnchorPane anchorPane = new AnchorPane(checkBox, iconView);
             AnchorPane.setTopAnchor(checkBox,0.0);
             AnchorPane.setLeftAnchor(checkBox,0.0);
 
-            AnchorPane.setTopAnchor(iconView,0.0);
-            AnchorPane.setLeftAnchor(iconView,0.0);
             Text title = new Text(f.getName());
             title.setFill(Paint.valueOf("white"));
             if (BookMark.read(f) != 1) {
@@ -214,6 +214,7 @@ public class FileExploreController implements Initializable {
 
             VBox vb = new VBox(iconView, title);
             vb.setPrefWidth(Setting.iconSize);
+            vb.setAlignment(Pos.CENTER);
             vb.setOnMouseClicked((e) -> {
                 if (e.getClickCount() != 2) {
                     e.consume();
@@ -226,7 +227,6 @@ public class FileExploreController implements Initializable {
                 }
                 e.consume();
             });
-
             vbs.add(vb);
         }
         double location = filePane.getVvalue();
@@ -235,16 +235,18 @@ public class FileExploreController implements Initializable {
     }
     //根据文件显示相应图标
     public void generateIcon(ImageView iconView,File f){
+        iconView.setFitWidth(Setting.iconSize);
+        iconView.setFitHeight(Setting.iconSize);
+        iconView.setPreserveRatio(true);
         if(f.isDirectory()){
             iconView.setImage(new Image("/icons/dir.png"));
         }else{
             Platform.runLater(() -> {//加载文件缩略图
-                iconView.setImage(ThumbnailUtil.getFileThumbnail(f));
+                Image icon = ThumbnailUtil.getFileThumbnail(f);
+                iconView.setImage(icon);
             });
         }
-        iconView.setFitWidth(Setting.iconSize);
-        iconView.setFitHeight(Setting.iconSize);
-        iconView.setPreserveRatio(true);
+        System.out.println(iconView.getFitWidth());
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {

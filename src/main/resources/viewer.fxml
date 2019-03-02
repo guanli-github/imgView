@@ -17,9 +17,9 @@
               onTouchReleased="#hideModal">
             <Label fx:id="title" textFill="azure"></Label>
             <Label fx:id="pageNum" text="1/1" textFill="azure"></Label>
-            <Button onMouseClicked="#changeOrient">
+            <Button onMouseClicked="#changeOrient" onTouchPressed="#changeOrient">
                 <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE">
                         <image>
                             <Image url="@icons/change_direction.png"/>
                         </image>
@@ -29,9 +29,9 @@
                     <Tooltip text="切换方向"/>
                 </tooltip>
             </Button>
-            <Button onMouseClicked="#preFile">
+            <Button onMouseClicked="#preFile" onTouchPressed="#preFile">
                 <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE">
                         <image>
                             <Image url="@icons/pre.png"/>
                         </image>
@@ -41,9 +41,9 @@
                     <Tooltip text="上一本"/>
                 </tooltip>
             </Button>
-            <Button onMouseClicked="#nextFile">
+            <Button onMouseClicked="#nextFile" onTouchPressed="#nextFile">
                 <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE">
                         <image>
                             <Image url="@icons/next.png"/>
                         </image>
@@ -53,9 +53,9 @@
                     <Tooltip text="下一本"/>
                 </tooltip>
             </Button>
-            <Button onMouseClicked="#returnDir">
+            <Button onMouseClicked="#returnDir" onTouchPressed="#returnDir">
                 <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE">
                         <image>
                             <Image url="@icons/return.png"/>
                         </image>

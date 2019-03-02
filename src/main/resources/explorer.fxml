@@ -11,8 +11,8 @@
         <HBox GridPane.rowIndex="0" GridPane.columnIndex="1">
             <Label id="location" fx:id="location"></Label>
         </HBox>
-        <VBox id="menu" fx:id="menu" GridPane.rowIndex="1"
-              spacing="8" GridPane.columnIndex="0"
+        <VBox id="menu" fx:id="menu" GridPane.rowIndex="1" GridPane.columnIndex="0"
+              spacing="8"
               minWidth="$BTN_SIZE">
             <Button onMouseClicked="#returnParDir">
                 <graphic>
