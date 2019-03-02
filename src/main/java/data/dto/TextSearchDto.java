@@ -70,6 +70,9 @@ public class TextSearchDto {
                 return i;
             }
         }
+        if (index<=document.content.length()){//最后一章
+            return len-1;
+        }
         return 0;
     }
 }
