@@ -15,7 +15,8 @@
         </fx:define>
         <VBox fx:id="menu" spacing="10" visible="false" managed="false" alignment="CENTER"
               onTouchReleased="#hideModal">
-            <Label fx:id="pageNum" text="1/1" textFill="coral"></Label>
+            <Label fx:id="title" textFill="azure"></Label>
+            <Label fx:id="pageNum" text="1/1" textFill="azure"></Label>
             <Button onMouseClicked="#changeOrient">
                 <graphic>
                     <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" preserveRatio="true">

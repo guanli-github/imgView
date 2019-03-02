@@ -4,6 +4,11 @@
 #menu {
     -fx-padding:20;
 }
+#location {
+    -fx-padding:20;
+    -fx-font-size: 16pt;
+    -fx-text-fill: azure;
+}
 #menu .button {
     -fx-background-color: darkturquoise;
     -fx-background-radius: 3;

@@ -8,10 +8,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -34,6 +31,8 @@ public class FileExploreController implements Initializable {
     @FXML
     private GridPane root = new GridPane();
     @FXML
+    private Label location = new Label();
+    @FXML
     private ScrollPane filePane = new ScrollPane();
     @FXML
     private FlowPane files = new FlowPane();
@@ -47,8 +46,8 @@ public class FileExploreController implements Initializable {
     @FXML
     private void keyPress(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
-            returnParDir();
             keyEvent.consume();
+            returnParDir();
         }
     }
 
@@ -72,6 +71,7 @@ public class FileExploreController implements Initializable {
     private void openDir(File dir) {
         FileDto.onChangeDir(dir);
         showFileView();
+        location.setText(dir.getAbsolutePath());
     }
 
     @FXML

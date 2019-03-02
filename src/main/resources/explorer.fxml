@@ -8,7 +8,7 @@
         <fx:define>
             <Double fx:id="BTN_SIZE" fx:value="50"/>
         </fx:define>
-        <VBox id="menu" fx:id="menu"
+        <VBox id="menu" fx:id="menu" GridPane.rowSpan="2"
               spacing="8" GridPane.columnIndex="0"
               minWidth="$BTN_SIZE">
             <Button onMouseClicked="#returnParDir">
@@ -60,7 +60,10 @@
                 </tooltip>
             </Button>
         </VBox>
-        <ScrollPane fx:id="filePane" GridPane.columnIndex="1"
+        <HBox GridPane.rowIndex="0" GridPane.columnIndex="1">
+            <Label id="location" fx:id="location"></Label>
+        </HBox>
+        <ScrollPane fx:id="filePane"  GridPane.rowIndex="1" GridPane.columnIndex="1"
                     hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" fitToWidth="true">
             <FlowPane id="files" fx:id="files" hgap="10" vgap="10" GridPane.columnIndex="1"
                       focusTraversable="true" onKeyPressed="#keyPress"></FlowPane>

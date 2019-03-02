@@ -31,6 +31,8 @@ public class ViewerController implements Initializable {
     @FXML
     private ImageView imgView = new ImageView();
     @FXML
+    private Label title = new Label();
+    @FXML
     private Label pageNum = new Label();
     @FXML
     private Slider slider = new Slider();
@@ -186,6 +188,9 @@ public class ViewerController implements Initializable {
         FileParser.closeFile();
         FileParser.refreash(file);
         jumpToPage(FileParser.currentPage.getValue());
+        String fileTitle = file.getName().substring(0,
+                file.getName().lastIndexOf("."));
+        title.setText(fileTitle);
     }
 
     //显示菜单和进度条
