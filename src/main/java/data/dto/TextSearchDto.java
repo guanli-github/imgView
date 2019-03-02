@@ -49,8 +49,12 @@ public class TextSearchDto {
         if (1 >= document.titles.length) {
             return document.content;
         }
-        if ((index+1) >= document.titles.length) {
+        if (index > document.titles.length-1) {
             return "";
+        }
+        if (index == document.titles.length-1) {//最后一章
+            return document.content.substring(
+                    document.chptPositions[index]);
         }
         String chapter = document.content.substring(
                 document.chptPositions[index], document.chptPositions[index+1]);
