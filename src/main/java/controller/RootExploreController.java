@@ -1,6 +1,8 @@
 package controller;
 
+import data.Setting;
 import data.dto.FileDto;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
@@ -12,7 +14,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import utils.SceneManager;
 
-import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -54,11 +55,24 @@ public class RootExploreController implements Initializable {
         SceneManager.toExplorer();
         return;
     }
+    private void setFullScreen() {
 
+        double width = SceneManager.getStage().getWidth();
+        double height = SceneManager.getStage().getHeight();
+
+        files.setPrefHeight(height);
+        files.setPrefWidth(width);
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        files.setPrefWidth(Toolkit.getDefaultToolkit().getScreenSize().width);
-        files.setPrefHeight(Toolkit.getDefaultToolkit().getScreenSize().height);
+        if (Setting.isFullScreen) {
+            SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
+                Platform.runLater(() -> {
+                            setFullScreen();
+                        }
+                );
+            });
+        }
         FileDto.changeToRoot();
         files.setItems(FileDto.currentFileList);
         files.setCellFactory((ListView<File> listView)->new RootExploreController.RootCell());
