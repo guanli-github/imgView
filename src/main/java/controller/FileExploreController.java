@@ -251,8 +251,8 @@ public class FileExploreController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (Setting.isFullScreen) {
+            setFullScreen();
             Platform.runLater(() -> {
-                setFullScreen();
                 SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
                             setFullScreen();
                         });
