@@ -160,6 +160,9 @@ public class FileExploreController implements Initializable {
         }
         List<VBox> vbs = new ArrayList<>();
         for (File f : FileDto.currentFileList) {
+            ImageView iconView = new ImageView();
+            generateIcon(iconView,f);
+
             CheckBox checkBox = new CheckBox();
             checkBox.setOnMouseClicked((e) -> {
                 if (e.getClickCount() != 1) {//只允许单击
@@ -169,13 +172,6 @@ public class FileExploreController implements Initializable {
                 //根据checkBox有否选中更新选择文件列表的值
                 chooseFileMap.put(f, new SimpleBooleanProperty(checkBox.isSelected()));
             });
-            ImageView iconView = new ImageView();
-            generateIcon(iconView,f);
-            AnchorPane anchorPane = new AnchorPane(iconView,checkBox);
-
-            AnchorPane.setTopAnchor(checkBox,0.0);
-            AnchorPane.setLeftAnchor(checkBox,0.0);
-
             Text title = new Text(f.getName());
             title.setFill(Paint.valueOf("white"));
             if (BookMark.read(f) != 1) {
@@ -186,7 +182,8 @@ public class FileExploreController implements Initializable {
                 }
             }
             title.setWrappingWidth(Setting.iconSize);
-            VBox vb = new VBox(anchorPane, title);
+            HBox hb = new HBox(checkBox,title);
+            VBox vb = new VBox(iconView, hb);
             vb.setPrefWidth(Setting.iconSize);
             vbs.add(vb);
         }
@@ -246,7 +243,6 @@ public class FileExploreController implements Initializable {
                 iconView.setImage(icon);
             });
         }
-        System.out.println(iconView.getFitWidth());
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
