@@ -12,19 +12,7 @@
             <Label id="location" fx:id="location"></Label>
         </HBox>
         <HBox fx:id="choosedOperate" GridPane.rowIndex="0" GridPane.columnIndex="1"
-              alignment="TOP_RIGHT" spacing="10" visible="false">
-            <Button onMouseClicked="#moveFileToTrash">
-                <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
-                        <image>
-                            <Image url="@icons/delete.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-                <tooltip>
-                    <Tooltip text="删除文件"/>
-                </tooltip>
-            </Button>
+              alignment="TOP_RIGHT" spacing="20" visible="false">
             <Button onMouseClicked="#refreshThumbs">
                 <graphic>
                     <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
@@ -35,6 +23,18 @@
                 </graphic>
                 <tooltip>
                     <Tooltip text="刷新缩略图"/>
+                </tooltip>
+            </Button>
+            <Button onMouseClicked="#moveFileToTrash">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
+                        <image>
+                            <Image url="@icons/delete.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="删除文件"/>
                 </tooltip>
             </Button>
         </HBox>

@@ -9,12 +9,18 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import utils.FileTypeHandler;
@@ -22,11 +28,11 @@ import utils.FileUtil;
 import utils.SceneManager;
 import utils.ThumbnailUtil;
 
-import java.awt.Toolkit;
+import java.awt.*;
 import java.io.File;
 import java.net.URL;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class FileExploreController implements Initializable {
     @FXML
@@ -194,6 +200,7 @@ public class FileExploreController implements Initializable {
             }
             title.setWrappingWidth(Setting.iconSize);
             HBox hb = new HBox(checkBox,title);
+            hb.setAlignment(Pos.CENTER);
             VBox vb = new VBox(iconView, hb);
             vb.setPrefWidth(Setting.iconSize);
             vbs.add(vb);
