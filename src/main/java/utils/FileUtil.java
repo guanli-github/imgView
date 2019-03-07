@@ -113,6 +113,6 @@ public class FileUtil {
 //
 //        System.out.println(sortByName("a0002.jpg", "b0001"));
 //        System.out.println(sortByName("0002.jpg", "CCF0001"));
-        System.out.println(preProcessName("a1b2c09"));
+
     }
 }

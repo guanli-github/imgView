@@ -42,7 +42,7 @@ public class FileExploreController implements Initializable {
     private Map<File, ObservableValue<Boolean>> chooseFileMap = new HashMap<>();
     private static int chooseStatus = 0;//0 is in choose mode;1 not
     @FXML
-    private Button delFileBtn = new Button();
+    private HBox choosedOperate = new HBox();//选择文件时显示的操作区域
 
     @FXML
     private void keyPress(KeyEvent keyEvent) {
@@ -77,15 +77,17 @@ public class FileExploreController implements Initializable {
 
     @FXML
     private void toggleChoose() {
+        chooseFileMap.clear();
+
         if (chooseStatus == 0) {
             showChooseFileView();
             chooseStatus = 1;
-            delFileBtn.setDisable(false);
+            choosedOperate.setVisible(true);
             return;
         }
         showFileView();
         chooseStatus = 0;
-        delFileBtn.setDisable(true);
+        choosedOperate.setVisible(false);
     }
 
     //把文件移到回收站
@@ -98,9 +100,10 @@ public class FileExploreController implements Initializable {
             toggleChoose();//恢复到普通的文件页面
             return;
         }
-        toggleChoose();//恢复到普通的文件页面
+        //恢复到普通的文件页面
+        toggleChoose();
+        //提示操作结果
         String info = choosed[0].getName() + "等" + choosed.length + "个文件";
-
         boolean result = FileUtil.moveFileToTrash(choosed);
         String resultStr = result ? "已移至回收站" : "删除失败";
 
@@ -109,11 +112,22 @@ public class FileExploreController implements Initializable {
         alert.setHeaderText("");
         alert.initOwner(SceneManager.getStage());
         alert.show();
-        openDir(FileDto.currentDir);
+        return;
+    }
+    //删除指定文件的缩略图，以重新生成
+    @FXML
+    private void refreshThumbs() {
+        File[] choosed = getSelectedFiles();
+        if (0 == choosed.length) {
+            toggleChoose();//恢复到普通的文件页面
+            return;
+        }
+        ThumbnailUtil.deleteThumbnails(choosed);
+        toggleChoose();//恢复到普通的文件页面
         return;
     }
 
-    //选择要删除的文件
+    //获取被选择的文件
     private File[] getSelectedFiles() {
         List<File> list = new ArrayList<>();
         for (File key : chooseFileMap.keySet()) {
@@ -121,7 +135,6 @@ public class FileExploreController implements Initializable {
                 list.add(key);
             }
         }
-        chooseFileMap.clear();
         File[] choosed = list
                 .toArray(new File[0]);
         return choosed;
@@ -153,8 +166,6 @@ public class FileExploreController implements Initializable {
 
     //显示选择文件视图
     private void showChooseFileView() {
-        //选择文件列表，初始默认都不选中
-        chooseFileMap.clear();
         for (File f : FileDto.currentFileList) {
             chooseFileMap.put(f, new SimpleBooleanProperty(false));
         }
@@ -193,7 +204,6 @@ public class FileExploreController implements Initializable {
     }
 
     private void showFileView() {
-        chooseFileMap.clear();
         List<VBox> vbs = new ArrayList<>();
         for (File f : FileDto.currentFileList) {
             ImageView iconView = new ImageView();
@@ -231,7 +241,7 @@ public class FileExploreController implements Initializable {
         filePane.setVvalue(location);//恢复之前的滚动位置
     }
     //根据文件显示相应图标
-    public void generateIcon(ImageView iconView,File f){
+    private void generateIcon(ImageView iconView,File f){
         iconView.setFitWidth(Setting.iconSize);
         iconView.setFitHeight(Setting.iconSize);
         iconView.setPreserveRatio(true);

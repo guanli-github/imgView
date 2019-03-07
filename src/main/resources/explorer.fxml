@@ -11,6 +11,33 @@
         <HBox GridPane.rowIndex="0" GridPane.columnIndex="1">
             <Label id="location" fx:id="location"></Label>
         </HBox>
+        <HBox fx:id="choosedOperate" GridPane.rowIndex="0" GridPane.columnIndex="1"
+              alignment="TOP_RIGHT" spacing="10" visible="false">
+            <Button onMouseClicked="#moveFileToTrash">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
+                        <image>
+                            <Image url="@icons/delete.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="删除文件"/>
+                </tooltip>
+            </Button>
+            <Button onMouseClicked="#refreshThumbs">
+                <graphic>
+                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
+                        <image>
+                            <Image url="@icons/refresh.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <tooltip>
+                    <Tooltip text="刷新缩略图"/>
+                </tooltip>
+            </Button>
+        </HBox>
         <VBox id="menu" fx:id="menu" GridPane.rowIndex="1" GridPane.columnIndex="0"
               spacing="8"
               minWidth="$BTN_SIZE">
@@ -36,18 +63,6 @@
                 </graphic>
                 <tooltip>
                     <Tooltip text="选择文件"/>
-                </tooltip>
-            </Button>
-            <Button fx:id="delFileBtn" onMouseClicked="#moveFileToTrash" disable="true">
-                <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
-                        <image>
-                            <Image url="@icons/delete.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-                <tooltip>
-                    <Tooltip text="删除文件"/>
                 </tooltip>
             </Button>
             <Button onMouseClicked="#exit">

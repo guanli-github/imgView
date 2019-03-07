@@ -64,7 +64,24 @@ public class ThumbnailUtil {
         }
 
     }
-
+    //删除指定文件的缩略图
+    public static boolean deleteThumbnails(File[] choosed){
+        for(File f:choosed){
+            String path = f.getAbsolutePath();
+            String thumnbNailPath = ConfigUtils.getConfig(Const.THUMBNAIL,path);//查询缩略图记录
+            if(null == thumnbNailPath){
+                continue;
+            }
+            File thumb = new File(thumnbNailPath);
+            if(!thumb.exists()){
+                ConfigUtils.removeConfig(Const.THUMBNAIL,path);//清理无效记录
+            }else {
+                new File(thumnbNailPath).delete();//清理缩略图文件
+                ConfigUtils.removeConfig(Const.THUMBNAIL, path);//删除记录
+            }
+        }
+        return true;
+    }
     public static Image getFileThumbnail(File file){
         String thumnbNailPath = ConfigUtils.getConfig(Const.THUMBNAIL,file.getAbsolutePath());
         if(null != thumnbNailPath){
