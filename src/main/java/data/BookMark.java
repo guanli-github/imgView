@@ -7,6 +7,7 @@ import utils.ConfigUtils;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 public class BookMark {
 
@@ -68,5 +69,15 @@ public class BookMark {
                 index
                 :
                 1;
+    }
+    //清除失效的记录
+    public static void cleanBookMarks(){
+        List<String> filePaths = ConfigUtils.listKeys(Const.BOOK_MARK);
+        for(String path: filePaths){
+            if(!new File(path).exists()){
+                ConfigUtils.removeConfig(Const.BOOK_MARK,path);//删除记录
+            }
+        }
+
     }
 }

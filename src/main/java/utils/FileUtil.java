@@ -2,6 +2,7 @@ package utils;
 
 import com.sun.jna.platform.FileUtils;
 import data.Const;
+import data.dto.FileDto;
 import extractor.FileParser;
 
 import java.io.File;
@@ -90,6 +91,7 @@ public class FileUtil {
             FileParser.closeFile();
             System.gc();
             fileUtils.moveToTrash(filesToDel);
+            FileDto.currentFileList.removeAll(filesToDel);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

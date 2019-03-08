@@ -1,5 +1,6 @@
 package application;
 
+import data.BookMark;
 import data.Setting;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +32,7 @@ public class MainExlporer extends Application {
     //启动式运行
     private void runOnStartUp(){
         ThumbnailUtil.cleanThumbnails();
+        BookMark.cleanBookMarks();
     }
     public static void main(String[] args) {
         launch(args);

@@ -85,13 +85,18 @@ public class FileExploreController implements Initializable {
     private void toggleChoose() {
         chooseFileMap.clear();
 
+        double location = filePane.getVvalue();
         if (chooseStatus == 0) {
             showChooseFileView();
+            filePane.setVvalue(location);//恢复之前的滚动位置
+
             chooseStatus = 1;
             choosedOperate.setVisible(true);
             return;
         }
         showFileView();
+        filePane.setVvalue(location);//恢复之前的滚动位置
+
         chooseStatus = 0;
         choosedOperate.setVisible(false);
     }
@@ -205,9 +210,7 @@ public class FileExploreController implements Initializable {
             vb.setPrefWidth(Setting.iconSize);
             vbs.add(vb);
         }
-        double location = filePane.getVvalue();
         files.getChildren().setAll(vbs);
-        filePane.setVvalue(location);//恢复之前的滚动位置
     }
 
     private void showFileView() {
@@ -243,9 +246,7 @@ public class FileExploreController implements Initializable {
             });
             vbs.add(vb);
         }
-        double location = filePane.getVvalue();
         files.getChildren().setAll(vbs);
-        filePane.setVvalue(location);//恢复之前的滚动位置
     }
     //根据文件显示相应图标
     private void generateIcon(ImageView iconView,File f){

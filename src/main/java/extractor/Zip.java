@@ -57,9 +57,7 @@ public class Zip {
     public static Image getThumnbnail(File file) {
         try {
             zipFile = new ZipFile(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         zes =  Collections.list(zipFile.getEntries());
         zes.removeIf((ze) -> ((ZipEntry) ze).isDirectory());//去除目录
         zes.removeIf((ze) -> (!FileUtil.isSupportImg(//去除非图片文件
@@ -80,12 +78,18 @@ public class Zip {
             return FileUtil.sortByName(o1Name,o2Name);
         });
         ZipEntry ze = zes.get(0);
-        try {
+        zipFile.close();
             InputStream imgIs = zipFile.getInputStream(ze);
             return ThumbnailUtil.newThumbnail(imgIs);
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                zipFile.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
-        return null;
     }
 }
