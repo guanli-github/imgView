@@ -41,16 +41,16 @@
         <VBox id="menu" fx:id="menu" GridPane.rowIndex="1" GridPane.columnIndex="0"
               spacing="8"
               minWidth="$BTN_SIZE">
-            <Button onMouseClicked="#returnParDir">
+            <Button onMouseClicked="#exit">
                 <graphic>
                     <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
                         <image>
-                            <Image url="@icons/return.png"/>
+                            <Image url="@icons/exit.png"/>
                         </image>
                     </ImageView>
                 </graphic>
                 <tooltip>
-                    <Tooltip text="返回上级目录"/>
+                    <Tooltip text="退出"/>
                 </tooltip>
             </Button>
             <Button onMouseClicked="#toggleChoose">
@@ -65,16 +65,16 @@
                     <Tooltip text="选择文件"/>
                 </tooltip>
             </Button>
-            <Button onMouseClicked="#exit">
+            <Button onMouseClicked="#returnParDir">
                 <graphic>
                     <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
                         <image>
-                            <Image url="@icons/exit.png"/>
+                            <Image url="@icons/return.png"/>
                         </image>
                     </ImageView>
                 </graphic>
                 <tooltip>
-                    <Tooltip text="退出"/>
+                    <Tooltip text="返回上级目录"/>
                 </tooltip>
             </Button>
         </VBox>

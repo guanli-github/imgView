@@ -91,7 +91,6 @@ public class FileUtil {
             FileParser.closeFile();
             System.gc();
             fileUtils.moveToTrash(filesToDel);
-            FileDto.currentFileList.removeAll(filesToDel);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

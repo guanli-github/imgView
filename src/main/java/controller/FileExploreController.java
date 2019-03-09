@@ -17,10 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import utils.FileTypeHandler;
@@ -111,11 +108,14 @@ public class FileExploreController implements Initializable {
             toggleChoose();//恢复到普通的文件页面
             return;
         }
-        //恢复到普通的文件页面
-        toggleChoose();
         //提示操作结果
         String info = choosed[0].getName() + "等" + choosed.length + "个文件";
         boolean result = FileUtil.moveFileToTrash(choosed);
+        if(result){
+            FileDto.currentFileList.removeAll(choosed);
+        }
+        //恢复到普通的文件页面
+        toggleChoose();
         String resultStr = result ? "已移至回收站" : "删除失败";
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION, info + resultStr);
@@ -184,16 +184,10 @@ public class FileExploreController implements Initializable {
         for (File f : FileDto.currentFileList) {
             ImageView iconView = new ImageView();
             generateIcon(iconView,f);
+            iconView.setOpacity(0.8);
 
             CheckBox checkBox = new CheckBox();
-            checkBox.setOnMouseClicked((e) -> {
-                if (e.getClickCount() != 1) {//只允许单击
-                    e.consume();
-                    return;
-                }
-                //根据checkBox有否选中更新选择文件列表的值
-                chooseFileMap.put(f, new SimpleBooleanProperty(checkBox.isSelected()));
-            });
+            checkBox.setVisible(false);
             Text title = new Text(f.getName());
             title.setFill(Paint.valueOf("white"));
             if (BookMark.read(f) != 1) {
@@ -204,10 +198,30 @@ public class FileExploreController implements Initializable {
                 }
             }
             title.setWrappingWidth(Setting.iconSize);
-            HBox hb = new HBox(checkBox,title);
-            hb.setAlignment(Pos.CENTER);
-            VBox vb = new VBox(iconView, hb);
-            vb.setPrefWidth(Setting.iconSize);
+            AnchorPane anchorPane = new AnchorPane(checkBox,title);
+            AnchorPane.setLeftAnchor(checkBox,0.0);
+            AnchorPane.setLeftAnchor(title,0.0);
+            AnchorPane.setTopAnchor(checkBox,0.0);
+            AnchorPane.setTopAnchor(title,0.0);
+
+            VBox vb = new VBox(iconView, anchorPane);
+            vb.setOnMouseClicked((e) -> {
+                if (e.getClickCount() != 1) {//只允许单击
+                    e.consume();
+                    return;
+                }
+                checkBox.selectedProperty().setValue(
+                        !checkBox.isSelected()
+                );
+                //根据checkBox有否选中更新选择文件列表的值
+                chooseFileMap.put(f, new SimpleBooleanProperty(checkBox.isSelected()));
+                if(checkBox.isSelected()){ //style for choose items
+                    iconView.setOpacity(1.0);
+                }else{
+                    iconView.setOpacity(0.8);
+                }
+            });
+            vb.setMaxWidth(Setting.iconSize);
             vbs.add(vb);
         }
         files.getChildren().setAll(vbs);

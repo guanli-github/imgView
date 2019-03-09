@@ -59,6 +59,7 @@ public class ThumbnailUtil {
                 new File(thumnbNailPath).delete();//清理缩略图文件
                 ConfigUtils.removeConfig(Const.THUMBNAIL,path);//删除记录
             }else if(!new File(thumnbNailPath).exists()){
+
                 ConfigUtils.removeConfig(Const.THUMBNAIL,path);//清理无效记录
             }
         }
