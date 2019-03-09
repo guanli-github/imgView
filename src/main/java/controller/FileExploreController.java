@@ -222,6 +222,7 @@ public class FileExploreController implements Initializable {
                 }
             });
             vb.setMaxWidth(Setting.iconSize);
+            vb.setAlignment(Pos.TOP_CENTER);
             vbs.add(vb);
         }
         files.getChildren().setAll(vbs);
@@ -245,7 +246,7 @@ public class FileExploreController implements Initializable {
 
             VBox vb = new VBox(iconView, title);
             vb.setPrefWidth(Setting.iconSize);
-            vb.setAlignment(Pos.CENTER);
+            vb.setAlignment(Pos.TOP_CENTER);
             vb.setOnMouseClicked((e) -> {
                 if (e.getClickCount() != 2) {
                     e.consume();
