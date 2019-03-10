@@ -48,11 +48,6 @@ public class Pdf {
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
-            try {
-                doc.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             return SwingFXUtils.toFXImage(thumbnail,null);
         }
     }
