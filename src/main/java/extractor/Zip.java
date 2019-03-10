@@ -78,17 +78,10 @@ public class Zip {
             return FileUtil.sortByName(o1Name,o2Name);
         });
         ZipEntry ze = zes.get(0);
-        zipFile.close();
             InputStream imgIs = zipFile.getInputStream(ze);
             return ThumbnailUtil.newThumbnail(imgIs);
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            try {
-                zipFile.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             return null;
         }
     }

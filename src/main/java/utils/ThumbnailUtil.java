@@ -2,6 +2,7 @@ package utils;
 
 import data.Const;
 import data.Setting;
+import extractor.FileParser;
 import extractor.Img;
 import extractor.Pdf;
 import extractor.Zip;
@@ -32,6 +33,7 @@ public class ThumbnailUtil {
             thumbnail =  Thumbnails.of(imgIs)
                     .size(Setting.iconSize, Setting.iconSize)
                     .asBufferedImage();
+            FileParser.closeFile();
             return SwingFXUtils.toFXImage(thumbnail,null);
         } catch (IOException e) {
             e.printStackTrace();
