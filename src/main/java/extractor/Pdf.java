@@ -43,12 +43,11 @@ public class Pdf {
         try {
             doc =PDDocument.load(file);
             thumbnail = new PDFRenderer(doc).renderImageWithDPI(0, Setting.iconSize);
+            return SwingFXUtils.toFXImage(thumbnail,null);
+
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            return SwingFXUtils.toFXImage(thumbnail,null);
+            return null;
         }
     }
 
