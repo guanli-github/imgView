@@ -82,17 +82,17 @@ public class FileExploreController implements Initializable {
     private void toggleChoose() {
         chooseFileMap.clear();
 
-        double location = filePane.getVvalue();
+        FileDto.location = filePane.getVvalue();
         if (chooseStatus == 0) {
             showChooseFileView();
-            filePane.setVvalue(location);//恢复之前的滚动位置
+            filePane.setVvalue(FileDto.location);//恢复之前的滚动位置
 
             chooseStatus = 1;
             choosedOperate.setVisible(true);
             return;
         }
         showFileView();
-        filePane.setVvalue(location);//恢复之前的滚动位置
+        filePane.setVvalue(FileDto.location);//恢复之前的滚动位置
 
         chooseStatus = 0;
         choosedOperate.setVisible(false);
@@ -218,7 +218,7 @@ public class FileExploreController implements Initializable {
                 if(checkBox.isSelected()){ //style for choose items
                     iconView.setOpacity(1.0);
                 }else{
-                    iconView.setOpacity(0.8);
+                    iconView.setOpacity(0.6);
                 }
             });
             vb.setMaxWidth(Setting.iconSize);
@@ -293,6 +293,7 @@ public class FileExploreController implements Initializable {
         } else {
             openDir(new File(Setting.deafultDir));
         }
+        filePane.setVvalue(FileDto.location);//返回浏览页面时，恢复滚动位置
     }
 
 }

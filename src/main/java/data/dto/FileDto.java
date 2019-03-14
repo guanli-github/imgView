@@ -13,6 +13,7 @@ public class FileDto {
     public static File currentDir =  null;
     public static ObservableList<File> currentFileList = FXCollections.observableArrayList();
     public static int currentFileIndex = 1;
+    public static double location = 0.0;//浏览页面的滚动位置
 
     //当前目录改变时调用
     public static boolean onChangeDir(File f){
