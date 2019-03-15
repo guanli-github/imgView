@@ -152,6 +152,7 @@ public class FileExploreController implements Initializable {
     }
 
     private void openFile(File f) {
+        FileDto.location = filePane.getVvalue();
         FileDto.onClickFile(f);
         if (FileTypeHandler.docFilter.accept(f)) {
             SceneManager.toViewer();
