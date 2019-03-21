@@ -26,6 +26,7 @@ public class FileParser {
      * @param file
      */
     public static boolean refreash(File file) {
+        //读取书签的进度
         currentPage.setValue(BookMark.read(file));
 
         if (FileTypeHandler.imgFilter.accept(file)) {
@@ -48,8 +49,14 @@ public class FileParser {
     }
 
     public static Image getImage(int page) {
+        if (0 >= totalPage ||
+                page < 1 ||
+                page > totalPage) {
+            return null;
+        }
         //文件排序以0开始
         page -= 1;
+        currentPage.setValue(page);
         if (fileType.equals(Const.TYPE_PDF)) return Pdf.getImage(page);
         if (fileType.equals(Const.TYPE_ZIP)) return Zip.getImage(page);
         if (fileType.equals(Const.TYPE_IMG)) return Img.getImage(page);

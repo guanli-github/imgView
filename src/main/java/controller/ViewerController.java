@@ -13,6 +13,7 @@ import javafx.geometry.NodeOrientation;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -22,7 +23,7 @@ import utils.FileTypeHandler;
 import utils.ModalUtil;
 import utils.SceneManager;
 
-import java.awt.Toolkit;
+import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -163,17 +164,12 @@ public class ViewerController implements Initializable {
     }
 
     private void jumpToPage(int page) {
-        if (0 >= FileParser.totalPage) return;
-        if (page < 1 ||
-                page > FileParser.totalPage) {
+        Image image = FileParser.getImage(page);
+        if (null == image) {
             showModal();
             return;
         }
-
-        imgView.setImage(
-                FileParser.getImage(page)
-        );
-        FileParser.currentPage.setValue(page);
+        imgView.setImage(image);
     }
 
 

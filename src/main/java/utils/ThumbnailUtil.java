@@ -33,6 +33,7 @@ public class ThumbnailUtil {
             thumbnail =  Thumbnails.of(imgIs)
                     .size(Setting.iconSize, Setting.iconSize)
                     .asBufferedImage();
+            imgIs.close();
             FileParser.closeFile();
             return SwingFXUtils.toFXImage(thumbnail,null);
         } catch (IOException e) {

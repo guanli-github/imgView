@@ -24,6 +24,8 @@ public class TextUtil {
             while ((line = br.readLine()) != null) {
                 sb.append(line + Const.LINE_BREAK);
             }
+            br.close();
+            isr.close();
             return sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,6 +57,7 @@ public class TextUtil {
             fileinput = new FileInputStream(file);
             fileinput.read(buffer);//读取文件中的内容到buffer中
             String str = new String(buffer,"UTF-8");
+            fileinput.close();
             return AESUtil.decrypt(str);
         } catch (IOException e) {
             e.printStackTrace();
@@ -80,7 +83,8 @@ public class TextUtil {
 
     //解析txt文件的编码格式
     public static String resolveTxtCharSet(File file) throws Exception {
-        BufferedInputStream bin = new BufferedInputStream(new FileInputStream(file));
+        var fis = new FileInputStream(file);
+        var bin = new BufferedInputStream(fis);
         int p = (bin.read() << 8) + bin.read();
 
         String code = null;
@@ -98,6 +102,8 @@ public class TextUtil {
             default:
                 code = "GBK";
         }
+        bin.close();
+        fis.close();
         return code;
 
     }
@@ -149,6 +155,8 @@ public class TextUtil {
                     }
                 }
             }
+            br.close();
+            isr.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
