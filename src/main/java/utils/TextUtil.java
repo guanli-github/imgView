@@ -83,8 +83,8 @@ public class TextUtil {
 
     //解析txt文件的编码格式
     public static String resolveTxtCharSet(File file) throws Exception {
-        var fis = new FileInputStream(file);
-        var bin = new BufferedInputStream(fis);
+        FileInputStream fis = new FileInputStream(file);
+        BufferedInputStream bin = new BufferedInputStream(fis);
         int p = (bin.read() << 8) + bin.read();
 
         String code = null;

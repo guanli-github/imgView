@@ -25,7 +25,7 @@ public class Zip {
             e.printStackTrace();
         }
         zes =  Collections.list(zipFile.getEntries());
-        zes.removeIf((ze) -> ((ZipEntry) ze).isDirectory());//去除目录
+        zes.removeIf((ze) -> (ze).isDirectory());//去除目录
         zes.removeIf((ze) -> (!FileUtil.isSupportImg(//去除非图片文件
                 ze.getName().substring(
                         ze.getName().lastIndexOf(".")))));
@@ -59,7 +59,7 @@ public class Zip {
             zipFile = new ZipFile(file);
 
         zes =  Collections.list(zipFile.getEntries());
-        zes.removeIf((ze) -> ((ZipEntry) ze).isDirectory());//去除目录
+        zes.removeIf((ze) -> (ze).isDirectory());//去除目录
         zes.removeIf((ze) -> (!FileUtil.isSupportImg(//去除非图片文件
                 ze.getName().substring(
                         ze.getName().lastIndexOf(".")))));

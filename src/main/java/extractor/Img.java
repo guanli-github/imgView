@@ -44,7 +44,6 @@ public class Img {
     }
 
     public static Image getThumnbnail(File file) {
-        String path = "file:" + file.getAbsolutePath();
         try {
             return ThumbnailUtil.newThumbnail(new FileInputStream(file));
         } catch (FileNotFoundException e) {
