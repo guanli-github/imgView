@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class TextSearchController implements Initializable {
     @FXML
-    private ListView results = new ListView();
+    private ListView results = new ListView<>();
     @FXML
     private TextField searchWord = new TextField();
     @FXML
@@ -52,7 +52,6 @@ public class TextSearchController implements Initializable {
     private void toText() {
         TextSearchDto.highlightMode = true;
         SceneManager.toText();
-        return;
     }
     //点击某条搜索结果时调用
     @FXML
@@ -104,9 +103,7 @@ public class TextSearchController implements Initializable {
 
         if(Setting.isFullScreen){
             SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
-                Platform.runLater(() -> {
-                            setFullScreen();
-                        }
+                Platform.runLater(() -> setFullScreen()
                 );
             });
         }

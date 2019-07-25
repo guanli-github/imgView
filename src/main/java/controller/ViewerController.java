@@ -240,9 +240,7 @@ public class ViewerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (Setting.isFullScreen) {
-            Platform.runLater(() -> {
-                setFullScreen();
-            });
+            Platform.runLater(() -> setFullScreen());
             SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
                 Platform.runLater(() -> {
                             setFullScreen();

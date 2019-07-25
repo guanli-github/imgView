@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 public class RootExploreController implements Initializable {
 
     @FXML
-    private ListView<File> files = new ListView();
+    private ListView<File> files = new ListView<>();
 
     @FXML
     private void exit() {
@@ -53,7 +53,6 @@ public class RootExploreController implements Initializable {
     private void openFile(File f) {
         FileDto.onChangeDir(f);
         SceneManager.toExplorer();
-        return;
     }
     private void setFullScreen() {
 
@@ -67,9 +66,7 @@ public class RootExploreController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         if (Setting.isFullScreen) {
             SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
-                Platform.runLater(() -> {
-                            setFullScreen();
-                        }
+                Platform.runLater(() -> setFullScreen()
                 );
             });
         }

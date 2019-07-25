@@ -101,9 +101,7 @@ public class FileExploreController implements Initializable {
     //把文件移到回收站
     @FXML
     private void moveFileToTrash() {
-
-        File[] choosed = getSelectedFiles();
-
+        File[] choosed = getSelectedFiles().toArray(new File[0]);
         if (0 == choosed.length) {
             toggleChoose();//恢复到普通的文件页面
             return;
@@ -123,32 +121,29 @@ public class FileExploreController implements Initializable {
         alert.setHeaderText("");
         alert.initOwner(SceneManager.getStage());
         alert.show();
-        return;
     }
     //删除指定文件的缩略图，以重新生成
     @FXML
     private void refreshThumbs() {
-        File[] choosed = getSelectedFiles();
+        File[] choosed = getSelectedFiles().toArray(new File[0]);
         if (0 == choosed.length) {
             toggleChoose();//恢复到普通的文件页面
             return;
         }
         ThumbnailUtil.deleteThumbnails(choosed);
         toggleChoose();//恢复到普通的文件页面
-        return;
     }
 
     //获取被选择的文件
-    private File[] getSelectedFiles() {
+    private List<File> getSelectedFiles() {
         List<File> list = new ArrayList<>();
         for (File key : chooseFileMap.keySet()) {
             if (chooseFileMap.get(key).getValue()) {
                 list.add(key);
             }
         }
-        File[] choosed = list
-                .toArray(new File[0]);
-        return choosed;
+
+        return list;
     }
 
     private void openFile(File f) {
@@ -156,10 +151,8 @@ public class FileExploreController implements Initializable {
         FileDto.onClickFile(f);
         if (FileTypeHandler.docFilter.accept(f)) {
             SceneManager.toViewer();
-            return;
         } else if (FileTypeHandler.txtFilter.accept(f)) {
             SceneManager.toText();
-            return;
         }
     }
 

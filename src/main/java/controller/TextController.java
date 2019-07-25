@@ -69,7 +69,6 @@ public class TextController implements Initializable {
     @FXML
     private void returnDir() {
         SceneManager.toExplorer();
-        return;
     }
 
     @FXML
@@ -86,7 +85,6 @@ public class TextController implements Initializable {
     @FXML
     private void toSearch() {
         SceneManager.toSearch();
-        return;
     }
 
     private void setFullScreen() {
@@ -102,9 +100,7 @@ public class TextController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         if (Setting.isFullScreen) {
             SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
-                Platform.runLater(() -> {
-                            setFullScreen();
-                        }
+                Platform.runLater(this::setFullScreen
                 );
             });
         }
@@ -163,9 +159,28 @@ class SearchHighlightedTextCell extends ListCell<String> {
         if(TextSearchDto.highlightMode){
             //if this is the choosed
             if(text.equals(TextSearchDto.searchResultList.get(TextSearchDto.searchIndex).line)){
+                //setHighLight(this,text,TextSearchDto.searchWord);
+                this.setTextFill(Setting.highLightPaint);
             }
         }
 
     }
+//
+//    private void setHighLight(Pane node,String text, String hlWord){
+//
+//        String[] split = text.replace(hlWord,"\n"+hlWord+"\n")split("\n");
+//        List<Text> list = new ArrayList<>();
+//        for(String s:split){
+//            if(null == s || s.isEmpty()){
+//                continue;
+//            }
+//            Text t = new Text(s);
+//            if(s.equals(hlWord)){
+//                t.setFill(Setting.highLightPaint);
+//            }
+//            list.add(t);
+//        }
+//        node.getChildren()
+//    }
 
 }
