@@ -3,6 +3,7 @@ package application;
 import data.BookMark;
 import data.Setting;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,7 +15,10 @@ public class MainExlporer extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        runOnStartUp();
+        Platform.runLater(()->{
+            cleanResource();
+                }
+        );
 
         if(Setting.isFullScreen){
             stage.setFullScreen(true);
@@ -29,8 +33,8 @@ public class MainExlporer extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    //启动式运行
-    private void runOnStartUp(){
+
+    private void cleanResource(){
         ThumbnailUtil.cleanThumbnails();
         BookMark.cleanBookMarks();
     }

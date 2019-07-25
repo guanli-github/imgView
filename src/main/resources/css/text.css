@@ -6,23 +6,19 @@
     -fx-background-radius: 3;
     -fx-font-size: 10pt;
 }
-.text-area {
-    -fx-background-color: transparent;
-}
-
-.text-area .scroll-pane {
-    -fx-background-color: transparent;
-}
-
-.text-area .scroll-pane .viewport{
-    -fx-background-color: transparent;
-}
 
 
-.text-area .scroll-pane .content{
+/** highlighter.css
+    place in same directory as ListViewTextHighlighter.java
+    ensure build system copies the css file to the build output path */
+
+/** Remove default highlighting of alternate rows */
+.list-view {
     -fx-background-color: transparent;
 }
-//隐藏滚动条
-.text-area .scroll-bar:vertical:disabled {
-    -fx-opacity: 0;
+.list-cell {
+    -fx-background-color: transparent;
+}
+.list-cell:odd {
+    -fx-background-color: transparent;
 }

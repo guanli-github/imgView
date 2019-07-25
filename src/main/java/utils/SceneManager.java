@@ -1,9 +1,7 @@
 package utils;
 
 import com.sun.javafx.robot.impl.FXRobotHelper;
-import data.Const;
 import data.Setting;
-import data.dto.TextSearchDto;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -26,12 +24,7 @@ public class SceneManager {
         changeScene("/text.fxml","/css/text.css");
     }
     public static void toSearch(){
-        TextSearchDto.TPYE = Const.SEARCH;
-        changeScene("/textSearch.fxml","/css/text.css");
-    }
-    public static void toChapter(){
-        TextSearchDto.TPYE = Const.CHAPTER;
-        changeScene("/textSearch.fxml","/css/text.css");
+        changeScene("/textSearch.fxml","/css/search.css");
     }
 
     private static void changeScene(String fxmlUrl,String cssUrl){

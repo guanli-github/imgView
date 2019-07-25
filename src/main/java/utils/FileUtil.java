@@ -107,13 +107,4 @@ public class FileUtil {
         return false;
     }
 
-    public static void main(String[] args) {
-        //期望：-；-；-；-；
-//        System.out.println(sortByName("1.jpg", "2.jpg"));
-//        System.out.println(sortByName("2.jpg", "10.jpg"));
-//
-//        System.out.println(sortByName("a0002.jpg", "b0001"));
-//        System.out.println(sortByName("0002.jpg", "CCF0001"));
-
-    }
 }

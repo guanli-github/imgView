@@ -1,6 +1,5 @@
 package controller;
 
-import data.Const;
 import data.SearchRecord;
 import data.SearchResult;
 import data.Setting;
@@ -35,28 +34,14 @@ public class TextSearchController implements Initializable {
         String word = searchWord.getText();
         if(null != word){
             TextSearchDto.searchWord = word;
+
             SearchRecord.add(word);
             TextSearchDto.searchResultList.clear();
             TextSearchDto.searchResultList.setAll(getResults(word));
             showResult();
         }
     }
-    //显示目录
-    @FXML
-    private void showChapter(){
-        TextSearchDto.searchResultList.clear();
-        List<SearchResult>list = new ArrayList<>();
-        int len = TextSearchDto.document.titles.length;
-        for(int i=0;i<len;i++){
-            SearchResult sr  =new SearchResult(
-                    TextSearchDto.inChapter(TextSearchDto.document.chptPositions[i]),
-                    0,
-                    TextSearchDto.document.titles[i]);
-            list.add(sr);
-        }
-        TextSearchDto.searchResultList.setAll(list);
-        showResult();
-    }
+
     @FXML
     private void enterSearch(KeyEvent keyEvent) {
         if(keyEvent.getCode().equals(KeyCode.ENTER)){
@@ -65,6 +50,7 @@ public class TextSearchController implements Initializable {
     }
     @FXML
     private void toText() {
+        TextSearchDto.highlightMode = true;
         SceneManager.toText();
         return;
     }
@@ -76,45 +62,23 @@ public class TextSearchController implements Initializable {
                 .getSelectedItem();
         if (null == hitted) return;
         //记录点击的哪一条
-        TextSearchDto.searchIndex = TextSearchDto.searchResultList.indexOf(hitted);
-        TextSearchDto.setPresentChapter(hitted.chapterNo);
-        //索引值除以章节长度
-        TextSearchDto.presentScroll = TextSearchDto.document.getScrollInChapter(hitted.chapterNo,hitted.positionInChapter);
-        SceneManager.toText();
-        return;
+        TextSearchDto.searchIndex = hitted.getSearchIndex();
+        toText();
     }
 
-    //搜索出结果
+    //get search result
     private List<SearchResult> getResults(String searchWord) {
-        List<Integer> indexes = new ArrayList();
-        int a = TextSearchDto.document.content.indexOf(searchWord);//*第一个出现的索引位置
-
-        while (a != -1) {
-            indexes.add(a);
-            a = TextSearchDto.document.content.indexOf(searchWord, a + 1);//*从这个索引往后开始第一个出现的位置
-        }
         List<SearchResult> list = new ArrayList<>();
 
-        if(indexes.isEmpty()){
-            return list;
+        int len = TextSearchDto.document.size();
+        for(int i=0;i<len;i++){
+            String line = TextSearchDto.document.get(i);
+            if(line.contains(searchWord)){
+                SearchResult sr = new SearchResult(i,line);
+                list.add(sr);
+            }
         }
-        //截取结果时防止越界
-        int length = TextSearchDto.document.content.length();
-        int count = indexes.size();
-        int bias = Const.textBias;
-        if ((indexes.get(0) - bias) <= 0)
-            indexes.set(0,bias);
-        if (indexes.get(count-1) >=(length-bias))
-            indexes.set(count-1,(length - bias));
-        //生成结果列表
-        for (int index : indexes) {
-            int chapterNo= TextSearchDto.inChapter(index);
-            int posInChapter = index-TextSearchDto.document.chptPositions[chapterNo];
-            list.add(
-                    new SearchResult(chapterNo, posInChapter,
-                            TextSearchDto.document.content.substring(index - bias, index + bias))
-            );
-        }
+
         return list;
     }
 
@@ -131,12 +95,14 @@ public class TextSearchController implements Initializable {
 
         results.setPrefHeight(height);
         results.setPrefWidth(width);
+
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("search init:"+SceneManager.getStage().getWidth());
+
         if(Setting.isFullScreen){
-            setFullScreen();
             SceneManager.getStage().widthProperty().addListener((observable) -> {//屏幕旋转
                 Platform.runLater(() -> {
                             setFullScreen();
@@ -158,13 +124,7 @@ public class TextSearchController implements Initializable {
             searchWord.setText(recordCombo.getSelectionModel().getSelectedItem());
             doSearch();
         });
-        //显示章节
-        if(TextSearchDto.TPYE == Const.CHAPTER){
-//            searchField.setVisible(false);
-//            searchField.setManaged(false);
-            showChapter();
-            return;
-        }
+
         if (TextSearchDto.searchWord != null && !"".equals(TextSearchDto.searchWord)) {
             searchWord.setText(TextSearchDto.searchWord);
             doSearch();
@@ -180,7 +140,9 @@ public class TextSearchController implements Initializable {
         public void updateItem(SearchResult item, boolean empty) {
             super.updateItem(item, empty);
             if (item != null) {
-                this.setText(item.partContent);
+                this.setWrapText(true);
+                this.setPrefWidth(SceneManager.getStage().getWidth());
+                this.setText(item.line);
             } else {
                 this.setText("");
             }

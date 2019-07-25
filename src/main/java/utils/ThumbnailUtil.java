@@ -56,6 +56,9 @@ public class ThumbnailUtil {
     //清除失效文件的缩略图
     public static void cleanThumbnails(){
         List<String> filePaths = ConfigUtils.listKeys(Const.THUMBNAIL);
+        if(null == filePaths){
+            return;
+        }
         for(String path: filePaths){
             String thumnbNailPath = ConfigUtils.getConfig(Const.THUMBNAIL,path);
             if(!new File(path).exists()){

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 <?import java.lang.Double?>
@@ -10,9 +9,9 @@
           onKeyPressed="#keyPress"
           xmlns:fx="http://javafx.com/fxml">
     <children>
-        <TextArea fx:id="text" editable="false"
-                  wrapText="true" GridPane.rowIndex="0"
-                  onMouseClicked="#showMenu"/>
+        <ListView fx:id="text"
+                  GridPane.rowIndex="0" GridPane.fillWidth="true"
+              onMouseClicked="#changeMode" />
         <VBox fx:id="menu" spacing="10" visible="false" managed="false" alignment="CENTER"
               onMouseClicked="#hideMenu">
             <fx:define>
@@ -39,42 +38,6 @@
                 </graphic>
                 <tooltip>
                     <Tooltip text="搜索"/>
-                </tooltip>
-            </Button>
-            <Button onMouseClicked="#toChapter">
-                <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE">
-                        <image>
-                            <Image url="@icons/chapters.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-                <tooltip>
-                    <Tooltip text="查看章节目录"/>
-                </tooltip>
-            </Button>
-            <Button onMouseClicked="#preChapter">
-                <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE">
-                        <image>
-                            <Image url="@icons/next.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-                <tooltip>
-                    <Tooltip text="上一章"/>
-                </tooltip>
-            </Button>
-            <Button onMouseClicked="#nextChapter">
-                <graphic>
-                    <ImageView fitWidth="$BTN_SIZE" fitHeight="$BTN_SIZE" >
-                        <image>
-                            <Image url="@icons/pre.png"/>
-                        </image>
-                    </ImageView>
-                </graphic>
-                <tooltip>
-                    <Tooltip text="下一章"/>
                 </tooltip>
             </Button>
             <Button onMouseClicked="#returnDir">

@@ -28,7 +28,6 @@ public class FileParser {
     public static boolean refreash(File file) {
         //读取书签的进度
         currentPage.setValue(BookMark.read(file));
-
         if (FileTypeHandler.imgFilter.accept(file)) {
             fileType = Const.TYPE_IMG;
             Img.reInit(file);
@@ -55,8 +54,8 @@ public class FileParser {
             return null;
         }
         //文件排序以0开始
-        page -= 1;
         currentPage.setValue(page);
+        page -= 1;
         if (fileType.equals(Const.TYPE_PDF)) return Pdf.getImage(page);
         if (fileType.equals(Const.TYPE_ZIP)) return Zip.getImage(page);
         if (fileType.equals(Const.TYPE_IMG)) return Img.getImage(page);

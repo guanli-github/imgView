@@ -25,6 +25,8 @@ public class BookMark {
         ConfigUtils.setConfig(Const.BOOK_MARK,file.getAbsolutePath(),index+"");
         if(index == FileParser.totalPage){ //已经读完
             ConfigUtils.setConfig(Const.READED,file.getAbsolutePath(),DateUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
+        }else{
+            ConfigUtils.removeConfig(Const.READED,file.getAbsolutePath());
         }
 
         return true;
@@ -73,6 +75,9 @@ public class BookMark {
     //清除失效的记录
     public static void cleanBookMarks(){
         List<String> filePaths = ConfigUtils.listKeys(Const.BOOK_MARK);
+        if(null == filePaths){
+            return;
+        }
         for(String path: filePaths){
             if(!new File(path).exists()){
                 ConfigUtils.removeConfig(Const.BOOK_MARK,path);//删除记录

@@ -6,14 +6,13 @@ import data.dto.TextSearchDto;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import utils.ModalUtil;
 import utils.SceneManager;
@@ -27,7 +26,7 @@ public class TextController implements Initializable {
     @FXML
     private GridPane root = new GridPane();
     @FXML
-    private TextArea text = new TextArea();
+    ListView<String> text = new ListView<>();
     @FXML
     private VBox menu = new VBox();
 
@@ -50,9 +49,17 @@ public class TextController implements Initializable {
         keyEvent.consume();
     }
     @FXML
-    private void showMenu(MouseEvent click) {
+    private void changeMode(MouseEvent click) {
         if(click.getClickCount() != 2)
             return;
+        if(TextSearchDto.highlightMode){
+            TextSearchDto.highlightMode = false;
+            refreshTextListView();
+        }else{
+            showMenu();
+        }
+    }
+    private void showMenu() {
         ModalUtil.show(text,menu);
     }
     @FXML
@@ -81,46 +88,14 @@ public class TextController implements Initializable {
         SceneManager.toSearch();
         return;
     }
-    @FXML
-    private void toChapter() {
-        SceneManager.toChapter();
-        return;
-    }
-
-    @FXML
-    private void nextChapter() {
-        String chapter = TextSearchDto.nextChapter();
-        if (!"".equals(chapter)) {
-            text.setText(chapter);
-        }
-        hideMenu();
-        return;
-    }
-
-    @FXML
-    private void preChapter() {
-        String chapter = TextSearchDto.preChapter();
-        if (!"".equals(chapter)) {
-            text.setText(chapter);
-        }
-        hideMenu();
-        return;
-    }
-
-    @FXML
-    private void scrollTo(double location) {
-        ScrollPane scrollPane = (ScrollPane)text.lookup(".scroll-pane");
-
-        scrollPane.setVvalue(location);
-    }
 
     private void setFullScreen() {
 
         double width = SceneManager.getStage().getWidth();
         double height = SceneManager.getStage().getHeight();
-
         text.setPrefHeight(height);
         text.setPrefWidth(width);
+
     }
 
     @Override
@@ -137,32 +112,60 @@ public class TextController implements Initializable {
         // OR后面是文件改变的情况
         if(null == TextSearchDto.document
         || !filename.equals(FileDto.getCurrentFile().getName())){
-            TextSearchDto.document = TextUtil.splitChapter(
+            TextSearchDto.document = TextUtil.read(
                     FileDto.getCurrentFile());
             filename = FileDto.getCurrentFile().getName();
         }
+        refreshTextListView();
 
-        text.setText(TextSearchDto.getPresentChapterStr());
-        text.setFont(Font.font(16));
+        if (Setting.isFullScreen) {
+            setFullScreen();
+        }
         Platform.runLater(() ->
         {
-            if (Setting.isFullScreen) {
-                setFullScreen();
-            }
-            scrollTo(TextSearchDto.presentScroll);
-            //背景图片
+            //backgroud image
             if (null != TextSearchDto.bgImg) {
                 BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, true, false);
                 BackgroundImage backgroundImage = new BackgroundImage(TextSearchDto.bgImg, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, backgroundSize);
                 Background background = new Background(backgroundImage);
                 root.setBackground(background);
             }
+
         });
-        //背景图片选择
+        //choose bg image
         fileChooser.setInitialDirectory(new File(Setting.bgImgDir));
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter(
                 "image filter", "*.jpg", "*.jpeg", "*.gif", "*.png", "*.bmp"
         ));
+    }
+
+    private void refreshTextListView(){
+        text.setItems(TextSearchDto.document);
+        text.setCellFactory((e)-> new SearchHighlightedTextCell());
+        //read process
+        if(0 != TextSearchDto.searchIndex){
+            text.scrollTo(TextSearchDto.searchIndex);
+        }
+    }
+}
+
+//highlight searched word
+class SearchHighlightedTextCell extends ListCell<String> {
+
+    @Override
+    protected void updateItem(String text, boolean empty) {
+        super.updateItem(text, empty);
+
+        setWrapText(true);
+        setPrefWidth(SceneManager.getStage().getWidth());
+        setText(text == null ? "" : text);
+
+        if(TextSearchDto.highlightMode){
+            //if this is the choosed
+            if(text.equals(TextSearchDto.searchResultList.get(TextSearchDto.searchIndex).line)){
+            }
+        }
+
     }
 
 }
